@@ -1,0 +1,212 @@
+doctype html
+html(lang='en')
+  head
+    title Website
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='https://www.fontify.me/wf/8a4d709e5a5b2ca4fdadb6948053db36')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto|Quicksand')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js')
+    script(src='/scripts/build.js')
+  body(data-spy='scroll')
+    .container
+      section.home
+        #myCarousel.carousel.slide(data-interval='3500', data-ride='carousel')
+          .row.navbar-row
+            nav.navbar.navbar-default.navbar-transparent(role='navigation')
+              .navbar-header
+                button#dropdown.navbar-toggle(type='button', data-toggle='collapse', data-target='#example-navbar-collapse')
+                  span.sr-only Toggle navigation
+                  span.icon-bar
+                  span.icon-bar
+                  span.icon-bar
+                a.page-scroll.navbar-logo(href='.home')
+                  img.navbar-img(src='/images/logo.svg')
+              #example-navbar-collapse.collapse.navbar-collapse(style='width : 100%;')
+                ul.nav.navbar-nav.navbar-right.main-nav
+                  li
+                    a.page-scroll(href='.home') Home
+                  li
+                    a.page-scroll.blog-hyperlink(href='.blog') Blog
+                  li
+                    a.page-scroll(href='.testimonials') About
+                  li
+                    a.page-scroll.blog-hyperlink(href='.blog') Gallery
+                  li
+                    a.page-scroll(href='.form') Contact
+                  li.desktop-mode(style="padding-right: 0")
+                    form.searchbox
+                      input.searchbox-input(type="search" placeholder="Search......" name="search" onkeyup="buttonUp();" required)
+                      input.searchbox-submit(type="submit" value="Go")
+                      span.searchbox-icon
+                        i.fa.fa-search(aria-hidden="true")
+                  li.mobile-mode(style="padding-right: 0")
+                    .custom-search-input
+                      form.input-group
+                        input.search-query.form-control(type='search' placeholder='Search')
+                        input.searchbox-mobile-submit(type="submit" value="Go")
+                        span.input-group-btn
+                          span.glyphicon.glyphicon-search
+          // Indicators
+          ol.carousel-indicators
+            li.active(data-target='#myCarousel', data-slide-to='0')
+              .progress
+                .progress-bar.first-bar(role='progressbar', style='width: 0%')
+            li(data-target='#myCarousel', data-slide-to='1')
+              .progress
+                .progress-bar.middle-bar(role='progressbar', style='width: 0%')
+            li(data-target='#myCarousel', data-slide-to='2')
+              .progress
+                .progress-bar.last-bar(role='progressbar', style='width: 0%')
+          // Wrapper for slides
+          .carousel-inner
+            .item.item1.active
+              .carousel-caption
+                .caption-heading
+                  h1.caption-heading1 FIIN
+                  h1.caption-heading2 TECH
+                p.caption-subheading Writing about
+                p.caption-subheading.last-words-of-heading &nbspFintech
+                .scroll
+                  .icon-scroll
+                  h3.word-scroll Scroll
+            .item.item2
+              .carousel-caption
+                .caption-heading
+                  h1.caption-heading1 IT'S
+                  h1.caption-heading2 &nbspMORE
+                p.caption-subheading Than just a two-word
+                p.caption-subheading.last-words-of-heading &nbspmash-up
+                .scroll
+                  .icon-scroll
+                  h3.word-scroll Scroll
+            .item.item3
+              .carousel-caption
+                .caption-heading
+                  h1.caption-heading1 NEW
+                  h1.caption-heading2 &nbspARTICLE
+                p.caption-subheading Every
+                p.caption-subheading.last-words-of-heading &nbspweek
+                .scroll
+                  .icon-scroll
+                  h3.word-scroll Scroll
+      .row.color-transition
+      .row.color-transition2
+      section.blog
+        h2.recent-post-heading.text-center Most Recent Posts
+        .display-style
+          span.display-spread-icon
+            i.fa.fa-th-large.display-icon
+          span.display-list-icon
+            i.fa.fa-list.display-icon
+        if posts
+          .display-spread
+            .row
+              each post, i in posts
+                .col-md-4
+                  .others
+                    .container
+                      .other-img
+                        img(src="/images/uploads/#{post.mainimage}" align="center")
+                      .other-heading
+                        if post.title.length > 49
+                          h3.text-center.post-title(style="font-size: 24px") #{post.title}
+                        else
+                          h3.text-center.post-title #{post.title}
+                        h4.text-center by #{post.author}
+                      br
+                      .other-content
+                        !=truncateText(post.body, 150)
+                      .other-read-more
+                        a.other-read-more-button(href='/posts/show/#{post._id}') Read More
+                      hr.seperator-line(align="center")
+                      .row
+                        .col-xs-7(style="padding: 0;")
+                          .tags-group
+                            if Array.isArray(post.category)
+                              each tag, i in post.category
+                                a.tags(href='./categories/show/#{post.category}') #{tag}
+                            else
+                              a.tags(href='./categories/show/#{post.category}') #{post.category}
+                        .col-xs-5(style="padding: 0;")
+                          .time
+                            if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
+                              p.meta #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
+                            else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 60
+                              p.meta #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minutes ago
+                            else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 120
+                              p.meta #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
+                            else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours()) < 24
+                              p.meta #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hours ago
+                            else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays()) < 2
+                              p.meta #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} day ago
+                            else
+                              p.meta #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
+                      br
+                      br
+                      br
+                      br
+                  br
+                  br
+                  br
+          .display-list
+            .container
+              each post, i in posts
+                .list-column
+                  .row
+                    .col-xs-4(style="padding: 0")
+                      img.list-style-img(src="/images/uploads/#{post.mainimage}" align="right")
+                    .col-xs-8
+                      if post.title.length > 48
+                        h4.list-style-title(style="font-size: 16px") #{post.title}
+                      else
+                        h4.list-style-title #{post.title}
+                      if Array.isArray(post.category)
+                        each tag, i in post.category
+                          a.list-style-tags(href='./categories/show/#{post.category}') #{tag}
+                      else
+                        a.list-style-tags(href='./categories/show/#{post.category}') #{post.category}
+                      br
+                      br
+                      .row
+                        .col-xs-6
+                          h5.list-style-author.text-left by #{post.author}
+                        .col-xs-6
+                          .list-style-time
+                            if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
+                              p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
+                            else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 60
+                              p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minutes ago
+                            else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 120
+                              p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
+                            else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours()) < 24
+                              p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hours ago
+                            else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays()) < 2
+                              p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} day ago
+                            else
+                              p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
+          br
+          br
+          br
+          br
+        else
+          p There are no posts to display
+    footer
+      .row
+        .col-md-4
+          h4.company-copyright &#169; 2017 Fiintech | All Rights Reserved
+        .col-md-4
+          a(href="#")
+            i.fa.fa-instagram.footer-social(aria-hidden="true")
+          a(href="#")
+            i.fa.fa-twitter.footer-social(aria-hidden="true")
+          a(href="#")
+            i.fa.fa-linkedin.footer-social(aria-hidden="true")
+        .col-md-4
+          a(href="#")
+            h4.questions Questions? Contact Us Now

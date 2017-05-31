@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  if categories
+  each category, i in categories
+    .post
+      h1
+        a(href='/posts/show/#{category._id}')
+          =category.title
+      a.more(href='/master/categories/delete/#{category._id}') Delete
+  else
+    p There are no posts to display

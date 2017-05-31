@@ -1,0 +1,43 @@
+extends layout
+
+block content
+  h1=title
+  ul.errors
+    if errors
+      each error, i in errors
+        li.alert.alert-danger #{error.msg}
+  form(method='post', action='/master/posts/add', enctype="multipart/form-data")
+    .form-group
+      label Title:
+      input.form-control(name='title', type='text')
+    .form-group
+      label Category (Maximum: 3)
+        br
+        each category, i in categories
+          input.test(type="checkbox" value="#{category.title}" name="category" style="display: inline")
+          p(style="display:inline") #{category.title}
+          br
+    .form-group
+      label Body
+      textarea.form-control(name='body', id='body')
+    .form-group
+      label Main Image:
+      input.form-control(name='mainimage', type='file')
+    .form-group
+      label Author:
+      select.form-control(name='author')
+        if authors
+        each author, i in authors
+          option(value='#{author.title}') #{author.title}
+    input.btn.btn-default(name="submit", type="submit", value="Save")
+    script(src="/ckeditor/ckeditor.js")
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+    script
+      | CKEDITOR.replace('body');
+    script.
+      var limit = 3;
+      $('.test').on('change', function(evt) {
+         if($(this).siblings(':checked').length >= limit) {
+             this.checked = false;
+         }
+      });

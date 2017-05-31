@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  if authors
+  each author, i in authors
+    .post
+      h1
+        a(href='/posts/show/#{author._id}')
+          =author.title
+      a.more(href='/master/authors/delete/#{author._id}') Delete
+  else
+    p There are no posts to display
