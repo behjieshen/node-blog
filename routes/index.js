@@ -4,13 +4,14 @@ module.exports = function(router, passport) {
 
   // Home page blog post
   router.get('/', function(req, res, next) {
-    var db = req.db;
+    /*var db = req.db;
     var posts = db.get('posts');
     posts.find({}, {}, function(err, posts) {
       res.render('index', {
         "posts": posts
       });
-    })
+    })*/
+    res.render('index');
   });
 
   router.get('/master', function(req, res){
