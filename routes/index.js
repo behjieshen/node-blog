@@ -1,6 +1,6 @@
 module.exports = function(router, passport) {
 
-  var db = require('monk')('mongodb://bot:1234@ds161001.mlab.com:61001/fiintech');
+  var db = require('monk')('bot:1234@ds161001.mlab.com:61001/fiintech');
 
   // Home page blog post
   router.get('/', function(req, res, next) {
