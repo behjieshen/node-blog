@@ -1,6 +1,6 @@
 module.exports = function(router, passport) {
 
-  var db = require('monk')('localhost/blog');
+  var db = require('monk')('bot:1234@ds161001.mlab.com:61001/fiintech');
   var multer = require('multer');
   var storage = multer.diskStorage({
     destination: function (req, file, cb) {
