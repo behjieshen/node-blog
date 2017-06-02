@@ -1,6 +1,6 @@
 module.exports = function(router, passport) {
 
-  var db = require('monk')('localhost/blog');
+  var db = require('monk')('ds161001.mlab.com:61001/fiintech');
 
   // Home page blog post
   router.get('/', function(req, res, next) {
@@ -30,13 +30,6 @@ module.exports = function(router, passport) {
       authors.find({title: post.author}, {}, function(err, author) {
         //otherposts.find().limit(-1).skip(Math.random() * count);
         otherposts.find({}, { limit: 3, sort: {$natural:-1} }, function(err, otherpost) {
-          console.log('WTF');
-          console.log('WTF');
-          console.log('WTF');
-          console.log('WTF');
-          console.log('WTF');
-          console.log('WTF');
-          console.log(otherpost);
           res.render('show', {
             "post": post,
             "author": author,

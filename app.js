@@ -107,13 +107,5 @@ var posts = express.Router();
 require('./routes/posts.js')(posts, passport);
 app.use('/master', posts);
 
-/*
-var routes = require('./routes/index');
-var posts = require('./routes/posts');
-
-app.use('/', routes);
-app.use('/master', posts);
-*/
-
 app.listen(port);
 console.log('Server started on port ' + port);
