@@ -28,7 +28,6 @@ module.exports = function(router, passport) {
     var otherposts = db.get('posts');
     posts.findById(req.params.id, function(err, post) {
       authors.find({title: post.author}, {}, function(err, author) {
-        //otherposts.find().limit(-1).skip(Math.random() * count);
         otherposts.find({}, { limit: 3, sort: {$natural:-1} }, function(err, otherpost) {
           res.render('show', {
             "post": post,
