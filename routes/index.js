@@ -13,16 +13,6 @@ module.exports = function(router, passport) {
     })
   });
 
-  router.get('/2', function(req, res, next) {
-    var db = req.db;
-    var posts = db.get('posts');
-    posts.find({}, {}, function(err, posts) {
-      res.render('index', {
-        "posts": posts
-      });
-    })
-  });
-
   router.get('/master', function(req, res){
     if(req.isAuthenticated()) {
       res.redirect('/master/posts');
@@ -32,6 +22,7 @@ module.exports = function(router, passport) {
   });
 
   router.get('/posts/show/:id', function(req, res, next) {
+    var db = req.db;
     var posts = db.get('posts');
     var authors = db.get('authors');
     var otherposts = db.get('posts');
