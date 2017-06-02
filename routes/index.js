@@ -26,7 +26,6 @@ module.exports = function(router, passport) {
     var posts = db.get('posts');
     var authors = db.get('authors');
     var otherposts = db.get('posts');
-    console.log(otherposts);
     posts.findById(req.params.id, function(err, post) {
       authors.find({title: post.author}, {}, function(err, author) {
         //otherposts.find().limit(-1).skip(Math.random() * count);
