@@ -1,9 +1,19 @@
 module.exports = function(router, passport) {
 
-  var db = require('monk')('ds161001.mlab.com:61001/fiintech');
+  var db = require('monk')('jieshen:18012002@ds161001.mlab.com:61001/fiintech');
 
   // Home page blog post
   router.get('/', function(req, res, next) {
+    var db = req.db;
+    var posts = db.get('posts');
+    posts.find({}, {}, function(err, posts) {
+      res.render('index', {
+        "posts": posts
+      });
+    })
+  });
+
+  router.get('/2', function(req, res, next) {
     var db = req.db;
     var posts = db.get('posts');
     posts.find({}, {}, function(err, posts) {
