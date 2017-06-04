@@ -6,10 +6,128 @@ module.exports = function(router, passport) {
   router.get('/', function(req, res, next) {
     var db = req.db;
     var posts = db.get('posts');
+    if(req.query.search) {
+      const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+      posts.find({"title": regex}, {}, function(err, posts) {
+        res.render('index', {
+          "posts": posts
+        });
+      })
+    } else {
+      posts.find({}, {}, function(err, posts) {
+        res.render('index', {
+          "posts": posts
+        });
+      })
+    }
+
+  });
+
+  router.get('/search', function(req, res, next) {
+    var db = req.db;
+    var posts = db.get('posts');
+    var tags = db.get('categories');
+    var authors = db.get('authors');
     posts.find({}, {}, function(err, posts) {
-      res.render('index', {
-        "posts": posts
-      });
+      tags.find({}, {}, function(err, tags) {
+        authors.find({}, {}, function(err, authors) {
+          res.render('results', {
+            "posts": posts,
+            "tags": tags,
+            "authors": authors
+          });
+        })
+      })
+    })
+  })
+
+  router.get('/search/name-asc', function(req, res, next) {
+    var db = req.db;
+    var posts = db.get('posts');
+    var tags = db.get('categories');
+    var authors = db.get('authors');
+    posts.find({}, {sort: { title : 1 } }, function(err, posts) {
+      tags.find({}, {}, function(err, tags) {
+        authors.find({}, {}, function(err, authors) {
+          res.render('results', {
+            "posts": posts,
+            "tags": tags,
+            "authors": authors
+          });
+        })
+      })
+    })
+  })
+
+  router.get('/search/name-desc', function(req, res, next) {
+    var db = req.db;
+    var posts = db.get('posts');
+    var tags = db.get('categories');
+    var authors = db.get('authors');
+    posts.find({}, {sort: { title : -1 } }, function(err, posts) {
+      tags.find({}, {}, function(err, tags) {
+        authors.find({}, {}, function(err, authors) {
+          res.render('results', {
+            "posts": posts,
+            "tags": tags,
+            "authors": authors
+          });
+        })
+      })
+    })
+  })
+
+  router.get('/search/:category', function(req, res ,next) {
+    var db = req.db;
+    var posts = db.get('posts');
+    var tags = db.get('categories');
+    var authors = db.get('authors');
+    posts.find({category: req.params.category}, {}, function(err, posts) {
+      tags.find({}, {}, function(err, tags) {
+        authors.find({}, {}, function(err, authors) {
+          res.render('results', {
+            "posts": posts,
+            "tags": tags,
+            "authors": authors
+          });
+        })
+      })
+    })
+  });
+
+  router.get('/search/time-newest', function(req, res ,next) {
+    var db = req.db;
+    var posts = db.get('posts');
+    var tags = db.get('categories');
+    var authors = db.get('authors');
+    posts.find().sort({datefield: 1}), function(err, posts) {
+      tags.find({}, {}, function(err, tags) {
+        authors.find({}, {}, function(err, authors) {
+          res.render('results', {
+            "posts": posts,
+            "tags": tags,
+            "authors": authors
+          });
+        })
+      })
+    }
+  });
+
+  router.get('/search/time-oldest', function(req, res ,next) {
+    var db = req.db;
+    var posts = db.get('posts');
+    var tags = db.get('categories');
+    var authors = db.get('authors');
+    posts.find({}, { sort: {datefield: -1} }, function(err, posts) {
+      tags.find({}, {}, function(err, tags) {
+        authors.find({}, {}, function(err, authors) {
+          res.render('results', {
+            "posts": posts,
+            "tags": tags,
+            "authors": authors
+          });
+        })
+      })
     })
   });
 
@@ -23,12 +141,13 @@ module.exports = function(router, passport) {
 
   router.get('/posts/show/:id', function(req, res, next) {
     var db = req.db;
+    var id = req.params.id;
     var posts = db.get('posts');
     var authors = db.get('authors');
     var otherposts = db.get('posts');
     posts.findById(req.params.id, function(err, post) {
       authors.find({title: post.author}, {}, function(err, author) {
-        otherposts.find({}, { limit: 3, sort: {$natural:-1} }, function(err, otherpost) {
+        otherposts.find({"_id": { $ne: id} }, { limit: 3, sort: {$natural:-1} }, function(err, otherpost) {
           res.render('show', {
             "post": post,
             "author": author,
@@ -90,15 +209,8 @@ module.exports = function(router, passport) {
     }
   });
 
-  router.get('/categories/show/:category', function(req, res ,next) {
-    var db = req.db;
-    var posts = db.get('posts');
-    posts.find({category: req.params.category}, {}, function(err, posts) {
-      res.render('index', {
-        "title": req.params.category,
-        "posts": posts
-      });
-    });
-  });
+  function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+  };
 
 }

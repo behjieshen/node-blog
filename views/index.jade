@@ -40,14 +40,14 @@ html(lang='en')
                   li
                     a.page-scroll(href='.form') Contact
                   li.desktop-mode(style="padding-right: 0")
-                    form.searchbox
+                    form.searchbox(action="/" method="GET")
                       input.searchbox-input(type="search" placeholder="Search......" name="search" onkeyup="buttonUp();" required)
                       input.searchbox-submit(type="submit" value="Go")
                       span.searchbox-icon
                         i.fa.fa-search(aria-hidden="true")
                   li.mobile-mode(style="padding-right: 0")
                     .custom-search-input
-                      form.input-group
+                      form.input-group(action="/" method="GET")
                         input.search-query.form-control(type='search' placeholder='Search')
                         input.searchbox-mobile-submit(type="submit" value="Go")
                         span.input-group-btn
@@ -100,6 +100,7 @@ html(lang='en')
       section.blog
         h2.recent-post-heading.text-center Most Recent Posts
         .display-style
+          h3(style="display: inline-block") Display Type:&nbsp
           span.display-spread-icon
             i.fa.fa-th-large.display-icon
           span.display-list-icon
