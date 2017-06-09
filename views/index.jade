@@ -65,7 +65,7 @@ html(lang='en')
                 .progress-bar.last-bar(role='progressbar', style='width: 0%')
           // Wrapper for slides
           .carousel-inner
-            .item.item1
+            .item.item1.active
               .carousel-caption
                 .caption-heading
                   h1.caption-heading1 FIIN
@@ -75,7 +75,7 @@ html(lang='en')
                 .scroll
                   .icon-scroll
                   h3.word-scroll Scroll
-            .item.item2.active
+            .item.item2
               .carousel-caption
                 .caption-heading
                   h1.caption-heading1 IT'S
@@ -111,7 +111,7 @@ html(lang='en')
               each post, i in posts
                 .col-md-4
                   .others
-                    .container
+                    .container.post-container
                       .other-img
                         img(src="/images/uploads/#{post.mainimage}" align="center")
                       .other-heading

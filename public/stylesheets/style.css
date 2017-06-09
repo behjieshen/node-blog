@@ -212,6 +212,7 @@
       font-size: 16px;
       letter-spacing: 5px;
       left: 50%;
+      font-family: 'Lato';
       animation: fade 3s infinite;
       animation-timing-function: linear;
       transform: translate(-50%, 0%);
@@ -458,7 +459,7 @@
 
 /* Mobile Settings For Navigation */
 
-  @media screen and (min-width: 767px) and (max-width: 875px) {
+  @media screen and (min-width: 767px) and (max-width: 915px) {
     .caption-heading1, .caption-heading2 {
       font-size: 54px;
     }
@@ -602,10 +603,6 @@
   width: 100%;
 }
 
-.post {
-
-}
-
 .recent-post-heading {
   padding-top: 115px;
   padding-bottom: 30px;
@@ -630,6 +627,8 @@
 
 .others {
   height: 650px;
+  max-width: 576px;
+  margin: auto;
   border-radius: 6px;
   box-shadow: 0 16px 24px 2px rgba(0,0,0,.14), 0 -10px 30px 5px rgba(0,0,0,.12), 0 8px 10px -5px rgba(0,0,0,.2);
   background: white;

@@ -57,6 +57,8 @@ $(document).ready(function() {
       'background-image': 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone3.jpg")',
       'animation': 'none'
     });
+
+    $('.seperator-line').css('width', $('.post-container').width() - 60 + 'px');
   }
 
   $('.display-list-icon').click(function() {
@@ -222,6 +224,8 @@ $(document).ready(function() {
       $('.item2').css('background-image', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/pic2.jpeg")');
       $('.item3').css('background-image', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/pic3.jpeg")');
     }
+
+    $('.seperator-line').css('width', $('.post-container').width() - 60 + 'px');
   })
 
   // Infinite Loop of Carousel
