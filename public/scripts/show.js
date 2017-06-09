@@ -114,21 +114,19 @@ function buttonUp() {
   }
 }
 
-var notclicked = true;
 function liked() {
-  if(notclicked) {
+  var current_color = $('.likes-number').css('color');
+  if(current_color === "rgb(128, 128, 128)") {
     $('.likes-number').css('color', 'red');
     $('.fa-heart').css('color', 'red');
     var number = parseInt($('.likes-number').text());
     number+=1;
     $('.likes-number').html(" " + number);
-    notclicked = false;
   } else {
     $('.likes-number').css('color', 'grey');
     $('.fa-heart').css('color', 'grey');
     var number = parseInt($('.likes-number').text());
     number-=1;
     $('.likes-number').html(" " + number);
-    notclicked = true;
   }
 }

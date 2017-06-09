@@ -41,6 +41,24 @@ $(document).ready(function() {
       }
     });
 
+  var window_height = $(window).height();
+  var window_width = $(window).width();
+
+  if(window_height > window_width) {
+    $('.item1').css({
+      'background-image': 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone1.jpg")',
+      'animation': 'none'
+    });
+    $('.item2').css({
+      'background-image': 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone2.jpg")',
+      'animation': 'none'
+    });
+    $('.item3').css({
+      'background-image': 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone3.jpg")',
+      'animation': 'none'
+    });
+  }
+
   $('.display-list-icon').click(function() {
     if(list_mode == false) {
       $('.display-list').css('position', 'relative');
@@ -189,10 +207,21 @@ $(document).ready(function() {
   $('.navbar-logo').css('padding-left', logo_width + 'px');
   $(window).resize(function() {
     var window_height = $(window).height();
+    var window_width = $(window).width();
     var top = window_height / 100 * 46;
     $('.carousel-indicators').css('top', top + 'px');
     var logo_width = ($(window).width() - 60) / 2;  //$(window).width() / 100 * 47.8;
     $('.navbar-logo').css('padding-left', logo_width + 'px');
+
+    if(window_height > window_width) {
+      $('.item1').css('background-image', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone1.jpg")');
+      $('.item2').css('background-image', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone2.jpg")');
+      $('.item3').css('background-image', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone3.jpg")');
+    } else {
+      $('.item1').css('background-image', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/pic1.jpeg")');
+      $('.item2').css('background-image', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/pic2.jpeg")');
+      $('.item3').css('background-image', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/pic3.jpeg")');
+    }
   })
 
   // Infinite Loop of Carousel

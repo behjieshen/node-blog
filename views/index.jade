@@ -5,7 +5,7 @@ html(lang='en')
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='https://www.fontify.me/wf/8a4d709e5a5b2ca4fdadb6948053db36')
-    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto|Quicksand')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Quicksand|Lato|Muli')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
@@ -48,7 +48,7 @@ html(lang='en')
                   li.mobile-mode(style="padding-right: 0")
                     .custom-search-input
                       form.input-group(action="/" method="GET")
-                        input.search-query.form-control(type='search' placeholder='Search')
+                        input.search-query.form-control(type='search' name="search" placeholder='Search')
                         input.searchbox-mobile-submit(type="submit" value="Go")
                         span.input-group-btn
                           span.glyphicon.glyphicon-search
@@ -65,7 +65,7 @@ html(lang='en')
                 .progress-bar.last-bar(role='progressbar', style='width: 0%')
           // Wrapper for slides
           .carousel-inner
-            .item.item1.active
+            .item.item1
               .carousel-caption
                 .caption-heading
                   h1.caption-heading1 FIIN
@@ -75,7 +75,7 @@ html(lang='en')
                 .scroll
                   .icon-scroll
                   h3.word-scroll Scroll
-            .item.item2
+            .item.item2.active
               .carousel-caption
                 .caption-heading
                   h1.caption-heading1 IT'S
@@ -119,22 +119,32 @@ html(lang='en')
                           h3.text-center.post-title(style="font-size: 24px") #{post.title}
                         else
                           h3.text-center.post-title #{post.title}
-                        h4.text-center by #{post.author}
-                      br
+                      .row
+                        .col-xs-8
+                          .tags-group
+                            if Array.isArray(post.category)
+                              each tag, i in post.category
+                                a.tags(href='/search/#{tag}') #{tag}
+                            else
+                              a.tags(href='/search/#{post.category}') #{post.category}
+                        .col-xs-4
+                          .likes
+                            i.fa.fa-heart.likes-icon.text-right
+                            h4.likes-number.text-right &nbsp#{post.likes}
                       .other-content
                         !=truncateText(post.body, 150)
                       .other-read-more
                         a.other-read-more-button(href='/posts/show/#{post._id}') Read More
                       hr.seperator-line(align="center")
                       .row
-                        .col-xs-7(style="padding: 0;")
-                          .tags-group
-                            if Array.isArray(post.category)
-                              each tag, i in post.category
-                                a.tags(href='./categories/show/#{post.category}') #{tag}
-                            else
-                              a.tags(href='./categories/show/#{post.category}') #{post.category}
-                        .col-xs-5(style="padding: 0;")
+                        .col-xs-8
+                          .author
+                            each author, i in authors
+                              if (author.title === post.author)
+                                a(href="/search/author/#{author.title}")
+                                  img.author-img(src='/images/uploads/#{author.image}')
+                                  h4.author-text.text-left &nbsp&nbsp#{post.author}
+                        .col-xs-4
                           .time
                             if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
                               p.meta #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
@@ -160,13 +170,17 @@ html(lang='en')
               each post, i in posts
                 .list-column
                   .row
-                    .col-xs-4(style="padding: 0")
-                      img.list-style-img(src="/images/uploads/#{post.mainimage}" align="right")
-                    .col-xs-8
+                    .col-xs-4.list-style-image-column
+                      a(href='/posts/show/#{post._id}')
+                        .list-style-img-container
+                          img.list-style-img(src="/images/uploads/#{post.mainimage}" align="right")
+                    .col-xs-8.list-style-content
                       if post.title.length > 48
-                        h4.list-style-title(style="font-size: 16px") #{post.title}
+                        a(href='/posts/show/#{post._id}')
+                          h4.list-style-title(style="font-size: 16px") #{post.title}
                       else
-                        h4.list-style-title #{post.title}
+                        a(href='/posts/show/#{post._id}')
+                          h4.list-style-title #{post.title}
                       if Array.isArray(post.category)
                         each tag, i in post.category
                           a.list-style-tags(href='./categories/show/#{post.category}') #{tag}
@@ -175,8 +189,12 @@ html(lang='en')
                       br
                       br
                       .row
-                        .col-xs-6
-                          h5.list-style-author.text-left by #{post.author}
+                          each author, i in authors
+                            if (author.title === post.author)
+                              a(href="/search/author/#{author.title}")
+                                img.author-img(src='/images/uploads/#{author.image}')
+                                h4.author-text.text-left &nbsp&nbsp#{post.author}
+                      .row
                         .col-xs-6
                           .list-style-time
                             if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
@@ -191,6 +209,10 @@ html(lang='en')
                               p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} day ago
                             else
                               p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
+                        .col-xs-6
+                          .list-style-likes
+                            i.fa.fa-heart.likes-icon.text-right
+                            h4.likes-number.text-right &nbsp#{post.likes}
           br
           br
           br

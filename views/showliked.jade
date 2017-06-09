@@ -38,7 +38,7 @@ html
                 span.icon-bar
                 span.icon-bar
                 span.icon-bar
-              a.page-scroll.navbar-logo(href='/')
+              a.page-scroll.navbar-logo(href='.home')
                 img.navbar-img(src='/images/logo.svg')
             #example-navbar-collapse.collapse.navbar-collapse.navbar-color(style='width : 100%;')
               ul.nav.navbar-nav.navbar-right.main-nav
@@ -102,9 +102,9 @@ html
             !=post.body
             br
             .row.likes-row
-              a(href="/add-likes/#{post._id}" onclick="liked();")
-                i.fa.fa-heart
-                h3.likes-number &nbsp#{post.likes}
+              a(href="/subtract-likes/#{post._id}" onclick="liked();")
+                i.fa.fa-heart(style="color: red")
+                h3.likes-number(style="color: red") &nbsp#{post.likes}
             hr
             .row
               .col-md-2(style="text-align: center")

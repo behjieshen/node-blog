@@ -240,6 +240,7 @@ module.exports = function(router, passport) {
     var body = req.body.body;
     var author = req.body.author;
     var date = new Date();
+    var likes = 0;
 
     // Form Validation
     req.check('title', 'Title field is required').notEmpty();
@@ -261,8 +262,6 @@ module.exports = function(router, passport) {
     } else {
       var posts = db.get('posts');
 
-      console.log(req.file);
-
       if(req.file) {
         filename = req.file['filename'];
       } else {
@@ -277,7 +276,8 @@ module.exports = function(router, passport) {
         "category": category,
         "date": date,
         "author": author,
-        "mainimage": filename
+        "mainimage": filename,
+        "likes": likes
       }, function(err, posts) {
         if(err){
           res.send('There was an issue submitting the post');

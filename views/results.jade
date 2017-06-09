@@ -57,11 +57,11 @@ html
           .filter-name
             h4 Name
             .group
-              a(href="/search/name-asc")
+              a.search-filter(href="/search/name-asc")
                 i.fa.fa-sort-alpha-asc(aria-hidden="true")
                 h5 &nbsp&nbspAscending
             .group
-              a(href="/search/name-desc")
+              a.search-filter(href="/search/name-desc")
                 i.fa.fa-sort-alpha-desc(aria-hidden="true")
                 h5 &nbsp&nbspDescending
           .filter-tags
@@ -69,25 +69,25 @@ html
             if tags
               each tag, i in tags
                 .group
-                  a(href="/search/#{tag.title}")
+                  a.search-filter(href="/search/#{tag.title}")
                     i.fa.fa-long-arrow-right(aria-hidden="true")
                     h5 &nbsp&nbsp #{tag.title}
           .filter-time
             h4 Time
             .col-xs-6
-              a(href="/search/time-newest")
+              a.search-filter(href="/search/time-newest")
                 h5 &nbsp&nbspNewest
             .col-xs-6
-              a(href="/search/time-oldest")
+              a.search-filter(href="/search/time-oldest")
                 h5 &nbsp&nbspOldest
           .filter-likes
             h4 Likes
             .col-xs-6
-              a(href="/search/likes-highest")
+              a.search-filter(href="/search/likes-highest")
                 i.fa.fa-arrow-up(aria-hidden="true")
                 h5 &nbsp&nbspHighest
             .col-xs-6
-              a(href="/search/likes-lowest")
+              a.search-filter(href="/search/likes-lowest")
                 i.fa.fa-arrow-down(aria-hidden="true")
                 h5 &nbsp&nbspLowest
           .filter-authors
@@ -95,7 +95,7 @@ html
             if authors
               each author, i in authors
                 .group
-                  a(href="#")
+                  a.search-filter(href="/search/author/#{author.title}")
                     i.fa.fa-dot-circle-o(aria-hidden="true")
                     h5 &nbsp&nbsp #{author.title}
 
@@ -103,8 +103,8 @@ html
 
         .col-md-10.results-section
           .search
-            form(action="/results" method="GET")
-              input.search-input(type="search" placeholder="Enter Keyword" name="search")
+            form(action="/search" method="GET")
+              input.search-input(type="search" placeholder="Enter Keyword" name="search" required)
               input.search-submit(type="submit" value)
               span.icon-search-box
                 i.fa.fa-search.icon-search(aria-hidden="true")
