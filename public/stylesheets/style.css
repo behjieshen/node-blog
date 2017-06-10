@@ -62,20 +62,20 @@
   }
 
   .item1 {
-    background-image: linear-gradient(rgba(255,255,255,0),rgba(255,255,255,0)), url('/images/pic1.jpg');
-    animation: breath 15s linear;
+    background-image: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url('/images/pic1.jpg');
+    animation: breath 20s linear;
     animation-fill-mode: forwards;
   }
 
   .item2 {
     background-image: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url('/images/pic2.jpeg');
-    animation: breath 15s linear;
+    animation: breath 20s linear;
     animation-fill-mode: forwards;
   }
 
   .item3 {
     background-image: linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url('/images/pic3.jpeg');
-    animation: breath 15s linear;
+    animation: breath 20s linear;
     animation-fill-mode: forwards;
   }
 
@@ -218,6 +218,12 @@
       transform: translate(-50%, 0%);
     }
 
+    @media screen and (min-width: 1050px) {
+      .word-scroll {
+        left: 49.5%;
+      }
+    }
+
     @keyframes fade {
       0% {
         opacity: 1;
@@ -334,6 +340,10 @@
     width: 60px;
     height: auto;
     padding-top: 20px;
+  }
+
+  .display-logo {
+    display: none;
   }
 
   .navbar-default .navbar-nav > li > a {

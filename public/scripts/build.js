@@ -54,7 +54,7 @@ $(document).ready(function() {
       'animation': 'none'
     });
     $('.item3').css({
-      'background-image': 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone3.jpg")',
+      'background-image': 'linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url("/images/phone3.jpg")',
       'animation': 'none'
     });
 
@@ -112,6 +112,8 @@ $(document).ready(function() {
             transparent = false;
             $('.navbar').addClass('navbar-fixed-top');
             $('.navbar-logo img').addClass('nav-img');
+            $('.navbar-logo .first-logo').addClass('display-logo');
+            $('.navbar-logo .second-logo').removeClass('display-logo');
             $('.navbar-collapse').addClass('navbar-color');
             $('.navbar-default').css('background', 'white');
             var divs = document.querySelectorAll('.main-nav li a');
@@ -138,6 +140,8 @@ $(document).ready(function() {
             $('.navbar').removeClass('navbar-fixed-top');
             $('.navbar-logo img').removeClass('nav-img');
             $('.navbar-collapse').removeClass('navbar-color');
+            $('.navbar-logo .first-logo').removeClass('display-logo');
+            $('.navbar-logo .second-logo').addClass('display-logo');
             $('.navbar-default').css('background', 'transparent');
             var divs = document.querySelectorAll('.main-nav li a');
             for (var i = 0; i < divs.length; i++) {
@@ -160,6 +164,8 @@ $(document).ready(function() {
             transparent = false;
             $('.navbar').addClass('navbar-fixed-top');
             $('.navbar-logo img').addClass('nav-img');
+            $('.navbar-logo .first-logo').addClass('display-logo');
+            $('.navbar-logo .second-logo').removeClass('display-logo');
             $('.navbar-collapse').addClass('navbar-color');
             var divs = document.querySelectorAll('.main-nav li a');
             for (var i = 0; i < divs.length; i++) {
@@ -186,6 +192,8 @@ $(document).ready(function() {
             transparent = true;
             $('.navbar').removeClass('navbar-fixed-top');
             $('.navbar-logo img').removeClass('nav-img');
+            $('.navbar-logo .first-logo').removeClass('display-logo');
+            $('.navbar-logo .second-logo').addClass('display-logo');
             $('.navbar-collapse').removeClass('navbar-color');
             var divs = document.querySelectorAll('.main-nav li a');
             for (var i = 0; i < divs.length; i++) {
@@ -218,11 +226,11 @@ $(document).ready(function() {
     if(window_height > window_width) {
       $('.item1').css('background-image', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone1.jpg")');
       $('.item2').css('background-image', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone2.jpg")');
-      $('.item3').css('background-image', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone3.jpg")');
+      $('.item3').css('background-image', 'linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url("/images/phone3.jpg")');
     } else {
       $('.item1').css('background-image', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/pic1.jpeg")');
       $('.item2').css('background-image', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/pic2.jpeg")');
-      $('.item3').css('background-image', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/pic3.jpeg")');
+      $('.item3').css('background-image', 'linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url("/images/pic3.jpeg")');
     }
 
     $('.seperator-line').css('width', $('.post-container').width() - 60 + 'px');
