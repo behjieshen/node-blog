@@ -1,4 +1,24 @@
 $(document).ready(function() {
+
+  var window_width = $(window).width();
+  if(window_width < 437) {
+    smallMode();
+  } else {
+    normalMode();
+  }
+  $('.seperator-line').css('width', $('.spread').width() - 60 + 'px');
+
+
+  $(window).resize(function() {
+    $('.seperator-line').css('width', $('.spread').width() - 60 + 'px');
+    var window_width = $(window).width();
+    if(window_width < 437) {
+      smallMode();
+    } else {
+      normalMode();
+    }
+  })
+
   // Scroll Transitions
     var scrolled = false;
     var scrolled2 = false;
@@ -148,8 +168,6 @@ $(document).ready(function() {
         'background-image': 'linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url("/images/phone3.jpg")',
         'animation': 'none'
       });
-
-      $('.seperator-line').css('width', $('.post-container').width() - 60 + 'px');
     }
 
   // logo settings
@@ -180,5 +198,37 @@ $(document).ready(function() {
         $('.navbar-collapse').collapse('hide');
     });
   });
+
+function smallMode() {
+  $('.small-mode').removeClass('col-xs-8');
+  $('.small-mode').removeClass('col-xs-4');
+  $('.small-mode').removeClass('col-xs-7');
+  $('.small-mode').removeClass('col-xs-5');
+  $('.small-mode').css('text-align', 'center');
+  $('.small-mode .spread-likes').css('width', '100%');
+  $('.small-mode .spread-likes').css('padding-top', '10px');
+  $('.small-mode .spread-likes').css('margin-right', '0px');
+  $('.tags-group').css('margin-left', '0px');
+  $('.tags-group').css('width', '100%');
+  $('.small-mode .time').css('width', '100%');
+  $('.small-mode .time').css('margin-right', '0px');
+  $('.spread').css('height', '705px');
+}
+
+function normalMode() {
+  $('.small-mode3').addClass('col-xs-4');
+  $('.small-mode5').addClass('col-xs-5');
+  $('.small-mode7').addClass('col-xs-7');
+  $('.small-mode9').addClass('col-xs-8');
+  $('.small-mode').css('text-align', '');
+  $('.small-mode .spread-likes').css('width', '');
+  $('.small-mode .spread-likes').css('padding-top', '');
+  $('.small-mode .spread-likes').css('margin-right', '30px');
+  $('.tags-group').css('margin-left', '30px');
+  $('.tags-group').css('width', '215px');
+  $('.small-mode .time').css('width', '');
+  $('.small-mode .time').css('margin-right', '30px');
+  $('.spread').css('height', '650px');
+}
 
 

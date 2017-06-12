@@ -116,7 +116,7 @@ html(lang='en')
                         else
                           h3.text-center.spread-title #{post.title}
                       .row
-                        .col-xs-8
+                        .col-xs-8.small-mode.small-mode8
                           .tags-group
                             if Array.isArray(post.category)
                               each tag, i in post.category
@@ -127,7 +127,7 @@ html(lang='en')
                               each category, i in tags
                                 if category.title == post.category
                                   a.tags(href='/search/#{post.category}' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
-                        .col-xs-4
+                        .col-xs-4.small-mode.small-mode4
                           .spread-likes
                             i.fa.fa-heart.spread-likes-icon.text-right
                             h4.spread-likes-number.text-right &nbsp#{post.likes}
@@ -137,14 +137,14 @@ html(lang='en')
                         a.spread-read-more-button(href='/posts/show/#{post._id}') Read More
                       hr.seperator-line(align="center")
                       .row
-                        .col-xs-7
+                        .col-xs-7.small-mode.small-mode7
                           .spread-author
                             each author, i in authors
                               if (author.title === post.author)
                                 a(href="/search/author/#{author.title}")
                                   img.spread-author-img(src='/images/uploads/#{author.image}')
                                   h4.spread-author-text.text-left &nbsp&nbsp#{post.author}
-                        .col-xs-5
+                        .col-xs-5.small-mode.small-mode5
                           .time
                             if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
                               p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
@@ -196,8 +196,8 @@ html(lang='en')
                           each author, i in authors
                             if (author.title === post.author)
                               a(href="/search/author/#{author.title}")
-                                img.author-img(src='/images/uploads/#{author.image}')
-                                h4.author-text.text-left &nbsp&nbsp#{post.author}
+                                img.list-style-author-img(src='/images/uploads/#{author.image}')
+                                h4.list-style-text.text-left &nbsp&nbsp#{post.author}
                       .row
                         .col-xs-6
                           .list-style-time
@@ -215,8 +215,8 @@ html(lang='en')
                               p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
                         .col-xs-6
                           .list-style-likes
-                            i.fa.fa-heart.likes-icon.text-right
-                            h4.likes-number.text-right &nbsp#{post.likes}
+                            i.fa.fa-heart.list-style-likes-icon.text-right
+                            h4.list-style-likes-number.text-right &nbsp#{post.likes}
           br
           br
           br

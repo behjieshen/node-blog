@@ -1,0 +1,238 @@
+block content
+doctype html
+html
+  head
+    title Results
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto|Quicksand')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+    link(rel='stylesheet', href='/stylesheets/results.css')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js')
+    script(src='/scripts/results.js')
+
+  body
+    .container
+      nav.navbar.navbar-default.navbar-transparent.navbar-fixed-top(role='navigation')
+        .navbar-header
+          button#dropdown.navbar-toggle(type='button', data-toggle='collapse', data-target='#example-navbar-collapse')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.page-scroll.navbar-logo(href='.home')
+            img.navbar-img(src='/images/logo.svg')
+        #example-navbar-collapse.collapse.navbar-collapse.navbar-color(style='width : 100%;')
+          ul.nav.navbar-nav.navbar-right.main-nav
+            li
+              a.page-scroll(href='/') Home
+            li
+              a.page-scroll.blog-hyperlink(href='.post') Blog
+            li
+              a.page-scroll(href='.testimonials') About
+            li
+              a.page-scroll.blog-hyperlink(href="javascript:void(0)" onclick="openNav()") Gallery
+            li
+              a.page-scroll(href='.form') Contact
+            li.desktop-mode(style="padding-right: 0")
+              form.searchbox
+                input.searchbox-input(type="search" placeholder="Search......" name="search" onkeyup="buttonUp();" required)
+                input.searchbox-submit(type="submit" value="Go")
+                span.searchbox-icon
+                  i.fa.fa-search(aria-hidden="true")
+            li.mobile-mode(style="padding-right: 0")
+              .custom-search-input
+                form.input-group
+                  input.search-query.form-control(type='search' placeholder='Search')
+                  input.searchbox-mobile-submit(type="submit" value="Go")
+                  span.input-group-btn
+                    span.glyphicon.glyphicon-search
+      .sidenav.filters-section#mySidenav
+          a.closebtn(href="javascript:void(0)" onclick="closeNav()") &times;
+          h3 Filter Articles By:
+          br
+          .filter-name
+            h4 Name
+            .col-xs-6
+              a.search-filter(href="/search/name-asc")
+                i.fa.fa-sort-alpha-asc(aria-hidden="true")
+                h5 &nbsp&nbspAscending
+            .col-xs-6
+              a.search-filter(href="/search/name-desc")
+                i.fa.fa-sort-alpha-desc(aria-hidden="true")
+                h5 &nbsp&nbspDescending
+          .filter-tags
+            h4 Tags
+            if tags
+              each tag, i in tags
+                .group
+                  a.search-filter(href="/search/#{tag.title}")
+                    i.fa.fa-long-arrow-right(aria-hidden="true")
+                    h5 &nbsp&nbsp #{tag.title}
+          .filter-time
+            h4 Time
+            .col-xs-6
+              a.search-filter(href="/search/time-newest")
+                h5 &nbsp&nbspNewest
+            .col-xs-6
+              a.search-filter(href="/search/time-oldest")
+                h5 &nbsp&nbspOldest
+          .filter-likes
+            h4 Likes
+            .col-xs-6
+              a.search-filter(href="/search/likes-highest")
+                i.fa.fa-arrow-up(aria-hidden="true")
+                h5 &nbsp&nbspHighest
+            .col-xs-6
+              a.search-filter(href="/search/likes-lowest")
+                i.fa.fa-arrow-down(aria-hidden="true")
+                h5 &nbsp&nbspLowest
+          .filter-authors
+            h4 Authors
+            if authors
+              each author, i in authors
+                .group
+                  a.search-filter(href="/search/author/#{author.title}")
+                    i.fa.fa-dot-circle-o(aria-hidden="true")
+                    h5 &nbsp&nbsp #{author.title}
+      .row(style="margin-top: 61px;")
+
+        .results-section
+          .search
+            form(action="/search" method="GET")
+              input.search-input(type="search" placeholder="Enter Keyword" name="search" required)
+              input.search-submit(type="submit" value)
+              span.icon-search-box
+                i.fa.fa-search.icon-search(aria-hidden="true")
+          section.blog
+            .display-style
+              h3(style="display: inline-block") Display Type:&nbsp
+              span.display-spread-icon
+                i.fa.fa-th-large.display-icon
+              span.display-list-icon
+                i.fa.fa-list.display-icon
+            if posts
+              .display-spread
+                .row
+                  each post, i in posts
+                    .col-md-4
+                      .spread
+                        .container
+                          .spread-img
+                            img(src="/images/uploads/#{post.mainimage}" align="center")
+                          .spread-heading
+                            if post.title.length > 49
+                              h3.text-center.spread-title(style="font-size: 24px") #{post.title}
+                            else
+                              h3.text-center.spread-title #{post.title}
+                          .row
+                            .col-xs-8
+                              .tags-group
+                                if Array.isArray(post.category)
+                                  each tag, i in post.category
+                                    each category, j in tags
+                                      if category.title == tag
+                                        a.tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
+                                else
+                                  each category, i in tags
+                                    if category.title == post.category
+                                      a.tags(href='/search/#{post.category}' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
+                            .col-xs-4
+                              .spread-likes
+                                i.fa.fa-heart.spread-likes-icon.text-right
+                                h4.spread-likes-number.text-right &nbsp#{post.likes}
+                          .spread-content
+                            p #{post.description}
+                          .spread-read-more
+                            a.spread-read-more-button(href='/posts/show/#{post._id}') Read More
+                          hr.seperator-line(align="center")
+                          .row
+                            .col-xs-7
+                              .spread-author
+                                each author, i in authors
+                                  if (author.title === post.author)
+                                    a(href="/search/author/#{author.title}")
+                                      img.spread-author-img(src='/images/uploads/#{author.image}')
+                                      h4.spread-author-text.text-left &nbsp&nbsp#{post.author}
+                            .col-xs-5
+                              .time
+                                if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
+                                  p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
+                                else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 60
+                                  p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minutes ago
+                                else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 120
+                                  p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
+                                else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours()) < 24
+                                  p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hours ago
+                                else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays()) < 2
+                                  p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} day ago
+                                else
+                                  p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
+                          br
+                          br
+                          br
+                          br
+                      br
+                      br
+                      br
+              .display-list
+                .container
+                  each post, i in posts
+                    .list-column
+                      .row
+                        .col-xs-4.list-style-image-column
+                          a(href='/posts/show/#{post._id}')
+                            .list-style-img-container
+                              img.list-style-img(src="/images/uploads/#{post.mainimage}" align="right")
+                        .col-xs-8.list-style-content
+                          if post.title.length > 48
+                            a(href='/posts/show/#{post._id}')
+                              h4.list-style-title(style="font-size: 16px") #{post.title}
+                          else
+                            a(href='/posts/show/#{post._id}')
+                              h4.list-style-title #{post.title}
+                          if Array.isArray(post.category)
+                            each tag, i in post.category
+                              each category, j in tags
+                                if category.title == tag
+                                  a.list-style-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
+                          else
+                            each category, i in tags
+                              if category.title == post.category
+                                a.list-style-tags(href='/search/#{post.category}' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
+                          br
+                          br
+                          .row
+                              each author, i in authors
+                                if (author.title === post.author)
+                                  a(href="/search/author/#{author.title}")
+                                    img.author-img(src='/images/uploads/#{author.image}')
+                                    h4.author-text.text-left &nbsp&nbsp#{post.author}
+                          .row
+                            .col-xs-6
+                              .list-style-time
+                                if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
+                                  p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
+                                else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 60
+                                  p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minutes ago
+                                else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 120
+                                  p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
+                                else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours()) < 24
+                                  p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hours ago
+                                else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays()) < 2
+                                  p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} day ago
+                                else
+                                  p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
+                            .col-xs-6
+                              .list-style-likes
+                                i.fa.fa-heart.likes-icon.text-right
+                                h4.likes-number.text-right &nbsp#{post.likes}
+              br
+              br
+              br
+              br
+            else
+              p There are no posts to display
