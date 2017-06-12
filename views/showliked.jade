@@ -6,7 +6,7 @@ html
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
-    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto|Quicksand')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Muli|Quicksand')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
     link(rel='stylesheet', href='/stylesheets/show.css')
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
@@ -38,7 +38,7 @@ html
                 span.icon-bar
                 span.icon-bar
                 span.icon-bar
-              a.page-scroll.navbar-logo(href='.home')
+              a.page-scroll.navbar-logo(href='/')
                 img.navbar-img(src='/images/logo.svg')
             #example-navbar-collapse.collapse.navbar-collapse.navbar-color(style='width : 100%;')
               ul.nav.navbar-nav.navbar-right.main-nav
@@ -80,9 +80,13 @@ html
                 p.tags-title Tags: &nbsp
                 if Array.isArray(post.category)
                   each tag, i in post.category
-                    a.tags(href='.post') #{tag}
+                    each category, j in tags
+                      if category.title == tag
+                        a.tags(href='.post' style="background: #{category.color}; border-color: #{category.color}") #{tag}
                 else
-                  a.tags(href='.post') #{post.category}
+                  each category, i in tags
+                    if category.title == post.category
+                      a.tags(href='.post' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
 
               .col-md-6
                 if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
@@ -123,82 +127,46 @@ html
                 p.author-name #{post.author}
                 p.author-description #{author[0].body}
               .col-md-3.read-more-column
-                a.read-more-button(href="#") Read More
+                a.read-more-button(href="/search/author/#{author[0].title}") Read More
       br
       br
       br
       h2.others-headline Other Interesting Stories
       br
       br
-      .row
-        .col-md-4
-          .others
-            .container
-              .other-img
-                img(src="/images/uploads/#{otherpost[0].mainimage}" align="center")
-              .other-content
-                h4 #{otherpost[0].title}
-                if Array.isArray(otherpost[0].category)
-                  each tag, i in otherpost[0].category
-                    a.tags(href='.otherpost') #{tag}
-                else
-                  a.tags(href='.otherpost') #{otherpost[0].category}
+      .row.other-row
+        each other, i in otherpost
+          .col-md-4
+            .others
+              .container
+                .other-img
+                  img(src="/images/uploads/#{other.mainimage}" align="center")
+                .other-content
+                  h4.other-title #{other.title}
+                  .row
+                    .col-xs-8
+                      if Array.isArray(other.category)
+                        each tag, i in other.category
+                          each category, j in tags
+                            if category.title == tag
+                              a.tags(href='.post' style="background: #{category.color}; border-color: #{category.color}") #{tag}
+                      else
+                        each category, i in tags
+                          if category.title == other.category
+                            a.tags(href='.post' style="background: #{category.color}; border-color: #{category.color}") #{other.category}
+                    .col-xs-4
+                      .likes
+                        i.fa.fa-heart.likes-icon.text-right
+                        h4.likes-number.text-right &nbsp#{other.likes}
+                  .other-text
+                    p #{other.description}
+                .other-read-more
+                  a.other-read-more-button(href="/posts/show/#{other._id}") Read More
                 br
                 br
-                !=truncateText(otherpost[0].body, 200)
-              .other-read-more
-                a.other-read-more-button(href="#") Read More
-              br
-              br
-          br
-          br
-          br
-        if otherpost[1]
-        .col-md-4
-          .others
-            .container
-              .other-img
-                img(src="/images/uploads/#{otherpost[1].mainimage}" align="center")
-              .other-content
-                h4 #{otherpost[1].title}
-                if Array.isArray(otherpost[1].category)
-                  each tag, i in otherpost[1].category
-                    a.tags(href='.otherpost') #{tag}
-                else
-                  a.tags(href='.otherpost') #{otherpost[1].category}
-                br
-                br
-                !=truncateText(otherpost[1].body, 200)
-              .other-read-more
-                a.other-read-more-button(href="#") Read More
-              br
-              br
-          br
-          br
-          br
-        if otherpost[2]
-        .col-md-4
-          .others
-            .container
-              .other-img
-                img(src="/images/uploads/#{otherpost[2].mainimage}" align="center")
-              .other-content
-                h4 #{otherpost[2].title}
-                if Array.isArray(otherpost[2].category)
-                  each tag, i in otherpost[2].category
-                    a.tags(href='.otherpost') #{tag}
-                else
-                  a.tags(href='.otherpost') #{otherpost[2].category}
-                br
-                br
-                !=truncateText(otherpost[2].body, 200)
-              .other-read-more
-                a.other-read-more-button(href="#") Read More
-              br
-              br
-          br
-          br
-          br
+            br
+            br
+            br
 
     footer
       .row

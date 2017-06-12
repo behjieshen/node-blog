@@ -155,6 +155,18 @@ $(document).ready(function() {
   // logo settings
     var logo_width = ($(window).width() - 60) / 2;
     $('.navbar-logo').css('padding-left', logo_width + 'px');
+    // Infinite Loop of Carousel
+      setInterval(function() {
+          if($('.progress .first-bar').css('width') == '35px') {
+            $('.progress .first-bar').css('width', '0%');
+          } else if ($('.progress .middle-bar').css('width') == '35px') {
+            $('.progress .middle-bar').css('width', '0%');
+          } else if ($('.progress .last-bar').css('width') == '35px') {
+            $('.progress .last-bar').css('width', '0%');
+          }
+          $(".active .progress .progress-bar").css('width', '100%');
+
+      })
 })
 
 // Page scroll Animation

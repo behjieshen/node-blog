@@ -166,13 +166,11 @@ module.exports = function(router, passport) {
     router.post('/categories/add', function(req, res, next) {
       // Get form values
       var title = req.body.title;
-      console.log(req.body.title);
-      console.log(req.body.title1);
-      console.log(title);
-      console.log(req.body);
+      var color = '#' + req.body.color;
 
       // Form Validation
       req.check('title', 'Title field is required').notEmpty();
+      req.check('color', 'Color field is required').notEmpty();
 
       // Check errors
       var errors = req.validationErrors();
@@ -181,13 +179,15 @@ module.exports = function(router, passport) {
         console.log(errors);
         res.render('addcategories', {
           "errors": errors,
-          "title": title
+          "title": title,
+          "color": color
         });
       } else {
         var categories = db.get('categories');
 
         categories.insert({
-          "title": title
+          "title": title,
+          "color": color
         }, function(err, category) {
           if(err){
             res.send('There was an issue submitting the category');
@@ -237,6 +237,7 @@ module.exports = function(router, passport) {
     // Get form values
     var title = req.body.title;
     var category = req.body.category;
+    var description = req.body.description;
     var body = req.body.body;
     var author = req.body.author;
     var date = new Date();
@@ -245,6 +246,7 @@ module.exports = function(router, passport) {
     // Form Validation
     req.check('title', 'Title field is required').notEmpty();
     req.check('body', 'Body field is required').notEmpty();
+    req.check('description', 'Short Description field is required');
 
     // Check errors
     var errors = req.validationErrors();
@@ -256,6 +258,7 @@ module.exports = function(router, passport) {
           "errors": errors,
           "title": title,
           "categories": categories,
+          "description": description,
           "body": body
         });
       });
@@ -272,6 +275,7 @@ module.exports = function(router, passport) {
 
       posts.insert({
         "title": title,
+        "description": description,
         "body": body,
         "category": category,
         "date": date,

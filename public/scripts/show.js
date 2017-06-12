@@ -121,12 +121,12 @@ function liked() {
     $('.fa-heart').css('color', 'red');
     var number = parseInt($('.likes-number').text());
     number+=1;
-    $('.likes-number').html(" " + number);
+    $('.likes-number').html("&nbsp" + number);
   } else {
     $('.likes-number').css('color', 'grey');
     $('.fa-heart').css('color', 'grey');
     var number = parseInt($('.likes-number').text());
     number-=1;
-    $('.likes-number').html(" " + number);
+    $('.likes-number').html("&nbsp" + number);
   }
 }

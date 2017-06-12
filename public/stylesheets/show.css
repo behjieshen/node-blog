@@ -14,10 +14,17 @@ a:hover, a:focus {
   text-decoration: none;
 }
 
+a:focus {
+  outline-color: #EB7C10;
+}
+
 p {
   text-align: justify;
-  letter-spacing: 1.5px;
-  font-size: 16px;
+  letter-spacing: 1.25px;
+  font-size: 17px;
+  line-height: 26px;
+  color: rgb(51,51,51);
+  font-family: 'Arial';
 }
 
 body {
@@ -546,6 +553,7 @@ a:focus, a:hover {
   border-radius: 12px;
   background: #EB7C10;
   color: white;
+  font-family: 'Muli';
 }
 
 .tags:hover, .tags:focus {
@@ -553,7 +561,20 @@ a:focus, a:hover {
   text-decoration: none;
 }
 
-.col-md-6 {
+.likes-icon, .likes-number {
+  display: inline-block;
+}
+
+.likes-icon {
+  color: red;
+  font-size: 28px;
+}
+
+.likes {
+  float: right;
+}
+
+.col-md-6, .col-xs-8, .col-xs-4 {
   padding: 0;
 }
 
@@ -607,12 +628,18 @@ a:focus, a:hover {
 }
 
 .others {
-  height: 501px;
+  height: 525px;
   border-radius: 6px;
   box-shadow: 0 16px 24px 2px rgba(0,0,0,.14), 0 -10px 30px 5px rgba(0,0,0,.12), 0 8px 10px -5px rgba(0,0,0,.2);
   background: white;
   position: relative;
   z-index: 0;
+}
+
+.other-title {
+  height: 30px;
+  font-size: 22px;
+  text-align: center;
 }
 
 .other-img {
@@ -631,8 +658,20 @@ a:focus, a:hover {
   padding: 15px 30px;
 }
 
+.other-text {
+  height: 125px;
+  overflow: hidden;
+  margin-top: 12px;
+}
+
+.other-row {
+  width: 90%;
+  margin: 0 auto;
+}
+
 .other-read-more {
   text-align: center;
+  margin-top: 30px;
 }
 
 .other-read-more-button {

@@ -18,6 +18,9 @@ block content
           p(style="display:inline") #{category.title}
           br
     .form-group
+      label Catchy Sentence (150 characters maximum)
+      textarea.form-control(name='description', maxlength='150')
+    .form-group
       label Body
       textarea.form-control(name='body', id='body')
     .form-group

@@ -7,17 +7,21 @@ module.exports = function(router, passport) {
     var db = req.db;
     var posts = db.get('posts');
     var authors = db.get('authors');
+    var tags = db.get('categories');
     if(req.query.search) {
       const regex = new RegExp(escapeRegex(req.query.search), 'gi');
       res.redirect('/search?search=' + req.query.search);
     } else {
       posts.find({}, {}, function(err, posts) {
         authors.find({}, {sort: {$natural:1}}, function(err, authors) {
-          console.log(authors);
-          res.render('index', {
-            "posts": posts,
-            "authors": authors
-          });
+          tags.find({}, {}, function(err, tags)  {
+            console.log(tags);
+            res.render('index', {
+              "posts": posts,
+              "authors": authors,
+              "tags": tags
+            });
+          })
         })
       })
     }
@@ -214,14 +218,19 @@ module.exports = function(router, passport) {
     var posts = db.get('posts');
     var authors = db.get('authors');
     var otherposts = db.get('posts');
+    var tags = db.get('categories');
     posts.findById(req.params.id, function(err, post) {
       authors.find({title: post.author}, {}, function(err, author) {
-        otherposts.find({"_id": { $ne: id} }, { limit: 3, sort: {$natural:-1} }, function(err, otherpost) {
-          res.render('show', {
-            "post": post,
-            "author": author,
-            "otherpost": otherpost
-          });
+        tags.find({}, {}, function(err, tags) {
+          otherposts.find({"_id": { $ne: id} }, { limit: 3, sort: {$natural:-1} }, function(err, otherpost) {
+            console.log(author);
+            res.render('show', {
+              "post": post,
+              "author": author,
+              "tags": tags,
+              "otherpost": otherpost
+            });
+          })
         })
       })
     });
@@ -233,14 +242,18 @@ module.exports = function(router, passport) {
     var posts = db.get('posts');
     var authors = db.get('authors');
     var otherposts = db.get('posts');
+    var tags = db.get('categories');
     posts.findById(req.params.id, function(err, post) {
       authors.find({title: post.author}, {}, function(err, author) {
-        otherposts.find({"_id": { $ne: id} }, { limit: 3, sort: {$natural:-1} }, function(err, otherpost) {
-          res.render('showliked', {
-            "post": post,
-            "author": author,
-            "otherpost": otherpost
-          });
+        tags.find({}, {}, function(err, tags) {
+          otherposts.find({"_id": { $ne: id} }, { limit: 3, sort: {$natural:-1} }, function(err, otherpost) {
+            res.render('showliked', {
+              "post": post,
+              "author": author,
+              "tags": tags,
+              "otherpost": otherpost
+            });
+          })
         })
       })
     });

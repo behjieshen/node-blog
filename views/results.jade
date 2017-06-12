@@ -121,7 +121,7 @@ html
                   each post, i in posts
                     .col-md-4
                       .others
-                        .container
+                        .container.post-container
                           .other-img
                             img(src="/images/uploads/#{post.mainimage}" align="center")
                           .other-heading
@@ -129,22 +129,36 @@ html
                               h3.text-center.post-title(style="font-size: 24px") #{post.title}
                             else
                               h3.text-center.post-title #{post.title}
-                            h4.text-center by #{post.author}
-                          br
+                          .row
+                            .col-xs-8
+                              .tags-group
+                                if Array.isArray(post.category)
+                                  each tag, i in post.category
+                                    each category, j in tags
+                                      if category.title == tag
+                                        a.tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
+                                else
+                                  each category, i in tags
+                                    if category.title == post.category
+                                      a.tags(href='/search/#{post.category}' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
+                            .col-xs-4
+                              .likes
+                                i.fa.fa-heart.likes-icon.text-right
+                                h4.likes-number.text-right &nbsp#{post.likes}
                           .other-content
-                            !=truncateText(post.body, 150)
+                            p #{post.description}
                           .other-read-more
                             a.other-read-more-button(href='/posts/show/#{post._id}') Read More
                           hr.seperator-line(align="center")
                           .row
-                            .col-xs-7(style="padding: 0;")
-                              .tags-group
-                                if Array.isArray(post.category)
-                                  each tag, i in post.category
-                                    a.tags(href='./categories/show/#{post.category}') #{tag}
-                                else
-                                  a.tags(href='./categories/show/#{post.category}') #{post.category}
-                            .col-xs-5(style="padding: 0;")
+                            .col-xs-7
+                              .author
+                                each author, i in authors
+                                  if (author.title === post.author)
+                                    a(href="/search/author/#{author.title}")
+                                      img.author-img(src='/images/uploads/#{author.image}')
+                                      h4.author-text.text-left &nbsp&nbsp#{post.author}
+                            .col-xs-5
                               .time
                                 if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
                                   p.meta #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
@@ -170,23 +184,35 @@ html
                   each post, i in posts
                     .list-column
                       .row
-                        .col-xs-4(style="padding: 0")
-                          img.list-style-img(src="/images/uploads/#{post.mainimage}" align="right")
-                        .col-xs-8
+                        .col-xs-4.list-style-image-column
+                          a(href='/posts/show/#{post._id}')
+                            .list-style-img-container
+                              img.list-style-img(src="/images/uploads/#{post.mainimage}" align="right")
+                        .col-xs-8.list-style-content
                           if post.title.length > 48
-                            h4.list-style-title(style="font-size: 16px") #{post.title}
+                            a(href='/posts/show/#{post._id}')
+                              h4.list-style-title(style="font-size: 16px") #{post.title}
                           else
-                            h4.list-style-title #{post.title}
+                            a(href='/posts/show/#{post._id}')
+                              h4.list-style-title #{post.title}
                           if Array.isArray(post.category)
                             each tag, i in post.category
-                              a.list-style-tags(href='./categories/show/#{post.category}') #{tag}
+                              each category, j in tags
+                                if category.title == tag
+                                  a.list-style-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
                           else
-                            a.list-style-tags(href='./categories/show/#{post.category}') #{post.category}
+                            each category, i in tags
+                              if category.title == post.category
+                                a.list-style-tags(href='/search/#{post.category}' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
                           br
                           br
                           .row
-                            .col-xs-6
-                              h5.list-style-author.text-left by #{post.author}
+                              each author, i in authors
+                                if (author.title === post.author)
+                                  a(href="/search/author/#{author.title}")
+                                    img.author-img(src='/images/uploads/#{author.image}')
+                                    h4.author-text.text-left &nbsp&nbsp#{post.author}
+                          .row
                             .col-xs-6
                               .list-style-time
                                 if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
@@ -201,6 +227,10 @@ html
                                   p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} day ago
                                 else
                                   p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
+                            .col-xs-6
+                              .list-style-likes
+                                i.fa.fa-heart.likes-icon.text-right
+                                h4.likes-number.text-right &nbsp#{post.likes}
               br
               br
               br
