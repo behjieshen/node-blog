@@ -76,7 +76,7 @@ html
             br
             br
             .row
-              .col-md-6
+              .col-md-6(style="padding-top: 16px")
                 p.tags-title Tags: &nbsp
                 if Array.isArray(post.category)
                   each tag, i in post.category
@@ -90,17 +90,17 @@ html
 
               .col-md-6
                 if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
-                  p.meta Posted #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
+                  p.time Posted #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
                 else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 60
-                  p.meta Posted #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minutes ago
+                  p.time Posted #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minutes ago
                 else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 120
-                  p.meta Posted #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
+                  p.time Posted #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
                 else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours()) < 24
-                  p.meta Posted #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hours ago
+                  p.time Posted #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hours ago
                 else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays()) < 2
-                  p.meta Posted #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} day ago
+                  p.time Posted #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} day ago
                 else
-                  p.meta Posted #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
+                  p.time Posted #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
             br
             br
             !=post.body
@@ -110,24 +110,28 @@ html
                 i.fa.fa-heart
                 h3.likes-number &nbsp#{post.likes}
             hr
-            .row
-              .col-md-2(style="text-align: center")
-                a(href="#")
-                  img.profile-pic(src="/images/uploads/#{author[0].image}")
+            each author, i in authors
+              .row
+                .col-md-2(style="text-align: center")
+                  a(href="#")
+                    if (author.title === post.author)
+                      img.profile-pic(src="/images/uploads/#{author.image}")
+                  br
+                  br
+                  a(href="#")
+                    i.fa.fa-instagram.author-social(aria-hidden="true")
+                  a(href="#")
+                    i.fa.fa-twitter.author-social(aria-hidden="true")
+                  a(href="#")
+                    i.fa.fa-linkedin.author-social(aria-hidden="true")
                 br
-                br
-                a(href="#")
-                  i.fa.fa-instagram.author-social(aria-hidden="true")
-                a(href="#")
-                  i.fa.fa-twitter.author-social(aria-hidden="true")
-                a(href="#")
-                  i.fa.fa-linkedin.author-social(aria-hidden="true")
-              br
-              .col-md-7
-                p.author-name #{post.author}
-                p.author-description #{author[0].body}
-              .col-md-3.read-more-column
-                a.read-more-button(href="/search/author/#{author[0].title}") Read More
+                .col-md-7
+                  p.author-name #{post.author}
+                  if (author.title === post.author)
+                    p #{author.body}
+                .col-md-3.read-more-column
+                  if (author.title === post.author)
+                    a.read-more-button(href="/search/author/#{author.title}") Read More
       br
       br
       br
@@ -144,24 +148,47 @@ html
                 .other-content
                   h4.other-title #{other.title}
                   .row
-                    .col-xs-8
+                    .col-xs-9.small-mode.small-mode9(style= "padding-top: 5px;")
                       if Array.isArray(other.category)
                         each tag, i in other.category
                           each category, j in tags
                             if category.title == tag
-                              a.tags(href='.post' style="background: #{category.color}; border-color: #{category.color}") #{tag}
+                              a.tags(href='.post' style="background: #{category.color}; border-color: #{category.color}; padding: 7px 8px;") #{tag}
                       else
                         each category, i in tags
                           if category.title == other.category
-                            a.tags(href='.post' style="background: #{category.color}; border-color: #{category.color}") #{other.category}
-                    .col-xs-4
-                      .likes
-                        i.fa.fa-heart.likes-icon.text-right
-                        h4.likes-number.text-right &nbsp#{other.likes}
+                            a.tags(href='.post' style="background: #{category.color}; border-color: #{category.color}; padding: 7px 8px;") #{other.category}
+                    .col-xs-3.small-mode.small-mode3
+                      .other-likes
+                        i.fa.fa-heart.other-likes-icon.text-right
+                        h4.other-likes-number.text-right &nbsp#{other.likes}
                   .other-text
                     p #{other.description}
-                .other-read-more
-                  a.other-read-more-button(href="/posts/show/#{other._id}") Read More
+                  .other-read-more
+                    a.other-read-more-button(href="/posts/show/#{other._id}") Read More
+                  hr.seperator-line(align="center")
+                  .row
+                    .col-xs-7.small-mode.small-mode7
+                      .spread-author
+                        each author, i in authors
+                          if (author.title === other.author)
+                            a(href="/search/author/#{author.title}")
+                              img.spread-author-img(src='/images/uploads/#{author.image}')
+                              h4.spread-author-text.text-left &nbsp&nbsp#{other.author}
+                    .col-xs-5.small-mode.small-mode5
+                      .other-time
+                        if parseInt(moment.duration(moment(new Date()).diff(other.date)).asMinutes()) < 2
+                          p.time-text #{parseInt(moment.duration(moment(new Date()).diff(other.date)).asMinutes())} minute ago
+                        else if parseInt(moment.duration(moment(new Date()).diff(other.date)).asMinutes()) < 60
+                          p.time-text #{parseInt(moment.duration(moment(new Date()).diff(other.date)).asMinutes())} minutes ago
+                        else if parseInt(moment.duration(moment(new Date()).diff(other.date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(other.date)).asMinutes()) < 120
+                          p.time-text #{parseInt(moment.duration(moment(new Date()).diff(other.date)).asHours())} hour ago
+                        else if parseInt(moment.duration(moment(new Date()).diff(other.date)).asHours()) < 24
+                          p.time-text #{parseInt(moment.duration(moment(new Date()).diff(other.date)).asHours())} hours ago
+                        else if parseInt(moment.duration(moment(new Date()).diff(other.date)).asDays()) < 2
+                          p.time-text #{parseInt(moment.duration(moment(new Date()).diff(other.date)).asDays())} day ago
+                        else
+                          p.time-text #{parseInt(moment.duration(moment(new Date()).diff(other.date)).asDays())} days ago
                 br
                 br
             br

@@ -220,13 +220,13 @@ module.exports = function(router, passport) {
     var otherposts = db.get('posts');
     var tags = db.get('categories');
     posts.findById(req.params.id, function(err, post) {
-      authors.find({title: post.author}, {}, function(err, author) {
+      authors.find({}, {}, function(err, authors) {
         tags.find({}, {}, function(err, tags) {
           otherposts.find({"_id": { $ne: id} }, { limit: 3, sort: {$natural:-1} }, function(err, otherpost) {
-            console.log(author);
+            console.log(authors);
             res.render('show', {
               "post": post,
-              "author": author,
+              "authors": authors,
               "tags": tags,
               "otherpost": otherpost
             });
@@ -244,12 +244,12 @@ module.exports = function(router, passport) {
     var otherposts = db.get('posts');
     var tags = db.get('categories');
     posts.findById(req.params.id, function(err, post) {
-      authors.find({title: post.author}, {}, function(err, author) {
+      authors.find({}, {}, function(err, authors) {
         tags.find({}, {}, function(err, tags) {
           otherposts.find({"_id": { $ne: id} }, { limit: 3, sort: {$natural:-1} }, function(err, otherpost) {
             res.render('showliked', {
               "post": post,
-              "author": author,
+              "authors": authors,
               "tags": tags,
               "otherpost": otherpost
             });

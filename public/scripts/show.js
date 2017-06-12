@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  article_img = $('.article-img').height();
+  var article_img = $('.article-img').height();
   $('.article-mask').css('height', article_img + 'px');
   var transparent = true;
   var scrolled = false;
@@ -10,14 +10,32 @@ $(document).ready(function() {
   var searchBox = $(".searchbox");
   var isOpen = false;
 
+  var window_width = $(window).width();
+
+  if(window_width < 437) {
+    smallMode();
+  } else {
+    normalMode();
+  }
+
+  $('.seperator-line').css('width', $('.spread').width() - 60 + 'px');
+
   var window_height = $(window).height();
   var margin_top_for_article = window_height - 112;
   $('.post').css('margin-top', margin_top_for_article + 'px');
 
   $(window).resize(function() {
     var window_height = $(window).height();
+    var window_width = $(window).width();
     var margin_top_for_article = window_height - 112;
     $('.post').css('margin-top', margin_top_for_article + 'px');
+    var spread_width = $('.spread').width();
+    $('.seperator-line').css('width', spread_width - 60 + 'px');
+    if(window_width < 437) {
+      smallMode();
+    } else {
+      normalMode();
+    }
   })
 
 
@@ -129,4 +147,30 @@ function liked() {
     number-=1;
     $('.likes-number').html("&nbsp" + number);
   }
+}
+
+function smallMode() {
+  $('.small-mode').removeClass('col-xs-9');
+  $('.small-mode').removeClass('col-xs-3');
+  $('.small-mode').removeClass('col-xs-7');
+  $('.small-mode').removeClass('col-xs-5');
+  $('.small-mode').css('text-align', 'center');
+  $('.small-mode .other-likes').css('width', '100%');
+  $('.small-mode .other-likes').css('padding-top', '10px');
+
+  $('.small-mode .other-time').css('width', '100%');
+  $('.others').css('height', '700px');
+}
+
+function normalMode() {
+  $('.small-mode3').addClass('col-xs-3');
+  $('.small-mode5').addClass('col-xs-5');
+  $('.small-mode7').addClass('col-xs-7');
+  $('.small-mode9').addClass('col-xs-9');
+  $('.small-mode').css('text-align', '');
+  $('.small-mode .other-likes').css('width', '');
+  $('.small-mode .other-likes').css('padding-top', '');
+
+  $('.small-mode .other-time').css('width', '');
+  $('.others').css('height', '620px');
 }

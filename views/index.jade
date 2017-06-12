@@ -106,15 +106,15 @@ html(lang='en')
             .row
               each post, i in posts
                 .col-md-4
-                  .others
-                    .container.post-container
-                      .other-img
+                  .spread
+                    .container
+                      .spread-img
                         img(src="/images/uploads/#{post.mainimage}" align="center")
-                      .other-heading
+                      .spread-heading
                         if post.title.length > 49
-                          h3.text-center.post-title(style="font-size: 24px") #{post.title}
+                          h3.text-center.spread-title(style="font-size: 24px") #{post.title}
                         else
-                          h3.text-center.post-title #{post.title}
+                          h3.text-center.spread-title #{post.title}
                       .row
                         .col-xs-8
                           .tags-group
@@ -128,36 +128,36 @@ html(lang='en')
                                 if category.title == post.category
                                   a.tags(href='/search/#{post.category}' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
                         .col-xs-4
-                          .likes
-                            i.fa.fa-heart.likes-icon.text-right
-                            h4.likes-number.text-right &nbsp#{post.likes}
-                      .other-content
+                          .spread-likes
+                            i.fa.fa-heart.spread-likes-icon.text-right
+                            h4.spread-likes-number.text-right &nbsp#{post.likes}
+                      .spread-content
                         p #{post.description}
-                      .other-read-more
-                        a.other-read-more-button(href='/posts/show/#{post._id}') Read More
+                      .spread-read-more
+                        a.spread-read-more-button(href='/posts/show/#{post._id}') Read More
                       hr.seperator-line(align="center")
                       .row
                         .col-xs-7
-                          .author
+                          .spread-author
                             each author, i in authors
                               if (author.title === post.author)
                                 a(href="/search/author/#{author.title}")
-                                  img.author-img(src='/images/uploads/#{author.image}')
-                                  h4.author-text.text-left &nbsp&nbsp#{post.author}
+                                  img.spread-author-img(src='/images/uploads/#{author.image}')
+                                  h4.spread-author-text.text-left &nbsp&nbsp#{post.author}
                         .col-xs-5
                           .time
                             if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
-                              p.meta #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
+                              p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
                             else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 60
-                              p.meta #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minutes ago
+                              p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minutes ago
                             else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 120
-                              p.meta #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
+                              p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
                             else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours()) < 24
-                              p.meta #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hours ago
+                              p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hours ago
                             else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays()) < 2
-                              p.meta #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} day ago
+                              p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} day ago
                             else
-                              p.meta #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
+                              p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
                       br
                       br
                       br
