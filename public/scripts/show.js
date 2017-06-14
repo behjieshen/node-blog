@@ -44,7 +44,8 @@ $(document).ready(function() {
       searchBox.addClass("searchbox-open");
       $('.searchbox-open').css('width', innerWidths + 'px');
       inputBox.focus();
-      $('.searchbox-icon, .searchbox-submit').css('background', 'black');
+      $('.searchbox-icon, .searchbox-submit').css('background', '#DA6D0D');
+      $('.fa-search, .searchbox-submit').css('color', 'white');
       isOpen = true;
     } else {
       $('.searchbox-open').css('width', '0px');
@@ -52,6 +53,7 @@ $(document).ready(function() {
       inputBox.focusout();
       setTimeout(function() {
         $('.searchbox-icon, .searchbox-submit').css('background', 'white');
+        $('.fa-search, .searchbox-submit').css('color', '#EB7C10');
       }, 250)
       isOpen = false;
     }

@@ -998,3 +998,79 @@ a:focus, a:hover {
     font-size: 22px;
     color: white;
   }
+
+
+/*Search Bar */
+  .input-text {
+    height: 50px;
+    padding: 0px 70px 0 20px;
+    top: 0px;
+    left: 0px;
+    border-radius: 50px;
+    width: 450px;
+    background: rgba(0,0,0,0.8);
+  }
+
+  .search-icon {
+    color: black
+  }
+
+  .search {
+    position: relative;
+    width: 100%;
+    max-width: 675px;
+    margin: 10px auto 0px auto;
+    min-width: 60px;
+    height: 60px;
+    overflow: hidden;
+  }
+
+  .search-input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: none;
+    outline: none;
+    background: rgba(0,0,0,0.9);
+    width: 100%;
+    height: 60px;
+    margin: 0;
+    z-index: 1;
+    padding: 20px 65px 20px 20px;
+    font-size: 20px;
+    color: white;
+  }
+
+  .search-submit {
+    opacity: 0;
+    background: white;
+    border: none;
+    z-index: 12;
+    color: transparent;
+    outline: none;
+  }
+
+  .icon-search-box, .search-submit {
+    width: 60px;
+    height: 60px;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0;
+    margin: 0;
+    line-height: 60px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .icon-search-box {
+    background: #DA6D0D;
+    color: white;
+    z-index: 11;
+    font-size: 22px;
+  }
+
+  .icon-search {
+    color: white;
+  }

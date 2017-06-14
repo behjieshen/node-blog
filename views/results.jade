@@ -25,7 +25,7 @@ html
               span.icon-bar
               span.icon-bar
               span.icon-bar
-            a.page-scroll.navbar-logo(href='.home')
+            a.page-scroll.navbar-logo(href='/')
               img.navbar-img(src='/images/logo.svg')
           #example-navbar-collapse.collapse.navbar-collapse.navbar-color(style='width : 100%;')
             ul.nav.navbar-nav.navbar-right.main-nav
@@ -41,7 +41,7 @@ html
                 a.page-scroll(href='.form') Contact
               li.desktop-mode(style="padding-right: 0")
                 form.searchbox
-                  input.searchbox-input(type="search" placeholder="Search......" name="search" onkeyup="buttonUp();" required)
+                  input.searchbox-input(type="search" placeholder="Enter Keyword" name="search" onkeyup="buttonUp();" required)
                   input.searchbox-submit(type="submit" value="Go")
                   span.searchbox-icon
                     i.fa.fa-search(aria-hidden="true")
@@ -55,55 +55,56 @@ html
         nav.navbar.navbar-inverse.navbar-fixed-top#sidebar-wrapper(role="navigation")
           ul.nav.sidebar-nav
             li.sidebar-brand
-              a Filters
+              a Filter By:
             li.dropdown
-              a.dropdown-toggle(href="#" data-toggle="dropdown") Works
+              a.dropdown-toggle(href="#" data-toggle="dropdown") Name
                 span.caret
               ul.dropdown-menu(role="menu")
-                li
-                  a(href="#") Action
-                li
-                  a(href="#") Another Action
-                li
-                  a(href="#") Something Else
-                li
-                  a(href="#") Seperated link
-                li
-                  a(href="#") Action Link
-            li
-              a(href="#") Home
-            li
-              a(href="#") About
-            li
-              a(href="#") Events
+                li.dropdown-list
+                  a(href="/search/name-asc") A - Z
+                li.dropdown-list
+                  a(href="/search/name-desc") Z - A
             li.dropdown
-              a.dropdown-toggle(href="#" data-toggle="dropdown") Works
+              a.dropdown-toggle(href="#" data-toggle="dropdown") Tags
                 span.caret
               ul.dropdown-menu(role="menu")
-                li
-                  a(href="#") Action
-                li
-                  a(href="#") Another Action
-                li
-                  a(href="#") Something Else
-                li
-                  a(href="#") Seperated link
-                li
-                  a(href="#") Action Link
-
+                if tags
+                  each tag, i in tags
+                    li.dropdown-list
+                      a(href="/search/#{tag.title}") #{tag.title}
+            li.dropdown
+              a.dropdown-toggle(href="#" data-toggle="dropdown") Time
+                span.caret
+              ul.dropdown-menu(role="menu")
+                li.dropdown-list
+                  a(href="/search/time-newest") Newest
+                li.dropdown-list
+                  a(href="/search/time-oldest") Oldest
+            li.dropdown
+              a.dropdown-toggle(href="#" data-toggle="dropdown") Likes
+                span.caret
+              ul.dropdown-menu(role="menu")
+                li.dropdown-list
+                  a(href="/search/likes-highest") Highest
+                li.dropdown-list
+                  a(href="/search/likes-lowest") Lowest
+            li.dropdown
+              a.dropdown-toggle(href="#" data-toggle="dropdown") Authors
+                span.caret
+              ul.dropdown-menu(role="menu")
+                if authors
+                  each author, i in authors
+                    li.dropdown-list
+                      a(href="/search/author/#{author.title}") #{author.title}
         .row#page-content-wrapper(style="margin-top: 61px;")
           button.hamburger.is-closed(type="button" data-toggle="offcanvas")
             span.hamb-top
             span.hamb-middle
             span.hamb-bottom
+            h4.hamb-text Filters
           .results-section
-            .search
-              form(action="/search" method="GET")
-                input.search-input(type="search" placeholder="Enter Keyword" name="search" required)
-                input.search-submit(type="submit" value)
-                span.icon-search-box
-                  i.fa.fa-search.icon-search(aria-hidden="true")
             section.blog
+              h2.text-center Results
               .display-style
                 h3(style="display: inline-block") Display Type:&nbsp
                 span.display-spread-icon
@@ -125,7 +126,7 @@ html
                               else
                                 h3.text-center.spread-title #{post.title}
                             .row
-                              .col-xs-8
+                              .col-xs-8.small-mode.small-mode8
                                 .tags-group
                                   if Array.isArray(post.category)
                                     each tag, i in post.category
@@ -136,7 +137,7 @@ html
                                     each category, i in tags
                                       if category.title == post.category
                                         a.tags(href='/search/#{post.category}' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
-                              .col-xs-4
+                              .col-xs-4.small-mode.small-mode4
                                 .spread-likes
                                   i.fa.fa-heart.spread-likes-icon.text-right
                                   h4.spread-likes-number.text-right &nbsp#{post.likes}
@@ -146,14 +147,14 @@ html
                               a.spread-read-more-button(href='/posts/show/#{post._id}') Read More
                             hr.seperator-line(align="center")
                             .row
-                              .col-xs-7
+                              .col-xs-7.small-mode.small-mode7
                                 .spread-author
                                   each author, i in authors
                                     if (author.title === post.author)
                                       a(href="/search/author/#{author.title}")
                                         img.spread-author-img(src='/images/uploads/#{author.image}')
                                         h4.spread-author-text.text-left &nbsp&nbsp#{post.author}
-                              .col-xs-5
+                              .col-xs-5.small-mode.small-mode5
                                 .time
                                   if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
                                     p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
@@ -205,8 +206,8 @@ html
                                 each author, i in authors
                                   if (author.title === post.author)
                                     a(href="/search/author/#{author.title}")
-                                      img.author-img(src='/images/uploads/#{author.image}')
-                                      h4.author-text.text-left &nbsp&nbsp#{post.author}
+                                      img.list-style-author-img(src='/images/uploads/#{author.image}')
+                                      h4.list-style-text.text-left &nbsp&nbsp#{post.author}
                             .row
                               .col-xs-6
                                 .list-style-time
@@ -224,11 +225,12 @@ html
                                     p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
                               .col-xs-6
                                 .list-style-likes
-                                  i.fa.fa-heart.likes-icon.text-right
-                                  h4.likes-number.text-right &nbsp#{post.likes}
+                                  i.fa.fa-heart.list-style-likes-icon.text-right
+                                  h4.list-style-likes-number.text-right &nbsp#{post.likes}
                 br
                 br
                 br
                 br
               else
                 p There are no posts to display
+
