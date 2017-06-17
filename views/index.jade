@@ -17,21 +17,17 @@ html(lang='en')
               .newsletter-icon-row
                 i.newsletter-icon.fa.fa-envelope
               .row
-                .col-xs-3
-                  img.newsletter-logo(src='/images/logo2.svg')
-                .col-xs-9
-                  h3.newsletter-heading Newsletter
-                  h4.newsletter-subheading Join us today to receive updates!
+                i.fa.fa-times.close-button(type="button" data-dismiss="modal")
+                h3.newsletter-heading Newsletter
+                h4.newsletter-subheading Join us today to receive updates!
             .modal-body
               .box
                 .content
-                  button.error(style="display: none")
-                  if hasErrors
-                    .alert.alert-danger #{messages}
                   .form.loginBox
                     form#newsletter(method='post', action='/', accept-charset='UTF-8')
-                      input#newsletter-email.newsletter-email.form-control(type='email', placeholder='Email', name='login_email')
+                      input#newsletter-email.newsletter-email.form-control(type='email', placeholder='Email', name='email' data-toggle="popover" data-content="Example" data-placement="top")
                       input.newsletter-submit(type="submit", placeholder="Join")
+                    button.error(style="display: none;")
       section.home
         #myCarousel.carousel.slide(data-interval='3500', data-ride='carousel')
           .row.navbar-row
@@ -265,20 +261,32 @@ html(lang='en')
     script(src='/scripts/index.js')
     script(src='/scripts/index-defer.js')
     script(type="text/javascript").
-      openLoginModal();
+      if (! localStorage.noFirstVisit || !localStorage.subscribed) {
+        openLoginModal();
+        localStorage.noFirstVisit = "1";
+      }
+
       $(function() {
+
         $('#newsletter').on('submit', function(event) {
           event.preventDefault();
 
-          $.ajax({
-            url: '/',
-            method: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({email: $('#newsletter-email').val()}),
-            success: function(response) {
-              $('.error').click();
-            }
-          })
+          if($('#newsletter-email').val() == "") {
+            $('[data-toggle="popover"]').attr('data-content', "Invalid email address");
+            $('[data-toggle="popover"]').popover('show');
+            $('.popover').css('background', 'red');
+            shakeModal();
+          } else {
+            $.ajax({
+              url: '/',
+              method: 'POST',
+              contentType: 'application/json',
+              data: JSON.stringify({email: $('#newsletter-email').val()}),
+              success: function(response) {
+                $('.error').click();
+              }
+            })
+          }
 
         })
         $('.error').on('click', function(event) {
@@ -287,8 +295,16 @@ html(lang='en')
             method: 'GET',
             contentType: 'application/json',
             success: function(response) {
-              console.log(response.messages);
-              console.log('Sucess');
+              if(response.success == false) {
+                //$('.content').prepend("<div class='alert alert-danger'>" + response.messages + "</div>");
+                $('[data-toggle="popover"]').attr('data-content', response.messages);
+                $('[data-toggle="popover"]').popover('show');
+                $('.popover').css('background', 'red');
+                shakeModal();
+              } else {
+                $('.close-button').click();
+                localStorage.subscribed = "1";
+              }
             }
           })
         })

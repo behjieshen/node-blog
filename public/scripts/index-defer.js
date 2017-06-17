@@ -5,10 +5,8 @@ $(document).ready(function() {
   $('.login .modal-dialog').css('margin-top', margin_top_for_newsletter);
   if(window_width < 365) {
     $('.modal-content').css('padding', '0px');
-    $('.newsletter-email').css('width', '60%');
   } else {
     $('.modal-content').css('padding', '0 20px');
-    $('.newsletter-email').css('width', '70%');
   }
 
   // When search icon is clicked in desktop mode
@@ -83,10 +81,8 @@ $(document).ready(function() {
       $('.login .modal-dialog').css('margin-top', margin_top_for_newsletter);
       if(window_width < 365) {
         $('.modal-content').css('padding', '0px');
-        $('.newsletter-email').css('width', '60%');
       } else {
         $('.modal-content').css('padding', '0 20px');
-        $('.newsletter-email').css('width', '70%');
       }
       var top = window_height / 100 * 46;
       $('.carousel-indicators').css('top', top + 'px');
