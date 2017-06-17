@@ -5,8 +5,7 @@
 }
 
 body {
-    position: relative;
-    overflow-x: hidden;
+  overflow-x: hidden;
 }
 
 .container {
@@ -635,8 +634,7 @@ a:focus, a:hover {
   }
 
   .display-list {
-    position: absolute;
-    left: -5000%;
+    display: none;
   }
 
 /* Sidenav */

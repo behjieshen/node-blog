@@ -1,6 +1,7 @@
 module.exports = function(router, passport) {
 
   var db = require('monk')('bot:1234@ds161001.mlab.com:61001/fiintech');
+  var url = require('url');
 
   // Home page blog post
   router.get('/', function(req, res, next) {
@@ -8,14 +9,16 @@ module.exports = function(router, passport) {
     var posts = db.get('posts');
     var authors = db.get('authors');
     var tags = db.get('categories');
+    console.log(req.query);
     if(req.query.search) {
       const regex = new RegExp(escapeRegex(req.query.search), 'gi');
       res.redirect('/search?search=' + req.query.search);
-    } else {
+    } else if(req.query.email) {
+      console.log(req.query.email);
+    }  else {
       posts.find({}, {}, function(err, posts) {
         authors.find({}, {sort: {$natural:1}}, function(err, authors) {
           tags.find({}, {}, function(err, tags)  {
-            console.log(tags);
             res.render('index', {
               "posts": posts,
               "authors": authors,
@@ -26,6 +29,42 @@ module.exports = function(router, passport) {
       })
     }
   });
+
+
+  router.post('/', function(req, res, next) {
+    var email = req.body.email;
+    var request = require("request");
+
+    var options = { method: 'POST',
+      url: 'https://us16.api.mailchimp.com/3.0/lists/eaa6cc34c7/members',
+      headers:
+       { 'postman-token': '9055b3b2-44a2-18b8-0e77-e371149eede4',
+         'cache-control': 'no-cache',
+         authorization: 'Basic YW55c3RyaW5nOjQ0ZTc5MDYwN2NjN2I4OWI0ZjU3YjlkMTVlMzNjYmM2LXVzMTY=',
+         'content-type': 'application/json' },
+      body: { email_address: email, status: 'subscribed' },
+      json: true };
+
+    request(options, function (error, response, body) {
+      if (error) throw new Error(error);
+
+      console.log(body);
+      if(body.title == 'Member Exists') {
+        var messages = "Email already subscribed";
+        res.redirect(url.format({
+          pathname:"/error",
+          query: {
+            "error": messages
+          }
+         }));
+      }
+    });
+  })
+
+  router.get('/error', function(req, res, next) {
+    console.log(req.query);
+    res.send({messages: req.query.error});
+  })
 
   router.get('/search', function(req, res, next) {
     var db = req.db;

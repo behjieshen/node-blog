@@ -1,4 +1,16 @@
 $(document).ready(function() {
+  var window_height = $(window).height();
+  var window_width = $(window).width();
+  var margin_top_for_newsletter = (window_height - 206) / 2;
+  $('.login .modal-dialog').css('margin-top', margin_top_for_newsletter);
+  if(window_width < 365) {
+    $('.modal-content').css('padding', '0px');
+    $('.newsletter-email').css('width', '60%');
+  } else {
+    $('.modal-content').css('padding', '0 20px');
+    $('.newsletter-email').css('width', '70%');
+  }
+
   // When search icon is clicked in desktop mode
     var innerWidths = $(window).innerWidth();
     var submitIcon = $(".searchbox-icon");
@@ -67,6 +79,15 @@ $(document).ready(function() {
     $(window).resize(function() {
       var window_height = $(window).height();
       var window_width = $(window).width();
+      var margin_top_for_newsletter = (window_height - 206) / 2;
+      $('.login .modal-dialog').css('margin-top', margin_top_for_newsletter);
+      if(window_width < 365) {
+        $('.modal-content').css('padding', '0px');
+        $('.newsletter-email').css('width', '60%');
+      } else {
+        $('.modal-content').css('padding', '0 20px');
+        $('.newsletter-email').css('width', '70%');
+      }
       var top = window_height / 100 * 46;
       $('.carousel-indicators').css('top', top + 'px');
       var logo_width = ($(window).width() - 60) / 2;  //$(window).width() / 100 * 47.8;
@@ -98,3 +119,73 @@ $(document).ready(function() {
       $(".searchbox-icon").css("display", "block");
     }
   }
+
+/*
+ *
+ * login-register modal
+ * Autor: Creative Tim
+ * Web-autor: creative.tim
+ * Web script: http://creative-tim.com
+ *
+ */
+function showRegisterForm(){
+    $('.loginBox').fadeOut('fast',function(){
+        $('.registerBox').fadeIn('fast');
+        $('.login-footer').fadeOut('fast',function(){
+            $('.register-footer').fadeIn('fast');
+        });
+        $('.modal-title').html('Register with');
+    });
+    $('.error').removeClass('alert alert-danger').html('');
+
+}
+function showLoginForm(){
+    $('#loginModal .registerBox').fadeOut('fast',function(){
+        $('.loginBox').fadeIn('fast');
+        $('.register-footer').fadeOut('fast',function(){
+            $('.login-footer').fadeIn('fast');
+        });
+
+        $('.modal-title').html('Login with');
+    });
+     $('.error').removeClass('alert alert-danger').html('');
+}
+
+function openLoginModal(){
+    showLoginForm();
+    setTimeout(function(){
+        $('#loginModal').modal('show');
+    }, 230);
+
+}
+function openRegisterModal(){
+    showRegisterForm();
+    setTimeout(function(){
+        $('#loginModal').modal('show');
+    }, 230);
+
+}
+
+function loginAjax(){
+    /*   Remove this comments when moving to server
+    $.post( "/login", function( data ) {
+            if(data == 1){
+                window.location.replace("/home");
+            } else {
+                 shakeModal();
+            }
+        });
+    */
+
+/*   Simulate error message from the server   */
+     shakeModal();
+}
+
+function shakeModal(){
+    $('#loginModal .modal-dialog').addClass('shake');
+             $('input[type="password"]').val('');
+             setTimeout( function(){
+                $('#loginModal .modal-dialog').removeClass('shake');
+    }, 1000 );
+}
+

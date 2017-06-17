@@ -20,6 +20,7 @@
     "express-session": "1.15.2",
     "express-validator": "3.1.3",
     "jade": "~1.9.2",
+    "jquery": "^3.2.1",
     "moment": "*2.18.1",
     "mongodb": "2.2.25",
     "mongoose": "*",
@@ -27,8 +28,10 @@
     "morgan": "~1.5.1",
     "multer": "1.3.0",
     "node-libs-browser": "^2.0.0",
-    "serve-favicon": "~2.2.0",
     "passport": "*",
-    "passport-local": "*"
+    "passport-local": "*",
+    "request": "^2.81.0",
+    "serve-favicon": "~2.2.0",
+    "url": "^0.11.0"
   }
 }
