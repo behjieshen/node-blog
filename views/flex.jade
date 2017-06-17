@@ -1,0 +1,137 @@
+doctype html
+html(lang='en')
+  head
+    title Website
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    style(type="text/css").
+      * {
+        padding: 0;
+        margin: 0;
+        color: white;
+      }
+
+      body {
+        margin-top: 100px;
+      }
+
+      .flex-container {
+        padding: 0;
+        max-width: 750px;
+        margin: 0 auto;
+        list-style: none;
+
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+
+        -webkit-flex-flow: row wrap;
+        justify-content: center;
+      }
+
+      .flex-item {
+        flex-grow: 1;
+        width: 250px;
+        height: 300px;
+        border: 1px solid black;
+        line-height: 150px;
+        color: black;
+        font-weight: bold;
+        font-size: 3em;
+        text-align: center;
+        opacity: 1;
+        display: block;
+        transition: .5s ease;
+        backface-visibility: hidden;
+        position: relative;
+
+        background-image: url('http://orig10.deviantart.net/a041/f/2013/064/d/f/avatar_wolverine_adls_by_mdesigninc-d5x239h.png')
+      }
+
+      .flex-item:hover .middle {
+        opacity: 1;
+      }
+
+      .content {
+        width: 100%;
+        padding: 10px 10px 16px 10px;
+        background: linear-gradient(to bottom, rgba(255, 0, 0, 0), black);
+      }
+
+      .row {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      }
+
+      .author, .author-img, .author-name, .time {
+        display:inline;
+      }
+
+      .author-img {
+        padding: 10px 13px;
+        border: 1px solid white;
+        border-radius: 50%;
+        background: red;
+      }
+
+      .author, .author-name, .author-img {
+        float: left;
+      }
+      .time{
+        float: right;
+      }
+
+      .author-name, .time {
+        margin: 10px 0;
+      }
+
+
+
+      h3, h4, h6 {
+        margin: 0;
+      }
+
+      .tags {
+        margin-bottom: 10px;
+      }
+    script(type="text/javascript").
+      $(document).ready(function() {
+        var diff = $('.flex-item').height()-16 - $('.content').height();
+        $('.content').css('margin-top', diff+'px');
+      })
+  body
+    ul.flex-container
+      li.flex-item
+        .content
+          h5.text-left.tags Tags      Tags       Tags
+          h4.text-left.text-justify Title Lorem Ipsum blah blah blah
+          .row(style="margin-top: 7px")
+            .author
+              h6.author-img G
+              h6.author-name &nbsp&nbspTom
+            h6.time 22 hours ago
+      li.flex-item
+        .content
+          h4.text-left.tags Tags      Tags       Tags
+          h3.text-left Title
+          h4.text-left Lorem Ipsum blah blah blah
+      li.flex-item
+        .content
+          h4.text-left.tags Tags      Tags       Tags
+          h3.text-left Title
+          h4.text-left Lorem Ipsum blah blah blah
+      li.flex-item
+        .content
+          h4.text-left.tags Tags      Tags       Tags
+          h3.text-left Title
+          h4.text-left Lorem Ipsum blah blah blah
+      li.flex-item
+        .content
+          h4.text-left.tags Tags      Tags       Tags
+          h3.text-left Title
+          h4.text-left Lorem Ipsum blah blah blah

@@ -9,6 +9,12 @@ $(document).ready(function() {
     $('.modal-content').css('padding', '0 20px');
   }
 
+
+  var diff = $('.flex-item').height() -25 - $('.flex-item .content').height();
+  $('.flex-item .content').css('margin-top', diff+'px');
+
+
+
   // When search icon is clicked in desktop mode
     var innerWidths = $(window).innerWidth();
     var submitIcon = $(".searchbox-icon");

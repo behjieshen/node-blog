@@ -112,6 +112,30 @@ html(lang='en')
       .row.color-transition
       .row.color-transition2
       section.blog
+        h2.recent-post-heading.text-center Featured
+        ul.flex-container(style="margin-top: 140px;")
+          each post, i in posts
+            li.flex-item(style="background-image: url('/images/uploads/#{post.mainimage}')")
+              .content
+                .flex-tags-group
+                  if Array.isArray(post.category)
+                    each tag, i in post.category
+                      each category, j in tags
+                        if category.title == tag
+                          h5.flex-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
+                  else
+                    each category, i in tags
+                      if category.title == post.category
+                        h5.flex-tags(href='/search/#{post.category}' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
+                h4.text-left.text-justify #{post.title}
+                .row(style="margin-top: 7px")
+                  each author, i in authors
+                    if (author.title === post.author)
+                      .author
+                        img.author-img(src='/images/uploads/#{author.image}')
+                        h6.author-name &nbsp&nbsp#{post.author}
+                  h6.time 22 hours ago
+
         h2.recent-post-heading.text-center Most Recent Posts
         .display-style
           h3(style="display: inline-block") Display Type:&nbsp

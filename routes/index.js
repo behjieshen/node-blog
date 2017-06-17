@@ -28,6 +28,10 @@ module.exports = function(router, passport) {
     }
   });
 
+  router.get('/flex', function(req,res,next) {
+    res.render('flex');
+  })
+
 
   router.post('/', function(req, res, next) {
     var email = req.body.email;
