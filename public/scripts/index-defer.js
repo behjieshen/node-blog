@@ -1,4 +1,12 @@
 $(document).ready(function() {
+
+
+  setTimeout(function() {
+    $('.container').addClass('loaded');
+  }, 6000);
+
+
+
   var window_height = $(window).height();
   var window_width = $(window).width();
   var margin_top_for_newsletter = (window_height - 206) / 2;
@@ -10,8 +18,8 @@ $(document).ready(function() {
   }
 
 
-  var diff = $('.flex-item').height() -25 - $('.flex-item .content').height();
-  $('.flex-item .content').css('margin-top', diff+'px');
+  var diff = $('.flex-item').height() -25 - $('.flex-item .upper-layer').height();
+  $('.flex-item .upper-layer').css('margin-top', diff+'px');
 
 
 

@@ -4,6 +4,11 @@
     padding: 0;
   }
 
+  @font-face {
+    font-family: Coolvetica;
+    src: url('../fonts/coolvetica.ttf');
+  }
+
   section {
     -webkit-transition:opacity .6s;
     -moz-transition:opacity .6s;
@@ -1253,9 +1258,8 @@
 
 .flex-item {
   flex-grow: 1;
-  width: 300px;
-  height: 350px;
-  border: 1px solid black;
+  width: 100%;
+  height: 100%;
   line-height: 150px;
   color: black;
   font-weight: bold;
@@ -1318,4 +1322,204 @@ width: 100%;
   padding: 5px 7px;
   margin-right: 6px;
   border-radius: 4px;
+}
+
+.navbar-default {
+
+}
+
+.navbar-default.hidden {
+  transition: transform 3s linear;
+  transform: translateY('-90px');
+}
+
+.bottom-layer {
+  margin-top: 53px;
+}
+
+.upper-layer {
+  position: absolute;
+}
+
+.text {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+.post-overlay {
+  position: relative;
+  top: -250px;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: #008CBA;
+}
+
+.flex-item-link:hover .post-overlay {
+  opacity: 1;
+}
+
+.flex-item-link {
+  height: 250px;
+  width: 100%;
+}
+
+@media screen and (min-width: 900px) {
+  .flex-item-link:nth-child(1), .flex-item-link:nth-child(2),
+  .flex-item-link:nth-child(3) {
+    width: 33.33%;
+  }
+
+  .flex-item-link:nth-child(4), .flex-item-link:nth-child(5) {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: 900px){
+  .flex-item-link {
+    width: 50%;
+  }
+
+  .flex-item-link:nth-last-child(1):nth-child(odd) {
+    width: 100%;
+  }
+}
+
+.search-jumbotron {
+  background: -webkit-radial-gradient(center, ellipse cover, rgba(45,45,45,1) 1%,rgba(0,0,0,1) 100%);
+  width: 100%;
+  height: 500px;
+  margin: 100px auto;
+  position: relative;
+}
+
+.search-jumbotron-text {
+  color: white;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  right: 0;
+  text-align: center;
+}
+
+.search-jumbotron-heading {
+  font-size: 3.2em;
+}
+
+.search-jumbotron-subheading {
+  font-size: 1.5em;
+}
+
+#loader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1201;
+}
+
+#loader {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.loader-section {
+  position: fixed;
+  top: 0;
+  width: 51%;
+  height: 100%;
+  background: #222;
+  z-index: 1200;
+}
+
+.loader-section.section-left {
+  left: 0;
+}
+
+.loader-section.section-right {
+  right: 0;
+}
+
+.loaded .loader-section.section-left {
+  transform: translateX(-100%);
+  transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+}
+
+.loaded .loader-section.section-right {
+  transform: translateX(100%);
+  transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+}
+
+.loaded #loader {
+  opacity: 0;
+  transition: all 0.3s ease-out;
+}
+
+.loaded #loader-wrapper {
+  visibility: hidden;
+
+  transform: translateY(-100%);
+  transition: all 0.3s 1s ease-out;
+}
+
+.svg-final-img {
+  max-width: 50%;
+  max-height: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  opacity: 0;
+  animation-name: show;
+  animation-delay: 6s;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+  z-index: 1202;
+}
+
+.svg-animation {
+  max-width: 50%;
+  max-height: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 1202;
+}
+
+.svg-animation-path {
+    fill-opacity: 0;
+    stroke: white;
+    stroke-width: 5;
+    stroke-dasharray: 3483;
+    stroke-dashoffset: 3483;
+    animation: draw 6s linear;
+  }
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes show {
+  to {
+    opacity: 1;
+  }
 }

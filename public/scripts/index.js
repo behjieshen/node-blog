@@ -19,6 +19,39 @@ $(document).ready(function() {
     }
   })
 
+  var newsletter_popped_up = false;
+  var prev = 0;
+  $(window).scroll(function() {
+    var window_height = $(window).height();
+    var window_width = $(window).width();
+    var amount_scrolled = $(window).scrollTop();
+    if(window_width > 768) {
+      if(amount_scrolled > window_height) {
+        $('.navbar-default').toggleClass('hidden', amount_scrolled > prev);
+        prev = amount_scrolled;
+      }
+      if(amount_scrolled > window_height && newsletter_popped_up == false) {
+        if (! localStorage.noFirstVisit || !localStorage.subscribed) {
+          openLoginModal();
+          localStorage.noFirstVisit = "1";
+          newsletter_popped_up = true;
+        }
+      }
+    } else {
+      if(amount_scrolled > 3 * window_height) {
+        $('.navbar-default').toggleClass('hidden', amount_scrolled > prev);
+        prev = amount_scrolled;
+      }
+      if(amount_scrolled > 3 * window_height && newsletter_popped_up == false) {
+        if (! localStorage.noFirstVisit || !localStorage.subscribed) {
+          openLoginModal();
+          localStorage.noFirstVisit = "1";
+          newsletter_popped_up = true;
+        }
+      }
+    }
+  })
+
   // Scroll Transitions
     var scrolled = false;
     var scrolled2 = false;

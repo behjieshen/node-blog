@@ -10,261 +10,333 @@ html(lang='en')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body(data-spy='scroll')
     .container
-      #loginModal.modal.fade.login
-        .modal-dialog.login.animated
-          .modal-content
-            .modal-header
-              .newsletter-icon-row
-                i.newsletter-icon.fa.fa-envelope
-              .row
-                i.fa.fa-times.close-button(type="button" data-dismiss="modal")
-                h3.newsletter-heading Newsletter
-                h4.newsletter-subheading Join us today to receive updates!
-            .modal-body
-              .box
-                .content
-                  .form.loginBox
-                    form#newsletter(method='post', action='/', accept-charset='UTF-8')
-                      input#newsletter-email.newsletter-email.form-control(type='email', placeholder='Email', name='email' data-toggle="popover" data-content="Example" data-placement="top")
-                      input.newsletter-submit(type="submit", placeholder="Join")
-                    button.error(style="display: none;")
-      section.home
-        #myCarousel.carousel.slide(data-interval='3500', data-ride='carousel')
-          .row.navbar-row
-            nav.navbar.navbar-default.navbar-transparent(role='navigation')
-              .navbar-header
-                button#dropdown.navbar-toggle(type='button', data-toggle='collapse', data-target='#example-navbar-collapse')
-                  span.sr-only Toggle navigation
-                  span.icon-bar
-                  span.icon-bar
-                  span.icon-bar
-                a.page-scroll.navbar-logo(href='.home')
-                  img.navbar-img.first-logo(src='/images/logo3.svg')
-                  img.navbar-img.second-logo.display-logo(src='/images/logo.svg')
-              #example-navbar-collapse.collapse.navbar-collapse(style='width : 100%;')
-                ul.nav.navbar-nav.navbar-right.main-nav
-                  li
-                    a.page-scroll(href='.home') Home
-                  li
-                    a.page-scroll.blog-hyperlink(href='.blog') Blog
-                  li
-                    a.page-scroll(href='.testimonials') About
-                  li
-                    a.page-scroll.blog-hyperlink(href='.blog') Gallery
-                  li
-                    a.page-scroll(href='.form') Contact
-                  li.desktop-mode(style="padding-right: 0")
-                    form.searchbox(action="/" method="GET")
-                      input.searchbox-input(type="search" placeholder="Search......" name="search" onkeyup="buttonUp();" required)
-                      input.searchbox-submit(type="submit" value="Go")
-                      span.searchbox-icon
-                        i.fa.fa-search(aria-hidden="true")
-                  li.mobile-mode(style="padding-right: 0")
-                    .custom-search-input
-                      form.input-group(action="/" method="GET")
-                        input.search-query.form-control(type='search' name="search" placeholder='Search')
-                        input.searchbox-mobile-submit(type="submit" value="Go")
-                        span.input-group-btn
-                          span.glyphicon.glyphicon-search
-          // Indicators
-          ol.carousel-indicators
-            li.active(data-target='#myCarousel', data-slide-to='0')
-              .progress
-                .progress-bar.first-bar(role='progressbar', style='width: 0%')
-            li(data-target='#myCarousel', data-slide-to='1')
-              .progress
-                .progress-bar.middle-bar(role='progressbar', style='width: 0%')
-            li(data-target='#myCarousel', data-slide-to='2')
-              .progress
-                .progress-bar.last-bar(role='progressbar', style='width: 0%')
-          // Wrapper for slides
-          .carousel-inner
-            .item.item1.active
-              .carousel-caption
-                .caption-heading
-                  h1.caption-heading1 FIIN
-                  h1.caption-heading2 TECH
-                p.caption-subheading Writing about
-                p.caption-subheading.last-words-of-heading &nbspFintech
-                .scroll
-                  .icon-scroll
-                  h3.word-scroll Scroll
-            .item.item2
-              .carousel-caption
-                .caption-heading
-                  h1.caption-heading1 IT'S
-                  h1.caption-heading2 &nbspMORE
-                p.caption-subheading Than just a two-word
-                p.caption-subheading.last-words-of-heading &nbspmash-up
-                .scroll
-                  .icon-scroll
-                  h3.word-scroll Scroll
-            .item.item3
-              .carousel-caption
-                .caption-heading
-                  h1.caption-heading1 NEW
-                  h1.caption-heading2 &nbspARTICLE
-                p.caption-subheading Every
-                p.caption-subheading.last-words-of-heading &nbspweek
-                .scroll
-                  .icon-scroll
-                  h3.word-scroll Scroll
-      .row.color-transition
-      .row.color-transition2
-      section.blog
-        h2.recent-post-heading.text-center Featured
-        ul.flex-container(style="margin-top: 140px;")
-          each post, i in posts
-            li.flex-item(style="background-image: url('/images/uploads/#{post.mainimage}')")
-              .content
-                .flex-tags-group
-                  if Array.isArray(post.category)
-                    each tag, i in post.category
-                      each category, j in tags
-                        if category.title == tag
-                          h5.flex-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
-                  else
-                    each category, i in tags
-                      if category.title == post.category
-                        h5.flex-tags(href='/search/#{post.category}' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
-                h4.text-left.text-justify #{post.title}
-                .row(style="margin-top: 7px")
-                  each author, i in authors
-                    if (author.title === post.author)
-                      .author
-                        img.author-img(src='/images/uploads/#{author.image}')
-                        h6.author-name &nbsp&nbsp#{post.author}
-                  h6.time 22 hours ago
-
-        h2.recent-post-heading.text-center Most Recent Posts
-        .display-style
-          h3(style="display: inline-block") Display Type:&nbsp
-          span.display-spread-icon
-            i.fa.fa-th-large.display-icon
-          span.display-list-icon
-            i.fa.fa-list.display-icon
-        if posts
-          .display-spread
-            .row
-              each post, i in posts
-                .col-md-4
-                  .spread
-                    .container
-                      .spread-img
-                        img(src="/images/uploads/#{post.mainimage}" align="center")
-                      .spread-heading
-                        if post.title.length > 49
-                          h3.text-center.spread-title(style="font-size: 24px") #{post.title}
-                        else
-                          h3.text-center.spread-title #{post.title}
-                      .row
-                        .col-xs-8.small-mode.small-mode8
-                          .tags-group
-                            if Array.isArray(post.category)
-                              each tag, i in post.category
-                                each category, j in tags
-                                  if category.title == tag
-                                    a.tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
-                            else
-                              each category, i in tags
-                                if category.title == post.category
-                                  a.tags(href='/search/#{post.category}' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
-                        .col-xs-4.small-mode.small-mode4
-                          .spread-likes
-                            i.fa.fa-heart.spread-likes-icon.text-right
-                            h4.spread-likes-number.text-right &nbsp#{post.likes}
-                      .spread-content
-                        p #{post.description}
-                      .spread-read-more
-                        a.spread-read-more-button(href='/posts/show/#{post._id}') Read More
-                      hr.seperator-line(align="center")
-                      .row
-                        .col-xs-7.small-mode.small-mode7
-                          .spread-author
-                            each author, i in authors
-                              if (author.title === post.author)
-                                a(href="/search/author/#{author.title}")
-                                  img.spread-author-img(src='/images/uploads/#{author.image}')
-                                  h4.spread-author-text.text-left &nbsp&nbsp#{post.author}
-                        .col-xs-5.small-mode.small-mode5
-                          .time
-                            if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
-                              p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
-                            else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 60
-                              p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minutes ago
-                            else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 120
-                              p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
-                            else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours()) < 24
-                              p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hours ago
-                            else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays()) < 2
-                              p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} day ago
-                            else
-                              p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
-                      br
-                      br
-                      br
-                      br
-                  br
-                  br
-                  br
-          .display-list
-            .container
-              each post, i in posts
-                .list-column
-                  .row
-                    .col-xs-4.list-style-image-column
-                      a(href='/posts/show/#{post._id}')
-                        .list-style-img-container
-                          img.list-style-img(src="/images/uploads/#{post.mainimage}" align="right")
-                    .col-xs-8.list-style-content
-                      if post.title.length > 48
-                        a(href='/posts/show/#{post._id}')
-                          h4.list-style-title(style="font-size: 16px") #{post.title}
-                      else
-                        a(href='/posts/show/#{post._id}')
-                          h4.list-style-title #{post.title}
+      #loader-wrapper
+        #loader
+          svg.svg-animation(xmlns="http://www.w3.org/2000/svg" width="6.8in" height="8.8in" viewBox="0 0 612 792")
+            path.svg-animation-path#Selection(fill="none" stroke="white" stroke-width="1" d="M 159.00,85.17\
+               C 159.00,85.17 167.17,78.59 167.17,78.59\
+                 167.17,78.59 174.00,78.00 174.00,78.00\
+                 174.00,78.00 232.00,78.00 232.00,78.00\
+                 232.00,78.00 445.00,78.00 445.00,78.00\
+                 445.00,78.00 419.00,105.00 419.00,105.00\
+                 419.00,105.00 372.00,152.00 372.00,152.00\
+                 372.00,152.00 357.00,167.00 357.00,167.00\
+                 357.00,167.00 348.00,174.40 348.00,174.40\
+                 348.00,174.40 341.00,175.00 341.00,175.00\
+                 341.00,175.00 149.00,175.00 149.00,175.00\
+                 149.00,175.00 149.00,319.00 149.00,319.00\
+                 149.00,319.00 124.00,319.00 124.00,319.00\
+                 124.00,319.00 124.00,150.00 124.00,150.00\
+                 124.00,150.00 323.00,150.00 323.00,150.00\
+                 334.22,149.98 336.28,144.72 344.00,137.00\
+                 344.00,137.00 378.00,103.00 378.00,103.00\
+                 378.00,103.00 142.00,103.00 142.00,103.00\
+                 142.00,103.00 159.00,85.17 159.00,85.17 Z\
+               M 230.00,206.00\
+               C 230.00,206.00 230.00,294.00 230.00,294.00\
+                 230.00,294.00 444.00,294.00 444.00,294.00\
+                 438.26,302.28 420.09,318.85 412.00,326.17\
+                 412.00,326.17 398.00,339.96 398.00,339.96\
+                 398.00,339.96 368.00,368.04 368.00,368.04\
+                 363.22,372.61 348.16,388.51 343.00,390.40\
+                 341.05,391.12 338.10,391.00 336.00,391.00\
+                 336.00,391.00 149.00,391.00 149.00,391.00\
+                 149.00,391.00 149.00,492.00 149.00,492.00\
+                 149.00,492.00 149.00,542.00 149.00,542.00\
+                 149.00,542.00 189.17,501.58 189.17,501.58\
+                 189.17,501.58 204.40,485.00 204.40,485.00\
+                 204.40,485.00 205.00,478.00 205.00,478.00\
+                 205.00,478.00 205.00,421.00 205.00,421.00\
+                 210.71,425.07 216.99,431.04 222.00,436.00\
+                 223.64,437.62 228.00,441.55 228.98,443.28\
+                 230.13,445.31 229.98,447.75 230.00,450.00\
+                 230.00,450.00 230.00,489.00 230.00,489.00\
+                 230.00,491.09 230.12,494.06 229.40,496.00\
+                 227.58,500.96 215.49,511.44 211.28,515.96\
+                 208.88,518.55 205.94,520.59 205.00,524.00\
+                 205.00,524.00 189.00,538.83 189.00,538.83\
+                 189.00,538.83 167.00,559.96 167.00,559.96\
+                 167.00,559.96 147.00,579.00 147.00,579.00\
+                 147.00,579.00 124.00,601.00 124.00,601.00\
+                 124.00,601.00 124.00,368.00 124.00,368.00\
+                 124.00,368.00 216.00,368.00 216.00,368.00\
+                 216.00,368.00 231.00,367.00 231.00,367.00\
+                 231.00,367.00 322.00,367.00 322.00,367.00\
+                 322.00,367.00 329.00,366.40 329.00,366.40\
+                 329.00,366.40 346.00,352.00 346.00,352.00\
+                 346.00,352.00 362.00,336.96 362.00,336.96\
+                 362.00,336.96 381.00,319.00 381.00,319.00\
+                 381.00,319.00 205.00,319.00 205.00,319.00\
+                 205.00,319.00 205.00,206.00 205.00,206.00\
+                 205.00,206.00 230.00,206.00 230.00,206.00 Z")
+          img.svg-final-img(src="/images/logo3.svg")
+        .loader-section.section-left
+        .loader-section.section-right
+      #content
+        #loginModal.modal.fade.login
+          .modal-dialog.login.animated
+            .modal-content
+              .modal-header
+                .newsletter-icon-row
+                  i.newsletter-icon.fa.fa-envelope
+                .row
+                  i.fa.fa-times.close-button(type="button" data-dismiss="modal")
+                  h3.newsletter-heading Newsletter
+                  h4.newsletter-subheading Join us today to receive updates!
+              .modal-body
+                .form.loginBox
+                  form#newsletter(method='post', action='/', accept-charset='UTF-8')
+                    input#newsletter-email.newsletter-email.form-control(type='email', placeholder='Email', name='email' data-toggle="popover" data-content="Example" data-placement="top")
+                    input.newsletter-submit(type="submit", placeholder="Join")
+                  button.error(style="display: none;")
+        section.home
+          #myCarousel.carousel.slide(data-interval='3500', data-ride='carousel')
+            .row.navbar-row
+              nav.navbar.navbar-default.navbar-transparent(role='navigation')
+                .navbar-header
+                  button#dropdown.navbar-toggle(type='button', data-toggle='collapse', data-target='#example-navbar-collapse')
+                    span.sr-only Toggle navigation
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                  a.page-scroll.navbar-logo(href='.home')
+                    img.navbar-img.first-logo(src='/images/logo3.svg')
+                    img.navbar-img.second-logo.display-logo(src='/images/logo.svg')
+                #example-navbar-collapse.collapse.navbar-collapse(style='width : 100%;')
+                  ul.nav.navbar-nav.navbar-right.main-nav
+                    li
+                      a.page-scroll(href='.home') Home
+                    li
+                      a.page-scroll.blog-hyperlink(href='.blog') Blog
+                    li
+                      a.page-scroll(href='.testimonials') About
+                    li
+                      a.page-scroll.blog-hyperlink(href='.blog') Gallery
+                    li
+                      a.page-scroll(href='.form') Contact
+                    li.desktop-mode(style="padding-right: 0")
+                      form.searchbox(action="/" method="GET")
+                        input.searchbox-input(type="search" placeholder="Search......" name="search" onkeyup="buttonUp();" required)
+                        input.searchbox-submit(type="submit" value="Go")
+                        span.searchbox-icon
+                          i.fa.fa-search(aria-hidden="true")
+                    li.mobile-mode(style="padding-right: 0")
+                      .custom-search-input
+                        form.input-group(action="/" method="GET")
+                          input.search-query.form-control(type='search' name="search" placeholder='Search')
+                          input.searchbox-mobile-submit(type="submit" value="Go")
+                          span.input-group-btn
+                            span.glyphicon.glyphicon-search
+            // Indicators
+            ol.carousel-indicators
+              li.active(data-target='#myCarousel', data-slide-to='0')
+                .progress
+                  .progress-bar.first-bar(role='progressbar', style='width: 0%')
+              li(data-target='#myCarousel', data-slide-to='1')
+                .progress
+                  .progress-bar.middle-bar(role='progressbar', style='width: 0%')
+              li(data-target='#myCarousel', data-slide-to='2')
+                .progress
+                  .progress-bar.last-bar(role='progressbar', style='width: 0%')
+            // Wrapper for slides
+            .carousel-inner
+              .item.item1.active
+                .carousel-caption
+                  .caption-heading
+                    h1.caption-heading1 FIIN
+                    h1.caption-heading2 TECH
+                  p.caption-subheading Writing about
+                  p.caption-subheading.last-words-of-heading &nbspFintech
+                  .scroll
+                    .icon-scroll
+                    h3.word-scroll Scroll
+              .item.item2
+                .carousel-caption
+                  .caption-heading
+                    h1.caption-heading1 IT'S
+                    h1.caption-heading2 &nbspMORE
+                  p.caption-subheading Than just a two-word
+                  p.caption-subheading.last-words-of-heading &nbspmash-up
+                  .scroll
+                    .icon-scroll
+                    h3.word-scroll Scroll
+              .item.item3
+                .carousel-caption
+                  .caption-heading
+                    h1.caption-heading1 NEW
+                    h1.caption-heading2 &nbspARTICLE
+                  p.caption-subheading Every
+                  p.caption-subheading.last-words-of-heading &nbspweek
+                  .scroll
+                    .icon-scroll
+                    h3.word-scroll Scroll
+        .row.color-transition
+        .row.color-transition2
+        section.blog
+          // Featured Post
+          h2.recent-post-heading.text-center Featured
+          ul.flex-container(style="margin-top: 140px;")
+            each post, i in posts
+              a.flex-item-link(href="/")
+                li.flex-item.upper(style="background-image: url('/images/uploads/#{post.mainimage}')")
+                  .content.upper-layer
+                    .flex-tags-group
                       if Array.isArray(post.category)
                         each tag, i in post.category
                           each category, j in tags
                             if category.title == tag
-                              a.list-style-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
+                              h5.flex-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
                       else
                         each category, i in tags
                           if category.title == post.category
-                            a.list-style-tags(href='/search/#{post.category}' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
-                      br
-                      br
-                      .row
-                          each author, i in authors
-                            if (author.title === post.author)
-                              a(href="/search/author/#{author.title}")
-                                img.list-style-author-img(src='/images/uploads/#{author.image}')
-                                h4.list-style-text.text-left &nbsp&nbsp#{post.author}
-                      .row
-                        .col-xs-6
-                          .list-style-time
-                            if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
-                              p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
-                            else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 60
-                              p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minutes ago
-                            else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 120
-                              p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
-                            else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours()) < 24
-                              p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hours ago
-                            else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays()) < 2
-                              p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} day ago
-                            else
-                              p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
-                        .col-xs-6
-                          .list-style-likes
-                            i.fa.fa-heart.list-style-likes-icon.text-right
-                            h4.list-style-likes-number.text-right &nbsp#{post.likes}
-          br
-          br
-          br
-          br
-        else
-          p There are no posts to display
+                            h5.flex-tags(href='/search/#{post.category}' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
+                    h4.text-left.text-justify #{post.title}
+                    .row(style="margin-top: 7px")
+                      each author, i in authors
+                        if (author.title === post.author)
+                          .author
+                            img.author-img(src='/images/uploads/#{author.image}')
+                            h6.author-name &nbsp&nbsp#{post.author}
+                      h6.time 22 hours ago
+                .post-overlay
+                  .text #{post.description}
+
+          .search-jumbotron
+            .search-jumbotron-text
+              h2.search-jumbotron-heading Having trouble finding a specific article?
+              h3.search-jumbotron-subheading Perhaps the search button on the navigation bar can help
+
+
+          // Recent Post
+          h2.recent-post-heading.text-center Most Recent Posts
+          .display-style
+            h3(style="display: inline-block") Display Type:&nbsp
+            span.display-spread-icon
+              i.fa.fa-th-large.display-icon
+            span.display-list-icon
+              i.fa.fa-list.display-icon
+          if posts
+            .display-spread
+              .row
+                each post, i in posts
+                  .col-md-4
+                    .spread
+                      .container
+                        .spread-img
+                          img(src="/images/uploads/#{post.mainimage}" align="center")
+                        .spread-heading
+                          if post.title.length > 49
+                            h3.text-center.spread-title(style="font-size: 24px") #{post.title}
+                          else
+                            h3.text-center.spread-title #{post.title}
+                        .row
+                          .col-xs-8.small-mode.small-mode8
+                            .tags-group
+                              if Array.isArray(post.category)
+                                each tag, i in post.category
+                                  each category, j in tags
+                                    if category.title == tag
+                                      a.tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
+                              else
+                                each category, i in tags
+                                  if category.title == post.category
+                                    a.tags(href='/search/#{post.category}' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
+                          .col-xs-4.small-mode.small-mode4
+                            .spread-likes
+                              i.fa.fa-heart.spread-likes-icon.text-right
+                              h4.spread-likes-number.text-right &nbsp#{post.likes}
+                        .spread-content
+                          p #{post.description}
+                        .spread-read-more
+                          a.spread-read-more-button(href='/posts/show/#{post._id}') Read More
+                        hr.seperator-line(align="center")
+                        .row
+                          .col-xs-7.small-mode.small-mode7
+                            .spread-author
+                              each author, i in authors
+                                if (author.title === post.author)
+                                  a(href="/search/author/#{author.title}")
+                                    img.spread-author-img(src='/images/uploads/#{author.image}')
+                                    h4.spread-author-text.text-left &nbsp&nbsp#{post.author}
+                          .col-xs-5.small-mode.small-mode5
+                            .time
+                              if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
+                                p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
+                              else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 60
+                                p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minutes ago
+                              else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 120
+                                p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
+                              else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours()) < 24
+                                p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hours ago
+                              else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays()) < 2
+                                p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} day ago
+                              else
+                                p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
+                        br
+                        br
+                        br
+                        br
+                    br
+                    br
+                    br
+            .display-list
+              .container
+                each post, i in posts
+                  .list-column
+                    .row
+                      .col-xs-4.list-style-image-column
+                        a(href='/posts/show/#{post._id}')
+                          .list-style-img-container
+                            img.list-style-img(src="/images/uploads/#{post.mainimage}" align="right")
+                      .col-xs-8.list-style-content
+                        if post.title.length > 48
+                          a(href='/posts/show/#{post._id}')
+                            h4.list-style-title(style="font-size: 16px") #{post.title}
+                        else
+                          a(href='/posts/show/#{post._id}')
+                            h4.list-style-title #{post.title}
+                        if Array.isArray(post.category)
+                          each tag, i in post.category
+                            each category, j in tags
+                              if category.title == tag
+                                a.list-style-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
+                        else
+                          each category, i in tags
+                            if category.title == post.category
+                              a.list-style-tags(href='/search/#{post.category}' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
+                        br
+                        br
+                        .row
+                            each author, i in authors
+                              if (author.title === post.author)
+                                a(href="/search/author/#{author.title}")
+                                  img.list-style-author-img(src='/images/uploads/#{author.image}')
+                                  h4.list-style-text.text-left &nbsp&nbsp#{post.author}
+                        .row
+                          .col-xs-6
+                            .list-style-time
+                              if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
+                                p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
+                              else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 60
+                                p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minutes ago
+                              else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 120
+                                p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
+                              else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours()) < 24
+                                p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hours ago
+                              else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays()) < 2
+                                p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} day ago
+                              else
+                                p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
+                          .col-xs-6
+                            .list-style-likes
+                              i.fa.fa-heart.list-style-likes-icon.text-right
+                              h4.list-style-likes-number.text-right &nbsp#{post.likes}
+            br
+            br
+            br
+            br
+          else
+            p There are no posts to display
     footer
       .row
         .col-md-4
@@ -280,16 +352,10 @@ html(lang='en')
           a(href="#")
             h4.questions Questions? Contact Us Now
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
-    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js')
     script(src='/scripts/index.js')
     script(src='/scripts/index-defer.js')
     script(type="text/javascript").
-      if (! localStorage.noFirstVisit || !localStorage.subscribed) {
-        openLoginModal();
-        localStorage.noFirstVisit = "1";
-      }
-
       $(function() {
 
         $('#newsletter').on('submit', function(event) {
