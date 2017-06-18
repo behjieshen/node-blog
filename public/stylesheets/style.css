@@ -632,7 +632,7 @@
 
   .recent-post-heading {
     padding-top: 115px;
-    padding-bottom: 30px;
+    padding-bottom: 105px;
     padding-right: 15px;
     padding-left: 15px;
   }
@@ -1237,13 +1237,11 @@
   cursor: pointer;
 }
 
-
-
-
 .flex-container {
   padding: 0;
   max-width: 900px;
   margin: 0 auto;
+  margin-bottom: 230px;
   list-style: none;
 
   display: -webkit-box;
@@ -1395,7 +1393,7 @@ width: 100%;
   background: -webkit-radial-gradient(center, ellipse cover, rgba(45,45,45,1) 1%,rgba(0,0,0,1) 100%);
   width: 100%;
   height: 500px;
-  margin: 100px auto;
+  margin: 0px auto;
   position: relative;
 }
 
@@ -1424,6 +1422,7 @@ width: 100%;
   width: 100%;
   height: 100%;
   z-index: 1201;
+  overflow-y: hidden;
 }
 
 #loader {
@@ -1472,6 +1471,11 @@ width: 100%;
   transition: all 0.3s 1s ease-out;
 }
 
+#content {
+  display: none;
+}
+
+
 .svg-final-img {
   max-width: 50%;
   max-height: 50%;
@@ -1483,7 +1487,7 @@ width: 100%;
   margin: auto;
   opacity: 0;
   animation-name: show;
-  animation-delay: 6s;
+  animation-delay: 5.9s;
   animation-duration: 1s;
   animation-fill-mode: forwards;
   animation-iteration-count: 1;
@@ -1522,4 +1526,15 @@ width: 100%;
   to {
     opacity: 1;
   }
+}
+
+.search-jumbotron-link {
+  background: #Eb7c10;
+  border: none;
+  padding: 11px 20px;
+  color: white;
+  font-weight: bold;
+  font-size: 1.3em;
+  border-radius: 22px;
+  margin-top: 10px;
 }

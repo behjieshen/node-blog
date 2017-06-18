@@ -175,7 +175,7 @@ html(lang='en')
         section.blog
           // Featured Post
           h2.recent-post-heading.text-center Featured
-          ul.flex-container(style="margin-top: 140px;")
+          ul.flex-container
             each post, i in posts
               a.flex-item-link(href="/")
                 li.flex-item.upper(style="background-image: url('/images/uploads/#{post.mainimage}')")
@@ -204,7 +204,8 @@ html(lang='en')
           .search-jumbotron
             .search-jumbotron-text
               h2.search-jumbotron-heading Having trouble finding a specific article?
-              h3.search-jumbotron-subheading Perhaps the search button on the navigation bar can help
+              h3.search-jumbotron-subheading Perhaps the search button on the navigation bar or the link below can help
+              button.search-jumbotron-link Click Here
 
 
           // Recent Post
@@ -352,6 +353,7 @@ html(lang='en')
           a(href="#")
             h4.questions Questions? Contact Us Now
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
     script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js')
     script(src='/scripts/index.js')
     script(src='/scripts/index-defer.js')
