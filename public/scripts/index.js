@@ -27,9 +27,6 @@ $(document).ready(function() {
         newsletter_popped_up = promptNewsletter();
       }
     } else {
-      if(amount_scrolled > window_height) {
-        prev = toggleNavbarOnScroll(amount_scrolled, prev);
-      }
       if(amount_scrolled > window_height && newsletter_popped_up == false) {
         newsletter_popped_up = promptNewsletter();
       }
