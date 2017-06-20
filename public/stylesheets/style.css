@@ -1317,18 +1317,24 @@ width: 100%;
 .author, .author-name, .author-img {
   float: left;
 }
-.time{
-  float: right;
+
+.author-name {
+  margin: 5px 0 0 0;
 }
 
-.author-name, .time {
-  margin: 16px 0;
+.timing {
+  margin: 7px 0 0 0;
 }
 
 .flex-tags-group {
   width: 100%;
   height: 37px;
+}
 
+@media screen and (max-width: 450px) {
+  .flex-tags-group {
+    display: none;
+  }
 }
 
 .flex-tags {
@@ -1354,6 +1360,11 @@ width: 100%;
 
 .upper-layer {
   position: absolute;
+  bottom: 0;
+}
+
+.timing {
+  float: left;
 }
 
 .text {
@@ -1596,12 +1607,27 @@ width: 100%;
 
 .flex-spread {
   margin-bottom: 88px;
+  width: 100%;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  justify-content: center;
+  list-style: none;
+  margin: 0 auto;
+  max-width: 900px;
+  background: white;
+}
+
+.flex-spread-heading {
+  width: 90%;
+  margin: 0 auto;
 }
 
 .flex-spread-item {
   width: 50%;
-  height: 505px;
-  box-shadow: 0 16px 24px 2px rgba(0,0,0,.14), 0 -10px 30px 5px rgba(0,0,0,.12), 0 8px 10px -5px rgba(0,0,0,.2);
+  padding: 0px 0px 20px 0px;
+  border-right: 1px solid #9d9d9d;
+  border-bottom: 1px solid #9d9d9d;
+  margin-top: 1px;
 }
 
 .flex-spread-img {
@@ -1611,6 +1637,33 @@ width: 100%;
 
 .flex-spread-img img {
   width: 100%;
+  height: 150px;
+}
+
+.flex-spread-content {
+  width: 90%;
+  margin: 0 auto;
+  height: 130px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+@media screen and (min-width: 700px) {
+  .flex-spread-img img {
+    height: 220px;
+  }
+}
+
+@media screen and (min-width: 700px) and (max-width: 900px) {
+  .flex-spread-content {
+    height: 90px;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .flex-spread-content {
+    height: 65px;
+  }
 }
 
 .tags-likes-row {
@@ -1621,6 +1674,12 @@ width: 100%;
 
 .flex-spread-tags-group {
   text-align: center;
+}
+
+@media screen and (max-width: 370px) {
+  .flex-spread-tags-group {
+    display: none;
+  }
 }
 
 .flex-spread-tags {
@@ -1653,11 +1712,6 @@ width: 100%;
   display: inline-block;
 }
 
-.flex-spread-content {
-  width: 90%;
-  margin: 0 auto;
-}
-
 .flex-spread-content p {
   color: black;
 }
@@ -1678,11 +1732,20 @@ width: 100%;
 .flex-spread-time-text {
   color: black;
   margin-bottom: 0;
-  float: right;
+  float: left;
+  margin-top: 5px;
 }
 
 .time-likes-row {
   width: 90%;
   margin: 0 auto;
   margin-top: 10px;
+}
+
+.flex-spread-item:nth-last-child(1):nth-child(odd) {
+  margin-right: 50%;
+}
+
+.flex-spread-item:nth-child(odd) {
+  border-left: 1px solid #9d9d9d;
 }

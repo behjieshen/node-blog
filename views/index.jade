@@ -111,8 +111,6 @@ html(lang='en')
                     li
                       a.page-scroll(href='.testimonials') About
                     li
-                      a.page-scroll.blog-hyperlink(href='.blog') Gallery
-                    li
                       a.page-scroll(href='.form') Contact
                     li.desktop-mode(style="padding-right: 0")
                       form.searchbox(action="/" method="GET")
@@ -196,8 +194,9 @@ html(lang='en')
                         if (author.title === post.author)
                           .author
                             img.author-img(src='/images/uploads/#{author.image}')
-                            h6.author-name &nbsp&nbsp#{post.author}
-                          h6.time 22 hours ago
+                            .wording
+                              h6.author-name &nbsp&nbsp#{post.author}
+                              h6.timing &nbsp&nbsp22 hours ago
                 .post-overlay
                   .text #{post.description}
 
@@ -218,140 +217,50 @@ html(lang='en')
           if posts
             .display-spread
               ul.flex-spread
-                li.flex-spread-item
-                  .container
-                    .flex-spread-img
-                      img(src="/images/pic1.jpg" align="center")
-                    .flex-spread-heading
-                      h3.text-center.flex-spread-title Importance of exercising
-                    .row.tags-likes-row
-                        .flex-spread-tags-group
-                          a.flex-spread-tags Blah
-                          a.flex-spread-tags Motivational
-                          a.flex-spread-tags Inspiring
-                    .flex-spread-content
-                      p There was once a boy that live in the woods, but a monster ate him in the end
-                    .row.author-time-row
-                      .flex-spread-author
-                        img.flex-spread-author-img(src="/images/davy_jones.jpg")
-                        h4.flex-spread-text.text-left &nbsp&nbsp Davy Jones
-                    .row.time-likes-row
-                      .col-xs-7
-                        p.flex-spread-time-text 59 minutes ago
-                      .col-xs-5
-                        .flex-spread-likes
-                          i.fa.fa-heart.flex-spread-likes-icon.text-right
-                          h4.flex-spread-likes-number.text-right &nbsp50
-                li.flex-spread-item
-                  .container
-                    .flex-spread-img
-                      img(src="/images/pic1.jpg" align="center")
-                    .flex-spread-heading
-                      h3.text-center.flex-spread-title Importance of exercising
-                    .row.tags-likes-row
-                        .flex-spread-tags-group
-                          a.flex-spread-tags Blah
-                          a.flex-spread-tags Motivational
-                          a.flex-spread-tags Inspiring
-                    .flex-spread-content
-                      p There was once a boy that live in the woods, but a monster ate him in the end
-                    .row.author-time-row
-                      .flex-spread-author
-                        img.flex-spread-author-img(src="/images/davy_jones.jpg")
-                        h4.flex-spread-text.text-left &nbsp&nbsp Davy Jones
-                    .row.time-likes-row
-                      .col-xs-7
-                        p.flex-spread-time-text 59 minutes ago
-                      .col-xs-5
-                        .flex-spread-likes
-                          i.fa.fa-heart.flex-spread-likes-icon.text-right
-                          h4.flex-spread-likes-number.text-right &nbsp50
-                li.flex-spread-item
-                  .container
-                    .flex-spread-img
-                      img(src="/images/pic1.jpg" align="center")
-                    .flex-spread-heading
-                      h3.text-center.flex-spread-title Importance of exercising
-                    .row.tags-likes-row
-                        .flex-spread-tags-group
-                          a.flex-spread-tags Blah
-                          a.flex-spread-tags Motivational
-                          a.flex-spread-tags Inspiring
-                    .flex-spread-content
-                      p There was once a boy that live in the woods, but a monster ate him in the end
-                    .row.author-time-row
-                      .flex-spread-author
-                        img.flex-spread-author-img(src="/images/davy_jones.jpg")
-                        h4.flex-spread-text.text-left &nbsp&nbsp Davy Jones
-                    .row.time-likes-row
-                      .col-xs-7
-                        p.flex-spread-time-text 59 minutes ago
-                      .col-xs-5
-                        .flex-spread-likes
-                          i.fa.fa-heart.flex-spread-likes-icon.text-right
-                          h4.flex-spread-likes-number.text-right &nbsp50
-              .row
                 each post, i in posts
-                  .col-md-6
-                    .spread
-                      .container
-                        .spread-img
-                          img(src="/images/uploads/#{post.mainimage}" align="center")
-                        .spread-heading
-                          if post.title.length > 49
-                            h3.text-center.spread-title(style="font-size: 24px") #{post.title}
+                  li.flex-spread-item
+                    .container
+                      .flex-spread-img
+                        img(src="/images/uploads/#{post.mainimage}" align="center")
+                      .flex-spread-heading
+                        h4.text-center.flex-spread-title #{post.title}
+                      .row.tags-likes-row
+                        .flex-spread-tags-group
+                          if Array.isArray(post.category)
+                            each tag, i in post.category
+                              each category, j in tags
+                                if category.title == tag
+                                  a.flex-spread-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
                           else
-                            h3.text-center.spread-title #{post.title}
-                        .row
-                          .col-xs-8.small-mode.small-mode8
-                            .tags-group
-                              if Array.isArray(post.category)
-                                each tag, i in post.category
-                                  each category, j in tags
-                                    if category.title == tag
-                                      a.tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
-                              else
-                                each category, i in tags
-                                  if category.title == post.category
-                                    a.tags(href='/search/#{post.category}' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
-                          .col-xs-4.small-mode.small-mode4
-                            .spread-likes
-                              i.fa.fa-heart.spread-likes-icon.text-right
-                              h4.spread-likes-number.text-right &nbsp#{post.likes}
-                        .spread-content
-                          p #{post.description}
-                        .spread-read-more
-                          a.spread-read-more-button(href='/posts/show/#{post._id}') Read More
-                        hr.seperator-line(align="center")
-                        .row
-                          .col-xs-7.small-mode.small-mode7
-                            .spread-author
-                              each author, i in authors
-                                if (author.title === post.author)
-                                  a(href="/search/author/#{author.title}")
-                                    img.spread-author-img(src='/images/uploads/#{author.image}')
-                                    h4.spread-author-text.text-left &nbsp&nbsp#{post.author}
-                          .col-xs-5.small-mode.small-mode5
-                            .time
-                              if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
-                                p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
-                              else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 60
-                                p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minutes ago
-                              else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 120
-                                p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
-                              else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours()) < 24
-                                p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hours ago
-                              else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays()) < 2
-                                p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} day ago
-                              else
-                                p.time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
-                        br
-                        br
-                        br
-                        br
-                    br
-                    br
-                    br
+                            each category, i in tags
+                              if category.title == post.category
+                                a.flex-spread-tags(href='/search/#{post.category}' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
+                      .flex-spread-content
+                        p #{post.description}
+                      .row.author-time-row
+                        .flex-spread-author
+                          each author, i in authors
+                            if (author.title === post.author)
+                              img.flex-spread-author-img(src='/images/uploads/#{author.image}')
+                              h4.flex-spread-text.text-left &nbsp&nbsp#{post.author}
+                      .row.time-likes-row
+                        .col-xs-7
+                          if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
+                            p.flex-spread-time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
+                          else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 60
+                            p.flex-spread-time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minutes ago
+                          else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 120
+                            p.flex-spread-time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
+                          else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours()) < 24
+                            p.flex-spread-time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hours ago
+                          else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays()) < 2
+                            p.flex-spread-time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} day ago
+                          else
+                            p.flex-spread-time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
+                        .col-xs-5
+                          .flex-spread-likes
+                            i.fa.fa-heart.flex-spread-likes-icon.text-right
+                            h4.flex-spread-likes-number.text-right &nbsp#{post.likes}
             .display-list
               .container
                 each post, i in posts

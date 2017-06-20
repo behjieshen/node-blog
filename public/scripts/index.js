@@ -4,6 +4,7 @@ setTimeout(function() {
 }, 7000);
 
 $(document).ready(function() {
+  var flex_spread_item_height = $('.flex-spread-item').height() + 15 + 'px';
 
   // Go to top when refreshed
     $(window).on('beforeunload', function() {
@@ -20,7 +21,7 @@ $(document).ready(function() {
   $(window).scroll(function() {
     var amount_scrolled = $(window).scrollTop();
     if(window_width > 768) {
-      if(amount_scrolled > 3 * window_height) {
+      if(amount_scrolled > (3 * window_height)) {
         prev = toggleNavbarOnScroll(amount_scrolled, prev);
       }
       if(amount_scrolled > 3 * window_height && newsletter_popped_up == false) {
@@ -43,7 +44,7 @@ $(document).ready(function() {
     }
 
 
-  var diff = $('.flex-item').height() - 23 - $('.flex-item .upper-layer').height();
+  var diff = $('.flex-item').height() - 45 - $('.upper-layer').height();
   $('.flex-item .upper-layer').css('margin-top', diff+'px');
 
 
@@ -181,7 +182,7 @@ $(document).ready(function() {
             }
           }
         } else {
-          if( $(this).scrollTop() >= 3 * $(window).height() ) {
+          if( $(this).scrollTop() >= (3 * $(window).height()) + 5 ) {
             if(transparent) {
               transparent = false;
               showNavbar();
