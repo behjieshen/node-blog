@@ -271,7 +271,7 @@ module.exports = function(router, passport) {
         filename = 'noimage.png';
       }
 
-      //title = title.replace(/ /g, "-");
+      title = title.replace(/ /g, "-");
 
       posts.insert({
         "title": title,

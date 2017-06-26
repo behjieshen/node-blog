@@ -73,10 +73,10 @@ html(lang='en')
         .loader-section.section-left
         .loader-section.section-right
       #content
-        #loginModal.modal.fade.login
-          .modal-dialog.login.animated
-            .modal-content
-              .modal-header
+        #newsletterModal.modal.fade.newsletter
+          .newsletter-modal-dialog.newsletter.animated
+            .newsletter-modal-content
+              .newsletter-modal-header
                 .newsletter-icon-row
                   i.newsletter-icon.fa.fa-envelope
                 .row
@@ -84,7 +84,7 @@ html(lang='en')
                   h3.newsletter-heading Newsletter
                   h4.newsletter-subheading Join us today to receive updates!
               .modal-body
-                .form.loginBox
+                .form.newsletterBox
                   form#newsletter(method='post', action='/', accept-charset='UTF-8')
                     input#newsletter-email.newsletter-email.form-control(type='email', placeholder='Email', name='email' data-toggle="popover" data-content="Example" data-placement="top")
                     input.newsletter-submit(type="submit", placeholder="Join")
@@ -173,110 +173,101 @@ html(lang='en')
         section.blog
           // Featured Post
           h2.recent-post-heading.text-center Featured
-          ul.flex-container
+          ul.featured-container
             each post, i in posts
-              a.flex-item-link(href="/")
-                li.flex-item.upper(style="background-image: url('/images/uploads/#{post.mainimage}')")
-                  .content.upper-layer
-                    .flex-tags-group
-                      if Array.isArray(post.category)
-                        each tag, i in post.category
-                          each category, j in tags
-                            if category.title == tag
-                              h5.flex-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
-                      else
-                        each category, i in tags
-                          if category.title == post.category
-                            h5.flex-tags(href='/search/#{post.category}' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
-                    h4.text-left.text-justify #{post.title}
-                    .row(style="margin-top: 7px")
-                      each author, i in authors
-                        if (author.title === post.author)
-                          .author
-                            img.author-img(src='/images/uploads/#{author.image}')
-                            .wording
-                              h6.author-name &nbsp&nbsp#{post.author}
-                              h6.timing &nbsp&nbsp22 hours ago
-                .post-overlay
-                  .text #{post.description}
-
-          .search-jumbotron
-            .search-jumbotron-text
-              h2.search-jumbotron-heading Having trouble finding a specific article?
-              h3.search-jumbotron-subheading Perhaps the search button on the navigation bar or the link below can help
-              button.search-jumbotron-link Click Here
-
-          // Recent Post
-          h2.recent-post-heading.text-center Most Recent Posts
-          .display-style
-            h3(style="display: inline-block") Display Type:&nbsp
-            span.display-spread-icon
-              i.fa.fa-th-large.display-icon
-            span.display-list-icon
-              i.fa.fa-list.display-icon
-          if posts
-            .display-spread
-              ul.flex-spread
-                each post, i in posts
-                  li.flex-spread-item
-                    .container
-                      .flex-spread-img
-                        img(src="/images/uploads/#{post.mainimage}" align="center")
-                      .flex-spread-heading
-                        h4.text-center.flex-spread-title #{post.title}
-                      .row.tags-likes-row
-                        .flex-spread-tags-group
+              if (i == 0 || (posts.length % 2 == 0 && i == posts.length - 1))
+                a.featured-item-link
+                  li.featured-item(style="background-image: url('/images/uploads/#{post.mainimage}')")
+                    .featured-item-content
+                      .featured-tags-group
+                        if Array.isArray(post.category)
+                          each tag, i in post.category
+                            each category, j in tags
+                              if category.title == tag
+                                h5.featured-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
+                        else
+                          each category, i in tags
+                            if category.title == post.category
+                              h5.featured-tags(href='/search/#{post.category}' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
+                      h2.text-left.text-justify #{post.title}
+                      .row(style="margin-top: 7px")
+                        .col-xs-9
+                          each author, i in authors
+                            if (author.title === post.author)
+                              .featured-author
+                                img.featured-author-img(src='/images/uploads/#{author.image}')
+                                .wording
+                                  h6.featured-author-name &nbsp&nbsp#{post.author}
+                                  h6.featured-time &nbsp&nbsp22 hours ago
+                        .col-xs-3
+                          .featured-likes
+                            i.fa.fa-heart.featured-likes-icon.text-right
+                            h4.featured-likes-number.text-right &nbsp#{post.likes}
+              else
+                li.featured-card-item
+                  .container
+                    .featured-card-img
+                      img(src="/images/uploads/#{post.mainimage}" align="center")
+                      .featured-card-likes
+                        i.fa.fa-heart.featured-card-likes-icon.text-left
+                        h4.featured-card-likes-number.text-left &nbsp#{post.likes}
+                    .featured-card-content
+                      .row.featured-card-tags-row
+                        .featured-card-tags-group
                           if Array.isArray(post.category)
                             each tag, i in post.category
                               each category, j in tags
                                 if category.title == tag
-                                  a.flex-spread-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
+                                  a.featured-card-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
                           else
                             each category, i in tags
                               if category.title == post.category
-                                a.flex-spread-tags(href='/search/#{post.category}' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
-                      .flex-spread-content
-                        p #{post.description}
-                      .row.author-time-row
-                        .flex-spread-author
-                          each author, i in authors
-                            if (author.title === post.author)
-                              img.flex-spread-author-img(src='/images/uploads/#{author.image}')
-                              h4.flex-spread-text.text-left &nbsp&nbsp#{post.author}
-                      .row.time-likes-row
-                        .col-xs-7
-                          if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
-                            p.flex-spread-time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
-                          else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 60
-                            p.flex-spread-time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minutes ago
-                          else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 120
-                            p.flex-spread-time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
-                          else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours()) < 24
-                            p.flex-spread-time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hours ago
-                          else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays()) < 2
-                            p.flex-spread-time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} day ago
-                          else
-                            p.flex-spread-time-text #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
-                        .col-xs-5
-                          .flex-spread-likes
-                            i.fa.fa-heart.flex-spread-likes-icon.text-right
-                            h4.flex-spread-likes-number.text-right &nbsp#{post.likes}
+                                a.featured-card-tags(href='/search/#{post.category}' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
+                      .featured-card-heading
+                        h2.text-left.featured-card-title #{post.title}
+                      .row
+                        each author, i in authors
+                          if (author.title === post.author)
+                            .featured-card-author
+                              img.featured-card-author-img(src='/images/uploads/#{author.image}')
+                              .featured-card-wording
+                                h6.featured-card-author-name(style="font-size: 16px;") &nbsp&nbsp#{post.author}
+                                if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
+                                  h6.featured-card-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
+                                else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 60
+                                  h6.featured-card-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minutes ago
+                                else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 120
+                                  h6.featured-card-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
+                                else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours()) < 24
+                                  h6.featured-card-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hours ago
+                                else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays()) < 2
+                                  h6.featured-card-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} day ago
+                                else
+                                  h6.featured-card-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
+          .load-more
+            a.load-more-button Load More
+
+
+          .search-jumbotron
+            .search-jumbotron-text
+              h2.search-jumbotron-heading Finding a specific article?
+              h3.search-jumbotron-subheading Perhaps the link below can help
+              button.search-jumbotron-link Click Here
+
+          // Recent Post
+          h2.recent-post-heading.text-center Most Recent Posts
+          if posts
             .display-list
               .container
                 each post, i in posts
-                  .list-column
+                  .list-style-column
                     .row
                       .col-xs-4.list-style-image-column
                         a(href='/posts/show/#{post._id}')
                           .list-style-img-container
                             img.list-style-img(src="/images/uploads/#{post.mainimage}" align="right")
                       .col-xs-8.list-style-content
-                        if post.title.length > 48
-                          a(href='/posts/show/#{post._id}')
-                            h4.list-style-title(style="font-size: 16px") #{post.title}
-                        else
-                          a(href='/posts/show/#{post._id}')
-                            h4.list-style-title #{post.title}
+                        h4.list-style-title #{post.title}
                         if Array.isArray(post.category)
                           each tag, i in post.category
                             each category, j in tags
@@ -286,29 +277,28 @@ html(lang='en')
                           each category, i in tags
                             if category.title == post.category
                               a.list-style-tags(href='/search/#{post.category}' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
-                        .row(style="margin-top: 10px")
+                        .row
+                          .col-xs-9
                             each author, i in authors
                               if (author.title === post.author)
-                                a(href="/search/author/#{author.title}")
+                                .list-style-author
                                   img.list-style-author-img(src='/images/uploads/#{author.image}')
-                                  h4.list-style-text.text-left &nbsp&nbsp#{post.author}
-                        .row
-                          .col-xs-6
-                            .list-style-time
-                              if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
-                                p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
-                              else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 60
-                                p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minutes ago
-                              else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 120
-                                p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
-                              else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours()) < 24
-                                p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hours ago
-                              else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays()) < 2
-                                p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} day ago
-                              else
-                                p.list-style-time-wording #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
-                          .col-xs-6
-                            .list-style-likes
+                                  .wording
+                                    h6.list-style-author-name(style="font-size: 16px;") &nbsp&nbsp#{post.author}
+                                    if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
+                                      h6.list-style-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
+                                    else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 60
+                                      h6.list-style-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minutes ago
+                                    else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 120
+                                      h6.list-style-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
+                                    else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours()) < 24
+                                      h6.list-style-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hours ago
+                                    else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays()) < 2
+                                      h6.list-style-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} day ago
+                                    else
+                                      h6.list-style-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
+                          .col-xs-3(style="margin-top: 10px;")
+                            .list-style-likes(style="margin-top: 0")
                               i.fa.fa-heart.list-style-likes-icon.text-right
                               h4.list-style-likes-number.text-right &nbsp#{post.likes}
             br
@@ -320,8 +310,35 @@ html(lang='en')
 
           .about-jumbotron
             .about-jumbotron-text
-              h2.about-jumbotron-heading Curious to find out who we are?
+              h2.about-jumbotron-heading Curious to find out about us?
               button.about-jumbotron-link Find out more
+
+          h2.recent-post-heading.text-center Tags
+          ul.tags-section-container
+            each tag, i in tags
+              li.tags-section-row
+                h3.tags-section-tags(style="background: #{tag.color}; border-color: #{tag.color}") #{tag.title}
+
+          h2.recent-post-heading.text-center Authors
+          each author, i in authors
+            .author-section-container
+              .author-section-scenery-image-container
+                img(src="/images/sea.jpg")
+              .author-section-content
+                .author-section-image-container
+                  img(src="/images/uploads/#{author.image}")
+                .author-section-words-container
+                  h3.author-section-name-title #{author.title}
+                  h6.author-section-description #{author.body}
+                .author-section-social-medias
+                  i.fa.fa-twitter.author-section-social-media.social-twitter
+                  i.fa.fa-instagram.author-section-social-media.social-instagram
+                  i.fa.fa-linkedin.author-section-social-media.social-linkedin
+              h3.author-section-view View Articles
+
+
+
+
     footer
       .row
         .col-md-4
@@ -340,7 +357,6 @@ html(lang='en')
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
     script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js')
     script(src='/scripts/index.js')
-    script(src='/scripts/index-defer.js')
     script(type="text/javascript").
       $(function() {
 

@@ -38,7 +38,7 @@ block content
     script
       | CKEDITOR.replace('body');
     script.
-      var limit = 3;
+      var limit = 2;
       $('.test').on('change', function(evt) {
          if($(this).siblings(':checked').length >= limit) {
              this.checked = false;

@@ -2,6 +2,8 @@ module.exports = function(router, passport) {
 
   var db = require('monk')('bot:1234@ds161001.mlab.com:61001/fiintech');
   var request = require("request");
+  var querystring = require("query-string");
+
 
   // Home page blog post
   router.get('/', function(req, res, next) {
@@ -27,10 +29,6 @@ module.exports = function(router, passport) {
       })
     }
   });
-
-  router.get('/flex', function(req,res,next) {
-    res.render('flex');
-  })
 
 
   router.post('/', function(req, res, next) {
@@ -272,12 +270,58 @@ module.exports = function(router, passport) {
       authors.find({}, {}, function(err, authors) {
         tags.find({}, {}, function(err, tags) {
           otherposts.find({"_id": { $ne: id} }, { limit: 3, sort: {$natural:-1} }, function(err, otherpost) {
-            console.log(authors);
             res.render('show', {
               "post": post,
               "authors": authors,
               "tags": tags,
               "otherpost": otherpost
+            });
+          })
+        })
+      })
+    });
+  });
+
+  router.get('/:id', function(req, res, next) {
+    var db = req.db;
+    var id = req.params.id;
+    var posts = db.get('posts');
+    var authors = db.get('authors');
+    var otherposts = db.get('posts');
+    var tags = db.get('categories');
+    posts.findById(req.params.id, function(err, post) {
+      authors.find({}, {}, function(err, authors) {
+        tags.find({}, {}, function(err, tags) {
+          otherposts.find({"_id": { $ne: id} }, { limit: 3, sort: {$natural:-1} }, function(err, otherposts) {
+            res.render('showing', {
+              "post": post,
+              "authors": authors,
+              "tags": tags,
+              "otherposts": otherposts
+            });
+          })
+        })
+      })
+    });
+  });
+
+  router.get('/:date/:title', function(req, res, next) {
+    var db = req.db;
+    var title = req.params.title.replace(/-/g, ' ');
+    var posts = db.get('posts');
+    var authors = db.get('authors');
+    var otherposts = db.get('posts');
+    var tags = db.get('categories');
+    posts.find({title: title}, {}, function(err, post) {
+      authors.find({}, {}, function(err, authors) {
+        tags.find({}, {}, function(err, tags) {
+          otherposts.find({}, { limit: 3, sort: {$natural:-1} }, function(err, otherposts) {
+            console.log(post);
+            res.render('showing', {
+              "post": post,
+              "authors": authors,
+              "tags": tags,
+              "otherposts": otherposts
             });
           })
         })

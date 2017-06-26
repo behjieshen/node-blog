@@ -12,6 +12,7 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var multer = require('multer');
 var flash = require('connect-flash');
+var querystring = require('query-string');
 var MongoStore = require('connect-mongo')(session);
 
 var configDB = require('./config/database.js');
