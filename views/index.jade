@@ -4,7 +4,7 @@ html(lang='en')
     title Website
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Quicksand|Lato|Muli')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Quicksand|Lato|Muli|Merriweather:300,400')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
@@ -77,17 +77,28 @@ html(lang='en')
           .newsletter-modal-dialog.newsletter.animated
             .newsletter-modal-content
               .newsletter-modal-header
-                .newsletter-icon-row
-                  i.newsletter-icon.fa.fa-envelope
                 .row
-                  i.fa.fa-times.close-button(type="button" data-dismiss="modal")
-                  h3.newsletter-heading Newsletter
-                  h4.newsletter-subheading Join us today to receive updates!
+                  a.close-button(type="button" data-dismiss="modal")
+                    span.close-button-stroke
+                    span.close-button-stroke
+                  .newsletter-heading-group
+                    h3.newsletter-heading Never&nbsp
+                    h3.newsletter-heading.newsletter-orange-heading boring.
+                  .newsletter-heading-group
+                    h3.newsletter-heading Always&nbsp
+                    h3.newsletter-heading.newsletter-orange-heading awesome.
+                  h4.newsletter-subheading Get today's new stories delivered
+                  h4.newsletter-subheading(style="margin-top: 0;") straight to your inbox.
+                  .newsletter-error
+                    i.fa.fa-times.newsletter-error-icon
+                    h6.newsletter-error-message
               .modal-body
                 .form.newsletterBox
                   form#newsletter(method='post', action='/', accept-charset='UTF-8')
                     input#newsletter-email.newsletter-email.form-control(type='email', placeholder='Email', name='email' data-toggle="popover" data-content="Example" data-placement="top")
                     input.newsletter-submit(type="submit", placeholder="Join")
+                    input#newsletter-checkbox(type="checkbox" value="I dont mind" name="newsletter-checkbox" autocomplete="on")
+                    label.newsletter-checkbox(for="newsletter-checkbox" autocomplete="on") Yes! Sign me up for Fiintech stories newsletter.
                   button.error(style="display: none;")
         section.home
           #myCarousel.carousel.slide(data-interval='3500', data-ride='carousel')
@@ -174,76 +185,88 @@ html(lang='en')
           // Featured Post
           h2.recent-post-heading.text-center Featured
           ul.featured-container
-            each post, i in posts
-              if (i == 0 || (posts.length % 2 == 0 && i == posts.length - 1))
-                a.featured-item-link
-                  li.featured-item(style="background-image: url('/images/uploads/#{post.mainimage}')")
-                    .featured-item-content
-                      .featured-tags-group
-                        if Array.isArray(post.category)
-                          each tag, i in post.category
-                            each category, j in tags
-                              if category.title == tag
-                                h5.featured-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
-                        else
-                          each category, i in tags
-                            if category.title == post.category
-                              h5.featured-tags(href='/search/#{post.category}' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
-                      h2.text-left.text-justify #{post.title}
-                      .row(style="margin-top: 7px")
-                        .col-xs-9
-                          each author, i in authors
-                            if (author.title === post.author)
-                              .featured-author
-                                img.featured-author-img(src='/images/uploads/#{author.image}')
-                                .wording
-                                  h6.featured-author-name &nbsp&nbsp#{post.author}
-                                  h6.featured-time &nbsp&nbsp22 hours ago
-                        .col-xs-3
-                          .featured-likes
-                            i.fa.fa-heart.featured-likes-icon.text-right
-                            h4.featured-likes-number.text-right &nbsp#{post.likes}
-              else
-                li.featured-card-item
-                  .container
-                    .featured-card-img
-                      img(src="/images/uploads/#{post.mainimage}" align="center")
-                      .featured-card-likes
-                        i.fa.fa-heart.featured-card-likes-icon.text-left
-                        h4.featured-card-likes-number.text-left &nbsp#{post.likes}
-                    .featured-card-content
-                      .row.featured-card-tags-row
-                        .featured-card-tags-group
-                          if Array.isArray(post.category)
-                            each tag, i in post.category
-                              each category, j in tags
+            - for (var i = 0; i < 8; i++)
+                if (i == 0 || i == 7)
+                  a.featured-item-link(href="/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
+                    li.featured-item(style="background-image: url('/images/uploads/#{posts[i].mainimage}')")
+                      .featured-item-content
+                        .featured-tags-group
+                          if Array.isArray(posts[i].category)
+                            each tag, j in posts[i].category
+                              each category, k in tags
                                 if category.title == tag
-                                  a.featured-card-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
+                                  h5.featured-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
                           else
                             each category, i in tags
-                              if category.title == post.category
-                                a.featured-card-tags(href='/search/#{post.category}' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
-                      .featured-card-heading
-                        h2.text-left.featured-card-title #{post.title}
-                      .row
-                        each author, i in authors
-                          if (author.title === post.author)
-                            .featured-card-author
-                              img.featured-card-author-img(src='/images/uploads/#{author.image}')
-                              .featured-card-wording
-                                h6.featured-card-author-name(style="font-size: 16px;") &nbsp&nbsp#{post.author}
-                                if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
-                                  h6.featured-card-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
-                                else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 60
-                                  h6.featured-card-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minutes ago
-                                else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 120
-                                  h6.featured-card-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
-                                else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours()) < 24
-                                  h6.featured-card-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hours ago
-                                else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays()) < 2
-                                  h6.featured-card-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} day ago
-                                else
-                                  h6.featured-card-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
+                              if category.title == posts[i].category
+                                h5.featured-tags(href='/search/#{posts[i].category}' style="background: #{category.color}; border-color: #{category.color}") #{posts[i].category}
+                        h2.text-left.text-justify #{posts[i].title}
+                        .row(style="margin-top: 7px")
+                          .col-xs-9
+                            each author, i in authors
+                              if (author.title === posts[i].author)
+                                .featured-author
+                                  img.featured-author-img(src='/images/uploads/#{author.image}')
+                                  .wording
+                                    h6.featured-author-name &nbsp&nbsp#{posts[i].author}
+                                    if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 2
+                                      h6.featured-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes())} minute ago
+                                    else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 60
+                                      h6.featured-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes())} minutes ago
+                                    else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 120
+                                      h6.featured-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours())} hour ago
+                                    else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours()) < 24
+                                      h6.featured-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours())} hours ago
+                                    else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asDays()) < 2
+                                      h6.featured-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asDays())} day ago
+                                    else
+                                      h6.featured-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{moment(posts[i].date).format('DD MMM YYYY')}
+                          .col-xs-3
+                            .featured-likes
+                              i.fa.fa-heart.featured-likes-icon.text-right
+                              h4.featured-likes-number.text-right &nbsp#{posts[i].likes}
+                else
+                  li.featured-card-item
+                    .container
+                      .featured-card-img
+                        a.featured-card-link(href="/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
+                          img(src="/images/uploads/#{posts[i].mainimage}" align="center")
+                        .featured-card-likes
+                          i.fa.fa-heart.featured-card-likes-icon.text-left
+                          h4.featured-card-likes-number.text-left &nbsp#{posts[i].likes}
+                      .featured-card-content
+                        .row.featured-card-tags-row
+                          .featured-card-tags-group
+                            if Array.isArray(posts[i].category)
+                              each tag, j in posts[i].category
+                                each category, k in tags
+                                  if category.title == tag
+                                    a.featured-card-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
+                            else
+                              each category, i in tags
+                                if category.title == posts[i].category
+                                  a.featured-card-tags(href='/search/#{posts[i].category}' style="background: #{category.color}; border-color: #{category.color}") #{posts[i].category}
+                        a.featured-card-link(href="/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
+                          h2.text-left.featured-card-title #{posts[i].title}
+                        .rows
+                          each author, i in authors
+                            if (author.title === posts[i].author)
+                              .featured-card-author
+                                img.featured-card-author-img(src='/images/uploads/#{author.image}')
+                                .featured-card-wording
+                                  h6.featured-card-author-name(style="font-size: 16px;") &nbsp&nbsp#{posts[i].author}
+                                  if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 2
+                                    h6.featured-card-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes())} minute ago
+                                  else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 60
+                                    h6.featured-card-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes())} minutes ago
+                                  else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 120
+                                    h6.featured-card-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
+                                  else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours()) < 24
+                                    h6.featured-card-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours())} hours ago
+                                  else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asDays()) < 2
+                                    h6.featured-card-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asDays())} day ago
+                                  else
+                                    h6.featured-card-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{moment(posts[i].date).format('DD MMM YYYY')}
           .load-more
             a.load-more-button Load More
 
@@ -363,10 +386,15 @@ html(lang='en')
         $('#newsletter').on('submit', function(event) {
           event.preventDefault();
 
-          if($('#newsletter-email').val() == "") {
-            $('[data-toggle="popover"]').attr('data-content', "Invalid email address");
-            $('[data-toggle="popover"]').popover('show');
-            $('.popover').css('background', 'red');
+          if($('#newsletter-checkbox').is(':checked') == false) {
+            $('.newsletter-error-message').html("&nbspPlease tick the box below");
+            $('.newsletter-error').css('display', 'block');
+            $('.newsletter .newsletter-modal-dialog').css('height', '322px');
+            shakeModal();
+          } else if ($('#newsletter-email').val() == "") {
+            $('.newsletter-error-message').html("&nbspInvalid email address");
+            $('.newsletter-error').css('display', 'block');
+            $('.newsletter .newsletter-modal-dialog').css('height', '322px');
             shakeModal();
           } else {
             $.ajax({
@@ -388,13 +416,18 @@ html(lang='en')
             contentType: 'application/json',
             success: function(response) {
               if(response.success == false) {
-                //$('.content').prepend("<div class='alert alert-danger'>" + response.messages + "</div>");
-                $('[data-toggle="popover"]').attr('data-content', response.messages);
-                $('[data-toggle="popover"]').popover('show');
-                $('.popover').css('background', 'red');
+                $('.newsletter-error-message').html("&nbsp" + response.messages);
+                $('.newsletter-error').css('display', 'block');
+                $('.newsletter .newsletter-modal-dialog').css('height', '284px');
                 shakeModal();
               } else {
-                $('.close-button').click();
+                $('.newsletter-error-message').html("&nbspSuccess!");
+                $('.newsletter-error-icon').removeClass('fa-times');
+                $('.newsletter-error-icon').addClass('fa-check');
+                $('.newsletter-error-icon, .newsletter-error-message').css('color', 'green');
+                setTimeout(function() {
+                  $('.close-button').click();
+                }, 2000);
                 localStorage.subscribed = "1";
               }
             }

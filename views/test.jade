@@ -1,0 +1,28 @@
+doctype html
+html(lang='en')
+  head
+    title Website
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    style.
+      body {
+        background: black;
+        color: red;
+      }
+
+      @-webkit-keyframes typing { from { width: 0; } }
+      @-webkit-keyframes blink-caret { 50% { border-color: transparent; } }
+
+      h1 {
+        font: bold 300% Consolas, Monaco, monospace;
+        border-right: .1em solid red;
+        width: 1.7em;
+        margin: 2em 1em;
+        white-space: nowrap;
+        overflow: hidden;
+        -webkit-animation: typing 3s steps(3, end),
+                   blink-caret .5s step-end infinite alternate;
+      }
+
+  body
+    h1 US.

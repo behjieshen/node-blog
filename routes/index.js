@@ -282,32 +282,13 @@ module.exports = function(router, passport) {
     });
   });
 
-  router.get('/:id', function(req, res, next) {
-    var db = req.db;
-    var id = req.params.id;
-    var posts = db.get('posts');
-    var authors = db.get('authors');
-    var otherposts = db.get('posts');
-    var tags = db.get('categories');
-    posts.findById(req.params.id, function(err, post) {
-      authors.find({}, {}, function(err, authors) {
-        tags.find({}, {}, function(err, tags) {
-          otherposts.find({"_id": { $ne: id} }, { limit: 3, sort: {$natural:-1} }, function(err, otherposts) {
-            res.render('showing', {
-              "post": post,
-              "authors": authors,
-              "tags": tags,
-              "otherposts": otherposts
-            });
-          })
-        })
-      })
-    });
-  });
+  router.get('/test', function(req,res,next) {
+    res.render('test.jade');
+  })
 
   router.get('/:date/:title', function(req, res, next) {
     var db = req.db;
-    var title = req.params.title.replace(/-/g, ' ');
+    var title = decodeURIComponent(req.params.title).replace(/-/g, ' ');
     var posts = db.get('posts');
     var authors = db.get('authors');
     var otherposts = db.get('posts');
@@ -316,7 +297,6 @@ module.exports = function(router, passport) {
       authors.find({}, {}, function(err, authors) {
         tags.find({}, {}, function(err, tags) {
           otherposts.find({}, { limit: 3, sort: {$natural:-1} }, function(err, otherposts) {
-            console.log(post);
             res.render('showing', {
               "post": post,
               "authors": authors,

@@ -81,10 +81,46 @@ $(document).ready(function() {
       }
     });
 
+  var transparent = true;
+
   // Resize functionality
     $(window).resize(function() {
       var window_height = $(window).height();
       var window_width = $(window).width();
+
+      // Navbar Changes when scrollTop exceeds window height
+        if(window_width < 768) {
+          if( $(this).scrollTop() >= $(window).height() ) {
+            $('.navbar-img').css('width', '58px');
+            if(transparent) {
+              transparent = false;
+              showNavbar();
+            }
+          } else {
+            var logo_padding_left = ($(window).width() - 60) / 2;
+            $('.navbar-logo').css('padding-left', logo_padding_left + 'px');
+            if( !transparent ) {
+              hideNavbar();
+              transparent = true;
+            }
+          }
+        } else {
+          if( $(this).scrollTop() >= (3 * $(window).height()) + 5 ) {
+            $('.navbar-img').css('width', '48px');
+            if(transparent) {
+              transparent = false;
+              showNavbar();
+            }
+          } else {
+            var logo_width = ($(window).width() - 60) / 2;
+            $('.navbar-logo').css('padding-left', logo_width + 'px');
+            if( !transparent ) {
+              transparent = true;
+              hideNavbar();
+            }
+          }
+        }
+
       var margin_top_for_newsletter = (window_height - 206) / 2;
       $('.newsletter .newsletter-modal-dialog').css('margin-top', margin_top_for_newsletter);
       if(window_width < 365) {
@@ -94,15 +130,13 @@ $(document).ready(function() {
       }
       var top = window_height / 100 * 46;
       $('.carousel-indicators').css('top', top + 'px');
-      var logo_width = ($(window).width() - 60) / 2;
-      $('.navbar-logo').css('padding-left', logo_width + 'px');
 
       if(window_height > window_width) {
         $('.item1').css('background-image', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone1.jpg")');
         $('.item2').css('background-image', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone2.jpg")');
         $('.item3').css('background-image', 'linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url("/images/phone3.jpg")');
       } else {
-        $('.item1').css('background-image', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/pic1.jpeg")');
+        $('.item1').css('background-image', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/pic1.jpg")');
         $('.item2').css('background-image', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/pic2.jpeg")');
         $('.item3').css('background-image', 'linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url("/images/pic3.jpeg")');
       }
@@ -114,7 +148,6 @@ $(document).ready(function() {
   // Scroll Transitions
     var scrolled = false;
     var scrolled2 = false;
-    var transparent = true;
     $(document).scroll(function() {
       // Color Transitions
         var window_height = $(window).height();
@@ -297,9 +330,8 @@ $(document).ready(function() {
 
 // Prompt Newsletter
   function promptNewsletter() {
-    if (! localStorage.noFirstVisit || !localStorage.subscribed) {
+    if (!localStorage.subscribed) {
       openLoginModal();
-      localStorage.noFirstVisit = "1";
       newsletter_popped_up = true;
       return newsletter_popped_up;
     }
@@ -356,7 +388,7 @@ $(document).ready(function() {
     $('.navbar-toggle').css('left', '-500%');
     $('.navbar-img').css('padding-top', '20px');
     $('.navbar-img').css('width', '60px');
-    var logo_width = $(window).width() / 100 * 47.8;
-    $('.navbar-logo').css('padding-left', logo_width + 'px');
+    var logo_padding_left = $(window).width() / 100 * 47.8;
+    $('.navbar-logo').css('padding-left', logo_padding_left + 'px');
     $('.navbar-default').css('box-shadow', 'none');
   }
