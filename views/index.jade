@@ -138,18 +138,18 @@ html(lang='en')
                             span.glyphicon.glyphicon-search
             // Indicators
             ol.carousel-indicators
-              li(data-target='#myCarousel', data-slide-to='0')
+              li.active(data-target='#myCarousel', data-slide-to='0')
                 .progress
                   .progress-bar.first-bar(role='progressbar', style='width: 0%')
               li(data-target='#myCarousel', data-slide-to='1')
                 .progress
                   .progress-bar.middle-bar(role='progressbar', style='width: 0%')
-              li.active(data-target='#myCarousel', data-slide-to='2')
+              li(data-target='#myCarousel', data-slide-to='2')
                 .progress
                   .progress-bar.last-bar(role='progressbar', style='width: 0%')
             // Wrapper for slides
             .carousel-inner
-              .item.item1
+              .item.item1.active
                 .carousel-caption
                   .caption-heading
                     h1.caption-heading1 FIIN
@@ -169,7 +169,7 @@ html(lang='en')
                   .scroll
                     .icon-scroll
                     h3.word-scroll Scroll
-              .item.item3.active
+              .item.item3
                 .carousel-caption
                   .caption-heading
                     h1.caption-heading1 NEW
@@ -385,6 +385,7 @@ html(lang='en')
             h4.questions Questions? Contact Us Now
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js')
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
     script(src='/scripts/index.js')
     script(type="text/javascript").
       $(function() {
