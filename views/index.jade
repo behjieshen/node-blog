@@ -138,7 +138,7 @@ html(lang='en')
                             span.glyphicon.glyphicon-search
             // Indicators
             ol.carousel-indicators
-              li.active(data-target='#myCarousel', data-slide-to='0')
+              li(data-target='#myCarousel', data-slide-to='0')
                 .progress
                   .progress-bar.first-bar(role='progressbar', style='width: 0%')
               li(data-target='#myCarousel', data-slide-to='1')
@@ -261,31 +261,37 @@ html(lang='en')
                               .featured-card-author
                                 img.featured-card-author-img(src='/images/uploads/#{author.image}')
                                 .featured-card-wording
-                                  h6.featured-card-author-name(style="font-size: 16px;") &nbsp&nbsp#{posts[i].author}
+                                  h6.featured-card-author-name &nbsp&nbsp#{posts[i].author}
                                   if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 2
-                                    h6.featured-card-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes())} minute ago
+                                    h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes())} minute ago
                                   else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 60
-                                    h6.featured-card-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes())} minutes ago
+                                    h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes())} minutes ago
                                   else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 120
-                                    h6.featured-card-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
+                                    h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
                                   else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours()) < 24
-                                    h6.featured-card-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours())} hours ago
+                                    h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours())} hours ago
                                   else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asDays()) < 2
-                                    h6.featured-card-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asDays())} day ago
+                                    h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asDays())} day ago
                                   else
-                                    h6.featured-card-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{moment(posts[i].date).format('DD MMM YYYY')}
+                                    h6.featured-card-time &nbsp&nbsp&nbsp#{moment(posts[i].date).format('DD MMM YYYY')}
           .load-more
             a.load-more-button Load More
 
+          h2.about-prompt
+            b FINDING
+            |  a specific Article? Use the search box
+            b  BELOW
+            i.fa.fa-caret-down.about-prompt-icon
 
-          .search-jumbotron
-            .search-jumbotron-text
-              h2.search-jumbotron-heading Finding a specific article?
-              h3.search-jumbotron-subheading Perhaps the link below can help
-              button.search-jumbotron-link Click Here
+
+          form.searchbox(action="/" method="GET")
+            input.searchbox-input(type="search" placeholder="Search......" name="search" onkeyup="buttonUp();" required)
+            input.searchbox-submit(type="submit" value="Go")
+            span.searchbox-icon
+              i.fa.fa-search(aria-hidden="true")
 
           // Recent Post
-          h2.recent-post-heading.text-center Most Recent Posts
+          h2.recent-post-heading.text-center Recent
           if posts
             .display-list
               .container
@@ -314,59 +320,46 @@ html(lang='en')
                                 .list-style-author
                                   img.list-style-author-img(src='/images/uploads/#{author.image}')
                                   .wording
-                                    h6.list-style-author-name(style="font-size: 16px;") &nbsp&nbsp#{post.author}
+                                    h6.list-style-author-name &nbsp&nbsp#{post.author}
                                     if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
-                                      h6.list-style-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
+                                      h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
                                     else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 60
-                                      h6.list-style-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minutes ago
+                                      h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minutes ago
                                     else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 120
-                                      h6.list-style-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
+                                      h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
                                     else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours()) < 24
-                                      h6.list-style-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hours ago
+                                      h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hours ago
                                     else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays()) < 2
-                                      h6.list-style-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} day ago
+                                      h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} day ago
                                     else
-                                      h6.list-style-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
+                                      h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
                           .col-xs-3(style="margin-top: 10px;")
                             .list-style-likes(style="margin-top: 0")
                               i.fa.fa-heart.list-style-likes-icon.text-right
                               h4.list-style-likes-number.text-right &nbsp#{post.likes}
-            br
-            br
-            br
-            br
           else
             p There are no posts to display
 
-          .about-jumbotron
-            .about-jumbotron-text
-              h2.about-jumbotron-heading Curious to find out about us?
-              button.about-jumbotron-link Find out more
+          .load-more
+            a.load-more-button Load More
 
-          h2.recent-post-heading.text-center Tags
-          ul.tags-section-container
-            each tag, i in tags
-              li.tags-section-row
-                h3.tags-section-tags(style="background: #{tag.color}; border-color: #{tag.color}") #{tag.title}
-
-          h2.recent-post-heading.text-center Authors
-          each author, i in authors
-            .author-section-container
-              .author-section-scenery-image-container
-                img(src="/images/sea.jpg")
-              .author-section-content
-                .author-section-image-container
-                  img(src="/images/uploads/#{author.image}")
-                .author-section-words-container
-                  h3.author-section-name-title #{author.title}
-                  h6.author-section-description #{author.body}
-                .author-section-social-medias
-                  i.fa.fa-twitter.author-section-social-media.social-twitter
-                  i.fa.fa-instagram.author-section-social-media.social-instagram
-                  i.fa.fa-linkedin.author-section-social-media.social-linkedin
-              h3.author-section-view View Articles
-
-
+          h2.recent-post-heading.text-center Find articles by
+          .row(style="text-align: center")
+            .col-xs-6
+              h3.tags-button Tags
+            .col-xs-6
+              h3.authors-button Authors
+          .row.find-articles-section
+            ul.tags-section
+              each tag, i in tags
+                li.tags-section-column(style="background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('/images/tag2.jpg');;")
+                  i.fa.fa-heartbeat.tags-section-icon
+                  h3.tags-section-tag #{tag.title}
+            ul.authors-section
+              each author, i in authors
+                li.authors-section-author
+                  img.author-section-author-img
+                  h3.author-section-author-title #{author.title}
 
 
     footer
@@ -389,6 +382,32 @@ html(lang='en')
     script(src='/scripts/index.js')
     script(type="text/javascript").
       $(function() {
+
+        var tags = true;
+        $('.authors-button').click(function() {
+          if(tags) {
+            $('.authors-section').css('display', 'flex');
+            $('.tags-section').css('display', 'none');
+            tags = false;
+          }
+        })
+
+        $('.tags-button').click(function() {
+          if(tags == false) {
+            $('.tags-section').css('display', 'flex');
+            $('.authors-section').css('display', 'none');
+            tags = true;
+          }
+        })
+
+        var window_width = $(window).width();
+        $('.tags-section-column').css('height', window_width / 2);
+        $(window).resize(function() {
+          var window_width = $(window).width();
+          $('.tags-section-column').css('height', window_width / 2);
+        })
+
+
 
         $('#newsletter').on('submit', function(event) {
           event.preventDefault();
