@@ -125,10 +125,10 @@ html(lang='en')
                       a.page-scroll(href='.form') Contact
                     li.desktop-mode(style="padding-right: 0")
                       form.searchbox(action="/" method="GET")
-                        input.searchbox-input(type="search" placeholder="Search......" name="search" onkeyup="buttonUp();" required)
+                        input.searchbox-input(type="search" placeholder="Search" name="search" onkeyup="buttonUp();" required)
                         input.searchbox-submit(type="submit" value="Go")
                         span.searchbox-icon
-                          i.fa.fa-search(aria-hidden="true")
+                          i.fa.fa-search.searchbox-search-icon(aria-hidden="true")
                     li.mobile-mode(style="padding-right: 0")
                       .custom-search-input
                         form.input-group(action="/" method="GET")
@@ -189,106 +189,104 @@ html(lang='en')
             |  anything about Fintech? Read about it
             b  HERE&nbsp
             i.fa.fa-caret-right.about-prompt-icon
-          // Featured Post
-          h2.recent-post-heading.text-center Featured
-          ul.featured-container
-            - for (var i = 0; i < 8; i++)
-                if (i == 0 || i == 7)
-                  a.featured-item-link(href="/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
-                    li.featured-item(style="background-image: url('/images/uploads/#{posts[i].mainimage}')")
-                      .featured-item-content
-                        .featured-tags-group
-                          if Array.isArray(posts[i].category)
-                            each tag, j in posts[i].category
-                              each category, k in tags
-                                if category.title == tag
-                                  h5.featured-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
-                          else
-                            each category, i in tags
-                              if category.title == posts[i].category
-                                h5.featured-tags(href='/search/#{posts[i].category}' style="background: #{category.color}; border-color: #{category.color}") #{posts[i].category}
-                        h2.featured-title.text-left #{posts[i].title}
-                        .row(style="margin-top: 7px")
-                          .col-xs-9
-                            each author, i in authors
-                              if (author.title === posts[i].author)
-                                .featured-author
-                                  img.featured-author-img(src='/images/uploads/#{author.image}')
-                                  .wording
-                                    h6.featured-author-name &nbsp&nbsp#{posts[i].author}
-                                    if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 2
-                                      h6.featured-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes())} minute ago
-                                    else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 60
-                                      h6.featured-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes())} minutes ago
-                                    else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 120
-                                      h6.featured-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours())} hour ago
-                                    else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours()) < 24
-                                      h6.featured-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours())} hours ago
-                                    else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asDays()) < 2
-                                      h6.featured-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asDays())} day ago
-                                    else
-                                      h6.featured-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{moment(posts[i].date).format('DD MMM YYYY')}
-                          .col-xs-3
-                            .featured-likes
-                              i.fa.fa-heart.featured-likes-icon.text-right
-                              h4.featured-likes-number.text-right &nbsp#{posts[i].likes}
-                else
-                  li.featured-card-item
-                    .container
-                      .featured-card-img
-                        a.featured-card-link(href="/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
-                          img(src="/images/uploads/#{posts[i].mainimage}" align="center")
-                        .featured-card-likes
-                          i.fa.fa-heart.featured-card-likes-icon.text-left
-                          h4.featured-card-likes-number.text-left &nbsp#{posts[i].likes}
-                      .featured-card-content
-                        .row.featured-card-tags-row
-                          .featured-card-tags-group
+          .featured
+            // Featured Post
+            h2.recent-post-heading.text-center Featured
+            ul.featured-container
+              - for (var i = 0; i < 8; i++)
+                  if (i == 0 || i == 7)
+                    a.featured-item-link(href="/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
+                      li.featured-item(style="background-image: url('/images/uploads/#{posts[i].mainimage}')")
+                        .featured-item-content
+                          .featured-tags-group
                             if Array.isArray(posts[i].category)
                               each tag, j in posts[i].category
                                 each category, k in tags
                                   if category.title == tag
-                                    a.featured-card-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
+                                    h5.featured-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
                             else
                               each category, i in tags
                                 if category.title == posts[i].category
-                                  a.featured-card-tags(href='/search/#{posts[i].category}' style="background: #{category.color}; border-color: #{category.color}") #{posts[i].category}
-                        a.featured-card-link(href="/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
-                          h2.text-left.featured-card-title #{posts[i].title}
-                        .rows
-                          each author, i in authors
-                            if (author.title === posts[i].author)
-                              .featured-card-author
-                                img.featured-card-author-img(src='/images/uploads/#{author.image}')
-                                .featured-card-wording
-                                  h6.featured-card-author-name &nbsp&nbsp#{posts[i].author}
-                                  if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 2
-                                    h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes())} minute ago
-                                  else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 60
-                                    h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes())} minutes ago
-                                  else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 120
-                                    h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
-                                  else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours()) < 24
-                                    h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours())} hours ago
-                                  else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asDays()) < 2
-                                    h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asDays())} day ago
-                                  else
-                                    h6.featured-card-time &nbsp&nbsp&nbsp#{moment(posts[i].date).format('DD MMM YYYY')}
-          .load-more
-            a.load-more-button Load More
+                                  h5.featured-tags(href='/search/#{posts[i].category}' style="background: #{category.color}; border-color: #{category.color}") #{posts[i].category}
+                          h2.featured-title.text-left #{posts[i].title}
+                          .row(style="margin-top: 7px")
+                            .col-xs-9
+                              each author, i in authors
+                                if (author.title === posts[i].author)
+                                  .featured-author
+                                    img.featured-author-img(src='/images/uploads/#{author.image}')
+                                    .wording
+                                      h6.featured-author-name &nbsp&nbsp#{posts[i].author}
+                                      if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 2
+                                        h6.featured-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes())} minute ago
+                                      else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 60
+                                        h6.featured-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes())} minutes ago
+                                      else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 120
+                                        h6.featured-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours())} hour ago
+                                      else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours()) < 24
+                                        h6.featured-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours())} hours ago
+                                      else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asDays()) < 2
+                                        h6.featured-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asDays())} day ago
+                                      else
+                                        h6.featured-time(style="font-size: 13px; margin: 3px 0 0 0;") &nbsp&nbsp&nbsp#{moment(posts[i].date).format('DD MMM YYYY')}
+                            .col-xs-3
+                              .featured-likes
+                                i.fa.fa-heart.featured-likes-icon.text-right
+                                h4.featured-likes-number.text-right &nbsp#{posts[i].likes}
+                  else
+                    li.featured-card-item
+                      .container
+                        .featured-card-img
+                          a.featured-card-link(href="/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
+                            img(src="/images/uploads/#{posts[i].mainimage}" align="center")
+                          .featured-card-likes
+                            i.fa.fa-heart.featured-card-likes-icon.text-left
+                            h4.featured-card-likes-number.text-left &nbsp#{posts[i].likes}
+                        .featured-card-content
+                          .row.featured-card-tags-row
+                            .featured-card-tags-group
+                              if Array.isArray(posts[i].category)
+                                each tag, j in posts[i].category
+                                  each category, k in tags
+                                    if category.title == tag
+                                      a.featured-card-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
+                              else
+                                each category, i in tags
+                                  if category.title == posts[i].category
+                                    a.featured-card-tags(href='/search/#{posts[i].category}' style="background: #{category.color}; border-color: #{category.color}") #{posts[i].category}
+                          a.featured-card-link(href="/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
+                            h2.text-left.featured-card-title #{posts[i].title}
+                          .rows
+                            each author, i in authors
+                              if (author.title === posts[i].author)
+                                .featured-card-author
+                                  img.featured-card-author-img(src='/images/uploads/#{author.image}')
+                                  .featured-card-wording
+                                    h6.featured-card-author-name &nbsp&nbsp#{posts[i].author}
+                                    if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 2
+                                      h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes())} minute ago
+                                    else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 60
+                                      h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes())} minutes ago
+                                    else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 120
+                                      h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
+                                    else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours()) < 24
+                                      h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours())} hours ago
+                                    else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asDays()) < 2
+                                      h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asDays())} day ago
+                                    else
+                                      h6.featured-card-time &nbsp&nbsp&nbsp#{moment(posts[i].date).format('DD MMM YYYY')}
+            .load-more
+              a.load-more-button Load More
 
-          h2.about-prompt
-            b FINDING
-            |  a specific Article? Use the search box
-            b  BELOW
-            i.fa.fa-caret-down.about-prompt-icon
+            h2.about-prompt
+              |  Finding a&nbsp
+              b SPECIFIC ARTICLE
+              | ? Use the search box
 
-
-          form.searchbox(action="/" method="GET")
-            input.searchbox-input(type="search" placeholder="Search......" name="search" onkeyup="buttonUp();" required)
-            input.searchbox-submit(type="submit" value="Go")
-            span.searchbox-icon
-              i.fa.fa-search(aria-hidden="true")
+          form.searchbox-prompt(action="/" method="GET")
+            input.searchbox-input-prompt(type="search" placeholder="Search" name="search" onkeyup="buttonUp();" required)
+            a.searchbox-icon-prompt(href="#")
+              i.fa.fa-search.searchbox-search-icon-prompt(aria-hidden="true")
 
           // Recent Post
           h2.recent-post-heading.text-center Recent
@@ -343,23 +341,25 @@ html(lang='en')
           .load-more
             a.load-more-button Load More
 
-          h2.recent-post-heading.text-center Find articles by
-          .row(style="text-align: center")
-            .col-xs-6
-              h3.tags-button Tags
-            .col-xs-6
-              h3.authors-button Authors
-          .row.find-articles-section
-            ul.tags-section
-              each tag, i in tags
-                li.tags-section-column(style="background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('/images/tag2.jpg');;")
-                  i.fa.fa-heartbeat.tags-section-icon
-                  h3.tags-section-tag #{tag.title}
-            ul.authors-section
-              each author, i in authors
-                li.authors-section-author
-                  img.author-section-author-img
-                  h3.author-section-author-title #{author.title}
+          .find-articles
+            h2.recent-post-heading.text-center Find articles by
+            .row(style="text-align: center")
+              .col-xs-6
+                h3.find-articles-tags-button.find-articles-button-active Tags
+              .col-xs-6
+                h3.find-articles-authors-button Authors
+
+            .row.find-articles-section
+              ul.find-articles-tags-section
+                each tag, i in tags
+                  li.find-articles-tags(style="background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('/images/tag2.jpg');")
+                    i.fa.fa-heartbeat.find-articles-tags-icon
+                    h3.find-articles-tags-title #{tag.title}
+              ul.find-articles-authors-section
+                each author, i in authors
+                  li.find-articles-authors(style="background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('/images/tag1.jpg');")
+                    img(src='/images/uploads/#{author.image}').find-articles-authors-icon
+                    h3.find-articles-authors-title #{author.title}
 
 
     footer
@@ -384,27 +384,31 @@ html(lang='en')
       $(function() {
 
         var tags = true;
-        $('.authors-button').click(function() {
+        $('.find-articles-authors-button').click(function() {
           if(tags) {
-            $('.authors-section').css('display', 'flex');
-            $('.tags-section').css('display', 'none');
+            $('.find-articles-authors-section').css('display', 'flex');
+            $('.find-articles-tags-section').css('display', 'none');
+            $(this).addClass('find-articles-button-active');
+            $('.find-articles-tags-button').removeClass('find-articles-button-active');
             tags = false;
           }
         })
 
-        $('.tags-button').click(function() {
+        $('.find-articles-tags-button').click(function() {
           if(tags == false) {
-            $('.tags-section').css('display', 'flex');
-            $('.authors-section').css('display', 'none');
+            $('.find-articles-tags-section').css('display', 'flex');
+            $('.find-articles-authors-section').css('display', 'none');
+            $(this).addClass('find-articles-button-active');
+            $('.find-articles-authors-button').removeClass('find-articles-button-active');
             tags = true;
           }
         })
 
         var window_width = $(window).width();
-        $('.tags-section-column').css('height', window_width / 2);
+        $('.find-articles-tags').css('height', window_width / 2);
         $(window).resize(function() {
           var window_width = $(window).width();
-          $('.tags-section-column').css('height', window_width / 2);
+          $('.find-articles-tags').css('height', window_width / 2);
         })
 
 

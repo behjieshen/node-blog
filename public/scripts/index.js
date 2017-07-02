@@ -55,7 +55,7 @@ $(document).ready(function() {
         $('.searchbox-open').css('width', innerWidths + 'px');
         inputBox.focus();
         $('.searchbox-icon, .searchbox-submit').css('background', '#DA6D0D');
-        $('.fa-search, .searchbox-submit').css('color', 'white');
+        $('.searchbox-search-icon, .searchbox-submit').css('color', 'white');
         isOpen = true;
       } else {
         $('.searchbox-open').css('width', '0px');
@@ -63,7 +63,7 @@ $(document).ready(function() {
         inputBox.focusout();
         setTimeout(function() {
           $('.searchbox-icon, .searchbox-submit').css('background', 'white');
-          $('.fa-search, .searchbox-submit').css('color', '#EB7C10');
+          $('.searchbox-search-icon, .searchbox-submit').css('color', '#EB7C10');
         }, 250)
         isOpen = false;
       }
@@ -91,7 +91,7 @@ $(document).ready(function() {
       // Navbar Changes when scrollTop exceeds window height
         if(window_width < 768) {
           if( $(this).scrollTop() >= $(window).height() ) {
-            $('.navbar-img').css('width', '58px');
+            $('.navbar-img').css('width', '35px');
             if(transparent) {
               transparent = false;
               showNavbar();
@@ -106,7 +106,7 @@ $(document).ready(function() {
           }
         } else {
           if( $(this).scrollTop() >= (3 * $(window).height()) + 5 ) {
-            $('.navbar-img').css('width', '48px');
+            $('.navbar-img').css('width', '40px');
             if(transparent) {
               transparent = false;
               showNavbar();
@@ -361,14 +361,14 @@ $(document).ready(function() {
     $('.navbar-toggle').css('position', 'relative');
     $('.navbar-toggle').css('left', '0%');
     $('.navbar-img').css('padding-top', '0px');
-    $('.navbar-img').css('margin-top', '-9px');
+    $('.navbar-img').css('margin-top', '0px');
     if($(window).width() > 767) {
-      $('.navbar-img').css('width', '48px');
+      $('.navbar-img').css('width', '40px');
     } else {
-      $('.navbar-img').css('width', '58px');
+      $('.navbar-img').css('width', '35px');
     }
-    $('.navbar-logo').css('padding-left', '90px');
-    $('.navbar-default').css('box-shadow', '0 4px 18px 0 rgba(0,0,0,.12), 0 7px 10px -5px rgba(0,0,0,.15)');
+    $('.navbar-logo').css('padding-left', '50px');
+    $('.navbar-default').css('box-shadow', '0 2px 2px rgba(0,0,0,0.2)');
   }
 
   function hideNavbar() {
@@ -388,7 +388,7 @@ $(document).ready(function() {
     $('.navbar-toggle').css('left', '-500%');
     $('.navbar-img').css('padding-top', '20px');
     $('.navbar-img').css('width', '60px');
-    var logo_padding_left = $(window).width() / 100 * 47.8;
+    var logo_padding_left = ($(window).width() - 60) / 2;
     $('.navbar-logo').css('padding-left', logo_padding_left + 'px');
     $('.navbar-default').css('box-shadow', 'none');
   }
