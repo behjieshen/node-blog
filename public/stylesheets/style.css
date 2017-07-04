@@ -573,7 +573,7 @@
     .navbar-logo {
       height: 35px;
       padding-left: 38px;
-      margin-top: 10px;
+      margin-top: 5px;
     }
 
     .navbar-default button.navbar-toggle {
@@ -698,12 +698,6 @@
     .list-style-img {
       width: 100%;
       height: 130px;
-      border-radius: 15px;
-    }
-
-    .list-style-img-container {
-      position: relative;
-      margin-left: -21px;
     }
 
     .list-style-image-column {
@@ -711,7 +705,7 @@
     }
 
     .list-style-column {
-      width: 90%;
+      width: 100%;
       max-width: 870px;
       height: 130px;
       margin: 0 auto;
@@ -734,6 +728,7 @@
       border-radius: 17px;
       background: #EB7C10;
       color: white;
+      display: none;
     }
 
     .list-style-tags:hover, .list-style-tags:focus {
@@ -750,25 +745,8 @@
       margin: 10px 0;
     }
 
-    @media screen and (max-width: 870px) {
-      .list-style-tags {
-        display: none;
-      }
-
-      .list-style-column {
-        width: 100%;
-      }
-
-      .list-style-img-container {
-        position: static;
-        margin-left: 0;
-      }
-
-      .list-style-img {
-        width: 100%;
-        height: 130px;
-        border-radius: 0px;
-      }
+    .list-style-title:hover {
+      text-decoration: underline;
     }
 
     .list-style-likes-icon, .list-style-likes-number {
@@ -836,6 +814,63 @@
       .list-style-image-container, .list-style-img {
         display: none;
       }
+    }
+
+    @media screen and (min-width: 870px) {
+      .list-style-tags {
+        display: inline;
+      }
+
+      .list-style-column {
+        width: 90%;
+        height: 125px;
+      }
+
+      .list-style-image-column {
+        width: 30%;
+      }
+
+      .list-style-img {
+        height: 125px;
+      }
+
+      .list-style-content {
+        height: 100%;
+        width: 70%;
+      }
+
+      .list-style-title {
+        font-size: 23px;
+        min-height: 0;
+        margin: 0 0 10px 0;
+      }
+
+      .list-style-author-row {
+        margin-top: 10px;
+      }
+
+      .list-style-author-img {
+        width: 37px;
+      }
+
+      .list-style-author-name {
+        font-size: 15px;
+      }
+
+      .list-style-time {
+        font-size: 12px;
+      }
+
+      .list-style-likes-icon {
+        font-size: 27px;
+      }
+
+      .list-style-likes-number {
+        font-size: 25px;
+      }
+
+
+
     }
 
 /* Footer */
@@ -1605,6 +1640,12 @@ input[type=checkbox]:checked + label:before {
   list-style: none;
 }
 
+.find-articles-headings {
+  text-align: center;
+  max-width: 870px;
+  margin: 0 auto;
+}
+
 .find-articles-tags-button, .find-articles-authors-button {
   padding: 10px;
   cursor: pointer;
@@ -1615,7 +1656,8 @@ input[type=checkbox]:checked + label:before {
   list-style: none;
   display: flex;
   flex-flow: row wrap;
-  margin: 0;
+  margin: 0 auto;
+  max-width: 870px;
 }
 
 .find-articles-authors-section {
@@ -1623,8 +1665,8 @@ input[type=checkbox]:checked + label:before {
 }
 
 .find-articles-authors {
-  width: 50%;
-  height: 259px;
+  width: 100%;
+  height: 100%;
   position: relative;
 }
 
@@ -1649,9 +1691,17 @@ input[type=checkbox]:checked + label:before {
 }
 
 .find-articles-tags {
-  width: 50%;
-  height: 259px;
+  width: 100%;
+  height: 100%;
   position: relative;
+}
+
+.find-articles-tags-container {
+  width: 50%;
+}
+
+.find-articles-authors-container {
+  width: 50%;
 }
 
 .find-articles-tags-title, .find-articles-tags-icon {
@@ -1678,10 +1728,22 @@ input[type=checkbox]:checked + label:before {
   background: #eb7c10;
 }
 
+@media screen and (min-width: 650px) {
+  .find-articles-tags-container {
+    max-height: 259px;
+    width: 33.33%;
+  }
+
+  .find-articles-authors-container {
+    max-height: 259px;
+  }
+}
+
 .searchbox-prompt {
   position: relative;
   min-width: 51px;
   width: 80%;
+  max-width: 870px;
   margin: 0 auto;
   height: 45px;
   margin-top: 22px;

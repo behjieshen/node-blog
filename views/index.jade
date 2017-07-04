@@ -256,7 +256,7 @@ html(lang='en')
                                     a.featured-card-tags(href='/search/#{posts[i].category}' style="background: #{category.color}; border-color: #{category.color}") #{posts[i].category}
                           a.featured-card-link(href="/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
                             h2.text-left.featured-card-title #{posts[i].title}
-                          .rows
+                          .row
                             each author, i in authors
                               if (author.title === posts[i].author)
                                 .featured-card-author
@@ -297,11 +297,12 @@ html(lang='en')
                   .list-style-column
                     .row
                       .col-xs-4.list-style-image-column
-                        a(href='/posts/show/#{post._id}')
+                        a(href="/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
                           .list-style-img-container
                             img.list-style-img(src="/images/uploads/#{post.mainimage}" align="right")
                       .col-xs-8.list-style-content
-                        h4.list-style-title #{post.title}
+                        a(href="/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
+                          h4.list-style-title #{post.title}
                         if Array.isArray(post.category)
                           each tag, i in post.category
                             each category, j in tags
@@ -311,7 +312,7 @@ html(lang='en')
                           each category, i in tags
                             if category.title == post.category
                               a.list-style-tags(href='/search/#{post.category}' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
-                        .row
+                        .row.list-style-author-row
                           .col-xs-9
                             each author, i in authors
                               if (author.title === post.author)
@@ -343,7 +344,7 @@ html(lang='en')
 
           .find-articles
             h2.recent-post-heading.text-center Find articles by
-            .row(style="text-align: center")
+            .row.find-articles-headings
               .col-xs-6
                 h3.find-articles-tags-button.find-articles-button-active Tags
               .col-xs-6
@@ -352,14 +353,16 @@ html(lang='en')
             .row.find-articles-section
               ul.find-articles-tags-section
                 each tag, i in tags
-                  li.find-articles-tags(style="background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('/images/tag2.jpg');")
-                    i.fa.fa-heartbeat.find-articles-tags-icon
-                    h3.find-articles-tags-title #{tag.title}
+                  a.find-articles-tags-container(href='/search/#{tag}')
+                    li.find-articles-tags(style="background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('/images/tag2.jpg');")
+                      i.fa.fa-heartbeat.find-articles-tags-icon
+                      h3.find-articles-tags-title #{tag.title}
               ul.find-articles-authors-section
                 each author, i in authors
-                  li.find-articles-authors(style="background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('/images/tag1.jpg');")
-                    img(src='/images/uploads/#{author.image}').find-articles-authors-icon
-                    h3.find-articles-authors-title #{author.title}
+                  a.find-articles-authors-container(href='/search/#{author.title}')
+                    li.find-articles-authors(style="background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('/images/tag1.jpg');")
+                      img(src='/images/uploads/#{author.image}').find-articles-authors-icon
+                      h3.find-articles-authors-title #{author.title}
 
 
     footer
@@ -405,11 +408,13 @@ html(lang='en')
         })
 
         var window_width = $(window).width();
-        $('.find-articles-tags').css('height', window_width / 2);
+        $('.find-articles-tags-container, .find-articles-authors-container').css('height', window_width / 2);
         $(window).resize(function() {
           var window_width = $(window).width();
-          $('.find-articles-tags').css('height', window_width / 2);
+          $('.find-articles-tags-container, .find-articles-authors-container').css('height', window_width / 2);
         })
+
+
 
 
 

@@ -30,6 +30,14 @@ module.exports = function(router, passport) {
     }
   });
 
+  router.get('/about', function(req,res,next) {
+    res.render('about');
+  })
+
+  router.get('/test', function(req,res,next) {
+    res.render('test');
+  })
+
 
   router.post('/', function(req, res, next) {
     var email = req.body.email;
