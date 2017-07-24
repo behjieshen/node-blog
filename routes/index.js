@@ -259,6 +259,55 @@ module.exports = function(router, passport) {
     })
   })
 
+  router.get('/post/:date/:title', function(req, res, next) {
+    var db = req.db;
+    var title = decodeURIComponent(req.params.title).replace(/-/g, ' ');
+    var posts = db.get('posts');
+    var authors = db.get('authors');
+    var otherposts = db.get('posts');
+    var tags = db.get('categories');
+    posts.find({title: title}, {}, function(err, post) {
+      authors.find({}, {}, function(err, authors) {
+        tags.find({}, {}, function(err, tags) {
+          otherposts.find({}, { limit: 5, sort: {$natural:-1} }, function(err, otherposts) {
+            req.session.post_url = req.protocol + '://localhost:3000' + encodeURIComponent(req.originalUrl);
+            res.render('showing', {
+              "post": post,
+              "authors": authors,
+              "tags": tags,
+              "otherposts": otherposts
+            });
+          })
+        })
+      })
+    });
+  });
+
+  router.post('/getpocket/save', function(req, res, next) {
+    console.log(req.session.post_url);
+    var request = require("request");
+
+    var options = { method: 'POST',
+      url: 'https://getpocket.com/v3/oauth/request',
+      headers:
+       { 'postman-token': '618c1233-759e-3110-7bba-ebfd4b5907af',
+         'cache-control': 'no-cache',
+         'content-type': 'application/x-www-form-urlencoded' },
+      form:
+       { consumer_key: '68668-6b08779b70de653430b3901e',
+         redirect_uri: 'http://fiintech.com/post/12062017/Say-No-to-Cars%3F' } };
+
+    request(options, function (error, response, body) {
+      if (error) throw new Error(error);
+
+      var request_token = body.replace('code=', '');
+      console.log(request_token);
+      console.log('https://getpocket.com/auth/authorize?request_token=' + request_token + '&redirect_uri=http://fiintech.com');
+      res.redirect('https://getpocket.com/auth/authorize?request_token=' + request_token + '&redirect_uri=http://fiintech.com');
+    });
+
+  })
+
   router.get('/master', function(req, res){
     if(req.isAuthenticated()) {
       res.redirect('/master/posts');
@@ -290,32 +339,6 @@ module.exports = function(router, passport) {
     });
   });
 
-  router.get('/test', function(req,res,next) {
-    res.render('test.jade');
-  })
-
-  router.get('/:date/:title', function(req, res, next) {
-    var db = req.db;
-    var title = decodeURIComponent(req.params.title).replace(/-/g, ' ');
-    var posts = db.get('posts');
-    var authors = db.get('authors');
-    var otherposts = db.get('posts');
-    var tags = db.get('categories');
-    posts.find({title: title}, {}, function(err, post) {
-      authors.find({}, {}, function(err, authors) {
-        tags.find({}, {}, function(err, tags) {
-          otherposts.find({}, { limit: 3, sort: {$natural:-1} }, function(err, otherposts) {
-            res.render('showing', {
-              "post": post,
-              "authors": authors,
-              "tags": tags,
-              "otherposts": otherposts
-            });
-          })
-        })
-      })
-    });
-  });
 
   router.get('/posts/show/:id/liked', function(req, res, next) {
     var db = req.db;

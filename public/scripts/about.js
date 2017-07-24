@@ -43,10 +43,6 @@ $(document).ready(function() {
     });
 
 
-  //$('.header-text').css('webkit-animation', 'typing 3s steps(3, end), blink-caret .5s step-end 10 alternate');
-
-
-
   var prev = 0;
   var window_width = $(window).width();
   if(window_width > 768) {

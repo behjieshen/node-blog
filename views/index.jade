@@ -195,7 +195,7 @@ html(lang='en')
             ul.featured-container
               - for (var i = 0; i < 8; i++)
                   if (i == 0 || i == 7)
-                    a.featured-item-link(href="/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
+                    a.featured-item-link(href="/post/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
                       li.featured-item(style="background-image: url('/images/uploads/#{posts[i].mainimage}')")
                         .featured-item-content
                           .featured-tags-group
