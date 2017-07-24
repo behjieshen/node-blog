@@ -450,6 +450,10 @@ iframe[src^="https://apis.google.com"] {
   background: white;
 }
 
+.post-img {
+  width: 100%;
+  max-height: 50vh;
+}
 
 @media screen and (min-width: 768px) {
   .blog {
@@ -496,11 +500,6 @@ iframe[src^="https://apis.google.com"] {
   .mobile-related-posts {
     display: block;
   }
-}
-
-.post-img {
-  width: 100%;
-  max-height: 50vh;
 }
 
 .blog-content {
