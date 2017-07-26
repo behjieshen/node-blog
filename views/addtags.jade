@@ -1,0 +1,79 @@
+extends layout
+
+block content
+  h1.title Add Tags
+  section.contact
+    .contact-form-container
+      form.contact-form(method="POST", action='/master/tags/add', enctype="multipart/form-data")
+        .contact-form-group.form-group
+          h6.contact-form-label Tag Name
+          input.contact-form-input(type="text" placeholder="Tag Name (required)" name="name")
+        .contact-form-group.form-group
+          h6.contact-form-label Hexadecimal Color
+          input.contact-form-input(type="text" placeholder="Hexadecimal Color (required)" name="color")
+        .contact-form-group.form-group
+          h6.contact-form-label-static Main Image
+          input#file(name='image', type='file')
+        .contact-form-group.form-group
+          h6.contact-form-label Font Awesome icon (eg. fa-facebook)
+          input.contact-form-input(type="text" placeholder="Font Awesome Icon (required)" name="icon")
+        .contact-form-submit-row
+          input.contact-form-submit(type="submit" value="CREATE TAG")
+
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js")
+  script(type="text/javascript").
+
+    var len = 0;
+
+    $('.contact-form-message').keyup(function(){
+      len = this.value.length;
+      if(len >= 1) {
+        $('.contact-form-message').siblings(".contact-form-label").css('opacity', 1);
+      } else {
+        $('.contact-form-message').siblings(".contact-form-label").css('opacity', 0);
+      }
+    })
+
+    $(".contact-form-input").on('keyup', function(e) {
+
+      var count = $(this).val().length;
+
+      if(count >= 1) {
+        $(this).siblings(".contact-form-label").css('opacity', 1);
+      } else {
+        $(this).siblings(".contact-form-label").css('opacity', 0);
+      }
+    })
+
+    $('.contact-form').bootstrapValidator({
+      fields: {
+        name: {
+          validators: {
+            notEmpty: {
+              message: 'Please enter a title'
+            }
+          }
+        },
+        color: {
+          validators: {
+            notEmpty: {
+              message: 'Please enter a hexadecimal color'
+            }
+          }
+        },
+        image: {
+          validators: {
+            notEmpty: {
+              message: 'An image is required'
+            }
+          }
+        },
+        icon: {
+          validators: {
+            notEmpty: {
+              message: 'Please enter a font awesome icon code'
+            }
+          }
+        }
+      }
+    })

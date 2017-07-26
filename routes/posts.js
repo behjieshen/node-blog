@@ -157,7 +157,7 @@ module.exports = function(router, passport) {
 
     // Add category
     router.get('/categories/add', function(req, res, next) {
-      res.render('addcategories', {
+      res.render('addtags', {
         "title": "Add Category"
       });
     });

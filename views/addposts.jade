@@ -44,8 +44,119 @@ block content
     script.
       $(function() { $('#body').froalaEditor() });
       var limit = 2;
-      $('.test').on('change', function(evt) {
-         if($(this).siblings(':checked').length >= limit) {
-             this.checked = false;
-         }
-      });
+//blaj
+  section.contact
+    .contact-form-container
+    form.contact-form(method="POST", action='/master/tags/add', enctype="multipart/form-data")
+      .contact-form-group.form-group
+        h6.contact-form-label Tag Name
+        input.contact-form-input(type="text" placeholder="Tag Name (required)" name="name")
+      .contact-form-group.form-group
+        h6.contact-form-label Hexadecimal Color
+        input.contact-form-input(type="text" placeholder="Hexadecimal Color (required)" name="color")
+      .contact-form-group.form-group
+        h6.contact-form-label-static Main Image
+        input#file(name='image', type='file')
+      .contact-form-group.form-group
+        h6.contact-form-label Font Awesome icon (eg. fa-facebook)
+        input.contact-form-input(type="text" placeholder="Font Awesome Icon (required)" name="icon")
+      .contact-form-submit-row
+        input.contact-form-submit(type="submit" value="CREATE TAG")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js")
+  script(type="text/javascript").
+    $('.test').on('change', function(evt) {
+      if($(this).siblings(':checked').length >= limit) {
+        this.checked = false;
+      }
+    });
+    var len = 0;
+    var maxchar = 200;
+
+    $('.contact-form-message').keyup(function(){
+      len = this.value.length;
+      $(".contact-form-remaining").html(maxchar - len + " characters left");
+      if(len >= 1) {
+        $('.contact-form-message').siblings(".contact-form-label").css('opacity', 1);
+      } else {
+        $('.contact-form-message').siblings(".contact-form-label").css('opacity', 0);
+      }
+    })
+
+    $(".contact-form-input").on('keyup', function(e) {
+
+      var count = $(this).val().length;
+
+      if(count >= 1) {
+        $(this).siblings(".contact-form-label").css('opacity', 1);
+      } else {
+        $(this).siblings(".contact-form-label").css('opacity', 0);
+      }
+    })
+
+    $('.contact-form').bootstrapValidator({
+      fields: {
+        name: {
+          validators: {
+            stringLength: {
+              min: 2,
+            },
+            notEmpty: {
+              message: 'Please enter your name'
+            }
+          }
+        },
+        email: {
+          validators: {
+            notEmpty: {
+              message: 'Please enter your email address'
+            },
+            emailAddress: {
+              message: 'Please enter a valid email address'
+            }
+          }
+        },
+        title: {
+          validators: {
+            stringLength: {
+              min: 2,
+            },
+            notEmpty: {
+              message: 'Please enter a title'
+            }
+          }
+        },
+        message: {
+          validators: {
+            stringLength: {
+              min: 10,
+              max: 200,
+              message: 'Please enter at least 10 characters'
+            },
+            notEmpty: {
+              message: 'Please enter your message'
+            }
+          }
+        }
+      }
+    })
+
+    .on('success.form.bv', function(e) {
+      $('#success_message').slideDown({
+          opacity: "show"
+        }, "slow") // Do something ...
+      $('.contact-form').data('bootstrapValidator').resetForm();
+
+      // Prevent form submission
+      e.preventDefault();
+
+      // Get the form instance
+      var $form = $(e.target);
+
+      // Get the BootstrapValidator instance
+      var bv = $form.data('bootstrapValidator');
+
+      // Use Ajax to submit form data
+      $.post($form.attr('action'), $form.serialize(), function(result) {
+        console.log(result);
+      }, 'json');
+    });

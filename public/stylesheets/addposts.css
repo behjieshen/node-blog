@@ -1,6 +1,3 @@
-
-
-
 .contact {
   position: sticky;
   text-align: center;
@@ -28,12 +25,6 @@
   transition: 0.3s;
 }
 
-.contact-form-label-static {
-  font-size: 10px;
-  text-transform: uppercase;
-  opacity: 1;
-}
-
 .contact-form-input {
   outline: 0;
   border-width: 0 0 1px 0;
@@ -46,7 +37,7 @@
 }
 
 .contact-form-input:focus {
-  border-color: #000;
+  border-color: ghostwhite;
 }
 
 .contact-form-message {

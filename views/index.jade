@@ -199,15 +199,15 @@ html(lang='en')
                       li.featured-item(style="background-image: url('/images/uploads/#{posts[i].mainimage}')")
                         .featured-item-content
                           .featured-tags-group
-                            if Array.isArray(posts[i].category)
-                              each tag, j in posts[i].category
-                                each category, k in tags
-                                  if category.title == tag
-                                    h5.featured-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
+                            if Array.isArray(posts[i].tags)
+                              each post_tag, j in posts[i].tags
+                                each tag, k in tags
+                                  if tag.title == post_tag
+                                    h5.featured-tags(href='/search/#{tag.title}' style="background: #{tag.color}; border-color: #{tag.color}") #{tag.title}
                             else
-                              each category, i in tags
-                                if category.title == posts[i].category
-                                  h5.featured-tags(href='/search/#{posts[i].category}' style="background: #{category.color}; border-color: #{category.color}") #{posts[i].category}
+                              each tag, j in tags
+                                if tag.title == posts[i].tags
+                                  h5.featured-tags(href='/search/#{tag.title}' style="background: #{tag.color}; border-color: #{tag.color}") #{posts[i].tags}
                           h2.featured-title.text-left #{posts[i].title}
                           .row(style="margin-top: 7px")
                             .col-xs-9
@@ -245,15 +245,15 @@ html(lang='en')
                         .featured-card-content
                           .row.featured-card-tags-row
                             .featured-card-tags-group
-                              if Array.isArray(posts[i].category)
-                                each tag, j in posts[i].category
-                                  each category, k in tags
-                                    if category.title == tag
-                                      a.featured-card-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
+                              if Array.isArray(posts[i].tags)
+                                each post_tag, j in posts[i].tags
+                                  each tag, k in tags
+                                    if tag.title == post_tag
+                                      a.featured-card-tags(href='/search/#{tag.title}' style="background: #{tag.color}; border-color: #{tag.color}") #{tag.title}
                               else
-                                each category, i in tags
-                                  if category.title == posts[i].category
-                                    a.featured-card-tags(href='/search/#{posts[i].category}' style="background: #{category.color}; border-color: #{category.color}") #{posts[i].category}
+                                each tag, j in tags
+                                  if tag.title == posts[i].tags
+                                    a.featured-card-tags(href='/search/#{posts[i].tags}' style="background: #{tag.color}; border-color: #{tag.color}") #{tag.title}
                           a.featured-card-link(href="/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
                             h2.text-left.featured-card-title #{posts[i].title}
                           .row
@@ -268,7 +268,7 @@ html(lang='en')
                                     else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 60
                                       h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes())} minutes ago
                                     else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 120
-                                      h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
+                                      h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours())} hour ago
                                     else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours()) < 24
                                       h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours())} hours ago
                                     else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asDays()) < 2
@@ -303,15 +303,15 @@ html(lang='en')
                       .col-xs-8.list-style-content
                         a(href="/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
                           h4.list-style-title #{post.title}
-                        if Array.isArray(post.category)
-                          each tag, i in post.category
-                            each category, j in tags
-                              if category.title == tag
-                                a.list-style-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
+                        if Array.isArray(post.tags)
+                          each post_tag, j in post.tags
+                            each tag, k in tags
+                              if tag.title == post_tag
+                                a.list-style-tags(href='/search/#{tag.title}' style="background: #{tag.color}; border-color: #{tag.color}") #{tag.title}
                         else
-                          each category, i in tags
-                            if category.title == post.category
-                              a.list-style-tags(href='/search/#{post.category}' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
+                          each tag, j in tags
+                            if tag.title == post.tags
+                              a.list-style-tags(href='/search/#{tag.title}' style="background: #{tag.color}; border-color: #{tag.color}") #{tag.title}
                         .row.list-style-author-row
                           .col-xs-9
                             each author, i in authors

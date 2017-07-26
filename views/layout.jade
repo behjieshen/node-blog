@@ -2,29 +2,40 @@ doctype html
 html
   head
     title NodeBlog
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/dashboard.css')
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
-    script(src='/scripts/jscolor.min.js')
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
     script(src='/scripts/layout.js')
   body
     .container
-      img.logo(src='/images/logo.png')
-      nav
-        ul
-          li
-            a(href='/') Home
-          li
-            a(href='/master/posts/add') Add Post
-          li
-            a(href='/master/categories/add') Add Category
-          li
-            a(href='/master/posts') Posts
-          li
-            a(href='/master/categories') Categories
-          li
-            a(href='/master/authors') Authors
-          li
-            a(href='/master/authors/add') Add Author
+      nav.navbar.navbar-inverse
+        .container-fluid
+          .navbar-header
+            button.navbar-toggle(type='button', data-toggle='collapse', data-target='#myNavbar')
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            a.navbar-brand(href='#') FIINTECH
+          #myNavbar.collapse.navbar-collapse
+            ul.nav.navbar-nav
+              li.active
+                a(href='#') Home
+              li
+                a(href='/master/posts/add') Add Post
+              li
+                 a(href='/master/categories/add') Add Categories
+              li
+                 a(href='/master/authors/add') Add Post
+              li
+                 a(href='/master/posts') Posts
+              li
+                 a(href='/master/categories') Categories
+              li
+                 a(href='/master/authors') Authors
+            ul.nav.navbar-nav.navbar-right
+              li
+                a(href='#') Logout
       != messages()
       block content
       footer

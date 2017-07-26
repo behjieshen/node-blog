@@ -11,7 +11,6 @@ module.exports = function(router, passport) {
     var posts = db.get('posts');
     var authors = db.get('authors');
     var tags = db.get('categories');
-    console.log(req.query);
     if(req.query.search) {
       const regex = new RegExp(escapeRegex(req.query.search), 'gi');
       res.redirect('/search?search=' + req.query.search);
