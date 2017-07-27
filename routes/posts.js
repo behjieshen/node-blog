@@ -163,36 +163,36 @@ module.exports = function(router, passport) {
     });
 
     // Delete
-    router.post('/categories/add', function(req, res, next) {
+    router.post('/categories/add', upload.single('image'), function(req, res, next) {
       // Get form values
-      var title = req.body.title;
-      var color = '#' + req.body.color;
-
-      // Form Validation
-      req.check('title', 'Title field is required').notEmpty();
-      req.check('color', 'Color field is required').notEmpty();
+      var name = req.body.name;
+      var color = req.body.color;
+      var icon = req.body.icon;
 
       // Check errors
       var errors = req.validationErrors();
 
       if(errors) {
-        console.log(errors);
-        res.render('addcategories', {
-          "errors": errors,
-          "title": title,
-          "color": color
-        });
+        res.redirect('/categories/add');
       } else {
         var categories = db.get('categories');
 
+        if(req.file) {
+          filename = req.file['filename'];
+        } else {
+          filename = 'noimage.png';
+        }
+
         categories.insert({
-          "title": title,
-          "color": color
+          "name": name,
+          "color": color,
+          "icon": icon,
+          "image": filename
         }, function(err, category) {
           if(err){
             res.send('There was an issue submitting the category');
           } else {
-            req.flash('success', 'Category Submitted');
+            req.flash('success', 'Tag Submitted');
             res.location('/master/categories');
             res.redirect('/master/categories');
           }
@@ -228,7 +228,6 @@ module.exports = function(router, passport) {
             "authors": authors
           });
         })
-
       });
     });
 
@@ -236,32 +235,18 @@ module.exports = function(router, passport) {
   router.post('/posts/add', upload.single('mainimage'), function(req, res, next) {
     // Get form values
     var title = req.body.title;
-    var category = req.body.category;
+    var tags = req.body.tags;
     var description = req.body.description;
-    var body = req.body.body;
+    var content = req.body.content;
     var author = req.body.author;
     var date = new Date();
     var likes = 0;
-
-    // Form Validation
-    req.check('title', 'Title field is required').notEmpty();
-    req.check('body', 'Body field is required').notEmpty();
-    req.check('description', 'Short Description field is required');
 
     // Check errors
     var errors = req.validationErrors();
 
     if(errors) {
-      var categories = db.get('categories');
-      categories.find({}, {}, function(err, categories) {
-        res.render('addposts', {
-          "errors": errors,
-          "title": title,
-          "categories": categories,
-          "description": description,
-          "body": body
-        });
-      });
+      res.redirect('/posts/add')
     } else {
       var posts = db.get('posts');
 
@@ -274,8 +259,8 @@ module.exports = function(router, passport) {
       posts.insert({
         "title": title,
         "description": description,
-        "body": body,
-        "category": category,
+        "content": content,
+        "tags": tags,
         "date": date,
         "author": author,
         "mainimage": filename,

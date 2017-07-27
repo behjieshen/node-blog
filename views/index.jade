@@ -202,13 +202,13 @@ html(lang='en')
                             if Array.isArray(posts[i].tags)
                               each post_tag, j in posts[i].tags
                                 each tag, k in tags
-                                  if tag.title == post_tag
-                                    h5.featured-tags(href='/search/#{tag.title}' style="background: #{tag.color}; border-color: #{tag.color}") #{tag.title}
+                                  if tag.name == post_tag
+                                    h5.featured-tags(href='/search/#{tag.name}' style="background: #{tag.color}; border-color: #{tag.color}") #{tag.name}
                             else
                               each tag, j in tags
-                                if tag.title == posts[i].tags
-                                  h5.featured-tags(href='/search/#{tag.title}' style="background: #{tag.color}; border-color: #{tag.color}") #{posts[i].tags}
-                          h2.featured-title.text-left #{posts[i].title}
+                                if tag.name == posts[i].tags
+                                  h5.featured-tags(href='/search/#{tag.name}' style="background: #{tag.color}; border-color: #{tag.color}") #{posts[i].tags}
+                          h2.featured-title.text-left #{posts[i].name}
                           .row(style="margin-top: 7px")
                             .col-xs-9
                               each author, i in authors
@@ -248,12 +248,12 @@ html(lang='en')
                               if Array.isArray(posts[i].tags)
                                 each post_tag, j in posts[i].tags
                                   each tag, k in tags
-                                    if tag.title == post_tag
-                                      a.featured-card-tags(href='/search/#{tag.title}' style="background: #{tag.color}; border-color: #{tag.color}") #{tag.title}
+                                    if tag.name == post_tag
+                                      a.featured-card-tags(href='/search/#{tag.name}' style="background: #{tag.color}; border-color: #{tag.color}") #{tag.name}
                               else
                                 each tag, j in tags
-                                  if tag.title == posts[i].tags
-                                    a.featured-card-tags(href='/search/#{posts[i].tags}' style="background: #{tag.color}; border-color: #{tag.color}") #{tag.title}
+                                  if tag.name == posts[i].tags
+                                    a.featured-card-tags(href='/search/#{posts[i].tags}' style="background: #{tag.color}; border-color: #{tag.color}") #{tag.name}
                           a.featured-card-link(href="/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
                             h2.text-left.featured-card-title #{posts[i].title}
                           .row
@@ -297,21 +297,21 @@ html(lang='en')
                   .list-style-column
                     .row
                       .col-xs-4.list-style-image-column
-                        a(href="/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
+                        a(href="/post/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
                           .list-style-img-container
                             img.list-style-img(src="/images/uploads/#{post.mainimage}" align="right")
                       .col-xs-8.list-style-content
-                        a(href="/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
+                        a(href="/post/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
                           h4.list-style-title #{post.title}
                         if Array.isArray(post.tags)
                           each post_tag, j in post.tags
                             each tag, k in tags
-                              if tag.title == post_tag
-                                a.list-style-tags(href='/search/#{tag.title}' style="background: #{tag.color}; border-color: #{tag.color}") #{tag.title}
+                              if tag.name == post_tag
+                                a.list-style-tags(href='/search/#{tag.name}' style="background: #{tag.color}; border-color: #{tag.color}") #{tag.name}
                         else
                           each tag, j in tags
-                            if tag.title == post.tags
-                              a.list-style-tags(href='/search/#{tag.title}' style="background: #{tag.color}; border-color: #{tag.color}") #{tag.title}
+                            if tag.name == post.tags
+                              a.list-style-tags(href='/search/#{tag.name}' style="background: #{tag.color}; border-color: #{tag.color}") #{tag.name}
                         .row.list-style-author-row
                           .col-xs-9
                             each author, i in authors
@@ -353,10 +353,10 @@ html(lang='en')
             .row.find-articles-section
               ul.find-articles-tags-section
                 each tag, i in tags
-                  a.find-articles-tags-container(href='/search/#{tag}')
-                    li.find-articles-tags(style="background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('/images/tag2.jpg');")
+                  a.find-articles-tags-container(href='/search/#{tag.name}')
+                    li.find-articles-tags(style="background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('/images/uploads/#{tag.image}');")
                       i.fa.fa-heartbeat.find-articles-tags-icon
-                      h3.find-articles-tags-title #{tag.title}
+                      h3.find-articles-tags-title #{tag.name}
               ul.find-articles-authors-section
                 each author, i in authors
                   a.find-articles-authors-container(href='/search/#{author.title}')

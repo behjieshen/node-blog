@@ -1,76 +1,53 @@
 extends layout
 
 block content
-  h1=title
-  ul.errors
-    if errors
-      each error, i in errors
-        li.alert.alert-danger #{error.msg}
-  form(method='post', action='/master/posts/add', enctype="multipart/form-data")
-    .form-group
-      label Title:
-      input.form-control(name='title', type='text')
-    .form-group
-      label Category (Maximum: 3)
-        br
-        each category, i in categories
-          input.test(type="checkbox" value="#{category.title}" name="category" style="display: inline")
-          p(style="display:inline") #{category.title}
-          br
-    .form-group
-      label Catchy Sentence (150 characters maximum)
-      textarea.form-control(name='description', maxlength='150')
-    .form-group
-      label Body
-      textarea.form-control(name='body', id='body')
-    .form-group
-      label Main Image:
-      input.form-control(name='mainimage', type='file')
-    .form-group
-      label Author:
-      select.form-control(name='author')
-        if authors
-        each author, i in authors
-          option(value='#{author.title}') #{author.title}
-    input.btn.btn-default(name="submit", type="submit", value="Save")
-    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css')
-    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css')
-    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_editor.pkgd.min.css')
-    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_style.min.css')
-    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/js/froala_editor.pkgd.min.js')
-    script.
-      $(function() { $('#body').froalaEditor() });
-      var limit = 2;
-//blaj
   section.contact
     .contact-form-container
-    form.contact-form(method="POST", action='/master/tags/add', enctype="multipart/form-data")
-      .contact-form-group.form-group
-        h6.contact-form-label Tag Name
-        input.contact-form-input(type="text" placeholder="Tag Name (required)" name="name")
-      .contact-form-group.form-group
-        h6.contact-form-label Hexadecimal Color
-        input.contact-form-input(type="text" placeholder="Hexadecimal Color (required)" name="color")
-      .contact-form-group.form-group
-        h6.contact-form-label-static Main Image
-        input#file(name='image', type='file')
-      .contact-form-group.form-group
-        h6.contact-form-label Font Awesome icon (eg. fa-facebook)
-        input.contact-form-input(type="text" placeholder="Font Awesome Icon (required)" name="icon")
-      .contact-form-submit-row
-        input.contact-form-submit(type="submit" value="CREATE TAG")
+      form.contact-form(method="POST", action='/master/posts/add', enctype="multipart/form-data")
+        .contact-form-group.form-group
+          h6.contact-form-label Title
+          input.contact-form-input(type="text" placeholder="Post Title (required)" name="title")
+        .contact-form-group.form-group
+          h6.contact-form-label-static Tags (Maximum: 2)
+          each category, i in categories
+            input.test(type="checkbox" value="#{category.title}" name="tags" style="display: inline")
+            p(style="display:inline") &nbsp#{category.title}
+            br
+        .contact-form-group.form-group
+          h6.contact-form-label Description
+          textarea.contact-form-message(maxlength="150" rows="3" placeholder="Description (150 characters max)" name="description")
+          .row
+            .col-xs-6
+            .col-xs-6
+              h6.contact-form-remaining 150 characters left
+        .contact-form-group.form-group
+          h6.contact-form-label-static Content
+          textarea(name="content")
+        .contact-form-group.form-group
+          h6.contact-form-label-static Main Image
+          input#file(name='mainimage', type='file')
+        .contact-form-group.form-group
+          h6.contact-form-label-static Author
+          select.form-control(name='author')
+            if authors
+              each author, i in authors
+                option(value='') Author
+                option(value='#{author.title}') #{author.title}
+        .contact-form-submit-row
+          input.contact-form-submit(type="submit" value="CREATE POST")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js")
   script(type="text/javascript").
+
+    CKEDITOR.replace( 'content' );
+
+    var limit = 2;
     $('.test').on('change', function(evt) {
       if($(this).siblings(':checked').length >= limit) {
         this.checked = false;
       }
     });
     var len = 0;
-    var maxchar = 200;
+    var maxchar = 150;
 
     $('.contact-form-message').keyup(function(){
       len = this.value.length;
@@ -95,68 +72,47 @@ block content
 
     $('.contact-form').bootstrapValidator({
       fields: {
-        name: {
-          validators: {
-            stringLength: {
-              min: 2,
-            },
-            notEmpty: {
-              message: 'Please enter your name'
-            }
-          }
-        },
-        email: {
-          validators: {
-            notEmpty: {
-              message: 'Please enter your email address'
-            },
-            emailAddress: {
-              message: 'Please enter a valid email address'
-            }
-          }
-        },
         title: {
           validators: {
-            stringLength: {
-              min: 2,
-            },
             notEmpty: {
               message: 'Please enter a title'
             }
           }
         },
-        message: {
+        tags: {
           validators: {
-            stringLength: {
-              min: 10,
-              max: 200,
-              message: 'Please enter at least 10 characters'
-            },
             notEmpty: {
-              message: 'Please enter your message'
+              message: 'Please tick at least 1 tag'
+            }
+          }
+        },
+        description: {
+          validators: {
+            notEmpty: {
+              message: 'Please enter a description'
+            }
+          }
+        },
+        content: {
+          validators: {
+            notEmpty: {
+              message: 'Please enter the post content'
+            }
+          }
+        },
+        mainimage: {
+          validators: {
+            notEmpty: {
+              message: 'Please upload an image for the post'
+            }
+          }
+        },
+        author: {
+          validators: {
+            notEmpty: {
+              message: 'Please select an author for the post'
             }
           }
         }
       }
     })
-
-    .on('success.form.bv', function(e) {
-      $('#success_message').slideDown({
-          opacity: "show"
-        }, "slow") // Do something ...
-      $('.contact-form').data('bootstrapValidator').resetForm();
-
-      // Prevent form submission
-      e.preventDefault();
-
-      // Get the form instance
-      var $form = $(e.target);
-
-      // Get the BootstrapValidator instance
-      var bv = $form.data('bootstrapValidator');
-
-      // Use Ajax to submit form data
-      $.post($form.attr('action'), $form.serialize(), function(result) {
-        console.log(result);
-      }, 'json');
-    });
