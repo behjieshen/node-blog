@@ -1,20 +1,75 @@
 extends layout
 
 block content
-  h1=title
-  a(href='/master/logout') LOGOUT
-  ul.errors
-    if errors
-      each error, i in errors
-        li.alert.alert-danger #{error.msg}
-  form(method='post', action='/master/authors/add', enctype="multipart/form-data")
-    .form-group
-      label Author Name
-      input.form-control(name='title', type='text')
-    .form-group
-      label Short Description
-      textarea.form-control(name='body', id='body')
-    .form-group
-      label Main Image:
-      input.form-control(name='image', type='file')
-    input.btn.btn-default(name="submit", type="submit", value="Save")
+  h1.title Add Authors
+  section.contact
+    .contact-form-container
+      form.contact-form(method="POST", action='/master/authors/add', enctype="multipart/form-data")
+        .contact-form-group.form-group
+          h6.contact-form-label Tag Name
+          input.contact-form-input(type="text" placeholder="Author Name (required)" name="name")
+        .contact-form-group.form-group
+          h6.contact-form-label Role
+          textarea.contact-form-message(maxlength="25" rows="1" placeholder="Role (25 characters max)" name="role")
+          .row
+            .col-xs-6
+            .col-xs-6
+              h6.contact-form-remaining 25 characters left
+        .contact-form-group.form-group
+          h6.contact-form-label-static Profile Image
+          input#file(name='image', type='file')
+        .contact-form-submit-row
+          input.contact-form-submit(type="submit" value="CREATE AUTHOR")
+
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js")
+  script(type="text/javascript").
+
+    var len = 0;
+    var maxchar = 25;
+
+    $('.contact-form-message').keyup(function(){
+      len = this.value.length;
+      $(".contact-form-remaining").html(maxchar - len + " characters left");
+      if(len >= 1) {
+        $('.contact-form-message').siblings(".contact-form-label").css('opacity', 1);
+      } else {
+        $('.contact-form-message').siblings(".contact-form-label").css('opacity', 0);
+      }
+    })
+
+    $(".contact-form-input").on('keyup', function(e) {
+
+      var count = $(this).val().length;
+
+      if(count >= 1) {
+        $(this).siblings(".contact-form-label").css('opacity', 1);
+      } else {
+        $(this).siblings(".contact-form-label").css('opacity', 0);
+      }
+    })
+
+    $('.contact-form').bootstrapValidator({
+      fields: {
+        name: {
+          validators: {
+            notEmpty: {
+              message: 'Please enter a name'
+            }
+          }
+        },
+        role: {
+          validators: {
+            notEmpty: {
+              message: 'Please enter a role description'
+            }
+          }
+        },
+        image: {
+          validators: {
+            notEmpty: {
+              message: 'An image is required'
+            }
+          }
+        },
+      }
+    })

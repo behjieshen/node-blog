@@ -675,6 +675,7 @@
 
   .featured, .find-articles {
     background: white;
+    padding-bottom: 100px;
   }
 
   .recent-post-heading {

@@ -85,6 +85,7 @@ $(document).ready(function() {
 
   // Resize functionality
     $(window).resize(function() {
+      innerWidths = $(window).innerWidth();
       var window_height = $(window).height();
       var window_width = $(window).width();
 

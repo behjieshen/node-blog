@@ -1,0 +1,225 @@
+doctype html
+html(lang='en')
+  head
+    title Website
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Quicksand|Lato|Muli|Merriweather:300,400')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    link(rel='stylesheet', href="/stylesheets/intlTelInput.css")
+    link(rel='stylesheet', href='/stylesheets/contact.css')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    script(src="/scripts/intlTelInput.min.js")
+    script(src="/scripts/utils.js")
+    script(src='/scripts/contact.js')
+
+  body
+    .row.navbar-row
+      nav.navbar.navbar-default.navbar-transparent.navbar-fixed-top(role='navigation')
+        .navbar-header
+          button#dropdown.navbar-toggle(type='button', data-toggle='collapse', data-target='#example-navbar-collapse')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.page-scroll.navbar-logo(href='/')
+            img.navbar-img(src='/images/logo.svg')
+        #example-navbar-collapse.collapse.navbar-collapse.navbar-color(style='width : 100%;')
+          ul.nav.navbar-nav.navbar-right.main-nav
+            li
+              a.page-scroll(href='/') Home
+            li
+              a.page-scroll.blog-hyperlink(href='/') Blog
+            li
+              a.page-scroll(href='/about') About
+            li
+              a.page-scroll(href='/contact') Contact
+            li.desktop-mode(style="padding-right: 0")
+              form.searchbox
+                input.searchbox-input(type="search" placeholder="Search......" name="search" onkeyup="buttonUp();" required)
+                input.searchbox-submit(type="submit" value="Go")
+                span.searchbox-icon
+                  i.fa.fa-search.searchbox-search-icon(aria-hidden="true")
+            li.mobile-mode(style="padding-right: 0")
+              .custom-search-input
+                form.input-group
+                  input.search-query.form-control(type='search' placeholder='Search')
+                  input.searchbox-mobile-submit(type="submit" value="Go")
+                  span.input-group-btn
+                      span.glyphicon.glyphicon-search
+    .row
+      .contact-desktop
+        h2.contact-desktop-title
+          | Feel the&nbsp
+          i(style="color: #FF9C00;") tingling sensation
+          | &nbspat your fingertips? That's the&nbsp
+          i(style="color: #FF9C00;") magnetic urge
+          | &nbspto contact us   :D
+      .contact
+        h2.contact-heading.text-center Reach Out.
+        if success.length > 0
+          p.contact-message(style="background: rgba(28, 99, 19, 0.5); padding: 20px;") #{success}
+        if error.length > 0
+          p.contact-message(style="background: rgba(204, 24, 30, 0.5); padding: 20px;") #{error}
+        .contact-subheading
+          p
+            | Feel the tingling sensation at your fingertips? That's the&nbsp
+            i(style="color: #FF9C00;") magnetic urge
+            | &nbspto contact us :D
+        .contact-form-container
+          form.contact-form(method="POST", action='/contact')
+            .contact-form-group.form-group
+              h6.contact-form-label Given Name*
+              input.contact-form-input(type="text" placeholder="Given Name*" name="given_name")
+            .contact-form-group.form-group
+              h6.contact-form-label Last Name*
+              input.contact-form-input(type="text" placeholder="Last Name*" name="last_name")
+            .contact-form-group.form-group
+              h6.contact-form-label Email*
+              input.contact-form-input(type="text" placeholder="Email*" name="email")
+            .contact-form-group.form-group
+              h6.contact-form-label Company*
+              input.contact-form-input(type="text" placeholder="Company*" name="company")
+            .contact-form-group.form-group
+              h6.contact-form-label-static How do I know about Fiintech?*
+              select.form-control.contact-form-selection(name="know_about_fiintech")
+                option.contact-form-selection-option(value="") --Select--
+                option.contact-form-selection-option(value="word of mouth") Word of Mouth
+                option.contact-form-selection-option(value="social media") Social Media
+                option.contact-form-selection-option(value="other blogs") Other Blogs
+                option.contact-form-selection-option(value="internet") Internet
+            .contact-form-group.form-group
+              h6.contact-form-label-static Who do I want to connect with? (Optional)
+              select.form-control.contact-form-selection(name="connection")
+                option.contact-form-selection-option(value="anyone") Anyone
+                option.contact-form-selection-option(value="management") Management
+            .contact-form-group.form-group
+              h6.contact-form-label-static Mobile Number (Optional)
+              input#phone(type="tel" name="mobile_number")
+              span#error-msg.hide Please enter a valid mobile number
+            .contact-form-group.form-group
+              h6.contact-form-label Message*
+              textarea.contact-form-message(maxlength="200" rows="5" placeholder="Message* (200 characters max)" name="message")
+              .row
+                .col-xs-6
+                .col-xs-6
+                  h6.contact-form-remaining 200 characters left
+            .contact-form-submit-row
+              input.contact-form-submit(type="submit" value="Submit")
+            br
+        br
+        br
+        br
+
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js")
+    script(type="text/javascript").
+
+      $("#phone").intlTelInput();
+
+      $('#phone').keyup(function() {
+        //var test = $("#phone").intlTelInput("getNumber");
+        //console.log(test);
+        console.log($('.selected-flag').attr("title") + $('#phone').val());
+      })
+
+      var telInput = $("#phone");
+      var errorMsg = $("#error-msg");
+
+      var reset = function() {
+        telInput.removeClass("error");
+        errorMsg.addClass("hide");
+        $('.contact-form-submit').removeAttr('disabled');
+      };
+
+      // on blur: validate
+      telInput.on("keyup", function() {
+        reset();
+        if ($.trim(telInput.val())) {
+          if (!telInput.intlTelInput("isValidNumber")) {
+            telInput.addClass("error");
+            errorMsg.removeClass("hide");
+            $('.contact-form-submit').attr('disabled', 'disabled');
+          }
+        }
+      });
+
+      var len = 0;
+      var maxchar = 200;
+
+      $('.contact-form-message').keyup(function(){
+        len = this.value.length;
+        $(".contact-form-remaining").html(maxchar - len + " characters left");
+        if(len >= 1) {
+          $('.contact-form-message').siblings(".contact-form-label").css('opacity', 1);
+        } else {
+          $('.contact-form-message').siblings(".contact-form-label").css('opacity', 0);
+        }
+      })
+
+      $(".contact-form-input").on('keyup', function(e) {
+
+        var count = $(this).val().length;
+
+        if(count >= 1) {
+          $(this).siblings(".contact-form-label").css('opacity', 1);
+        } else {
+          $(this).siblings(".contact-form-label").css('opacity', 0);
+        }
+      })
+
+      $('.contact-form').bootstrapValidator({
+        fields: {
+          given_name: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter a given name'
+              }
+            }
+          },
+          last_name: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter a last name'
+              }
+            }
+          },
+          email: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter an email'
+              },
+              emailAddress: {
+                message: 'Please enter a valid email address'
+              }
+            }
+          },
+          company: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter a company name'
+              }
+            }
+          },
+          know_about_fiintech: {
+            validators: {
+              notEmpty: {
+                message: 'Please state how you got to know about Fiintech'
+              }
+            }
+          },
+          message: {
+            validators: {
+              notEmpty: {
+                message: 'Please enter your message'
+              },
+            stringLength: {
+              min: 10,
+              max: 200,
+              message: 'Please enter at least 10 characters and no more than 200'
+            }
+            }
+          }
+        }
+      })

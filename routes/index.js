@@ -33,8 +33,50 @@ module.exports = function(router, passport) {
     res.render('about');
   })
 
-  router.get('/test', function(req,res,next) {
-    res.render('test');
+  router.get('/contact', function(req,res,next) {
+    console.log(req.flash('success'));
+    res.render('contact', { success: req.flash('success'), error: req.flash('error') } );
+  })
+
+  router.post('/contact', function(req, res, next) {
+    // Get Form Values
+    var given_name = req.body.given_name;
+    var last_name = req.body.last_name;
+    var email = req.body.email;
+    var company = req.body.company;
+    var know_about_fiintech = req.body.know_about_fiintech;
+    var connection = req.body.connection;
+    var mobile_number = req.body.mobile_number;
+    var message = req.body.message;
+
+    // Check errors
+    var errors = req.validationErrors();
+
+    if(errors) {
+      req.flash('error', 'An error has occurred');
+      res.render('contact');
+    } else {
+      var db = req.db;
+      var contacts = db.get('contact');
+
+      contacts.insert({
+        "given_name": given_name,
+        "last_name": last_name,
+        "email": email,
+        "company": company,
+        "know_about_fiintech": know_about_fiintech,
+        "connection": connection,
+        "mobile_number": mobile_number,
+        "message": message
+      }, function(err, form) {
+        if(err){
+          res.send('There was an issue submitting the form');
+        } else {
+          req.flash('success', 'Success! We will get back to you soon!');
+          res.redirect('/contact');
+        }
+      });
+    }
   })
 
 

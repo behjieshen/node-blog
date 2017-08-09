@@ -122,7 +122,7 @@ html(lang='en')
                     li
                       a.page-scroll(href='/about') About
                     li
-                      a.page-scroll(href='.form') Contact
+                      a.page-scroll(href='/contact') Contact
                     li.desktop-mode(style="padding-right: 0")
                       form.searchbox(action="/" method="GET")
                         input.searchbox-input(type="search" placeholder="Search" name="search" onkeyup="buttonUp();" required)
@@ -212,7 +212,7 @@ html(lang='en')
                           .row(style="margin-top: 7px")
                             .col-xs-9
                               each author, i in authors
-                                if (author.title === posts[i].author)
+                                if (author.name === posts[i].author)
                                   .featured-author
                                     img.featured-author-img(src='/images/uploads/#{author.image}')
                                     .wording
@@ -258,7 +258,7 @@ html(lang='en')
                             h2.text-left.featured-card-title #{posts[i].title}
                           .row
                             each author, i in authors
-                              if (author.title === posts[i].author)
+                              if (author.name === posts[i].author)
                                 .featured-card-author
                                   img.featured-card-author-img(src='/images/uploads/#{author.image}')
                                   .featured-card-wording
@@ -315,7 +315,7 @@ html(lang='en')
                         .row.list-style-author-row
                           .col-xs-9
                             each author, i in authors
-                              if (author.title === post.author)
+                              if (author.name === post.author)
                                 .list-style-author
                                   img.list-style-author-img(src='/images/uploads/#{author.image}')
                                   .wording
@@ -355,14 +355,14 @@ html(lang='en')
                 each tag, i in tags
                   a.find-articles-tags-container(href='/search/#{tag.name}')
                     li.find-articles-tags(style="background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('/images/uploads/#{tag.image}');")
-                      i.fa.fa-heartbeat.find-articles-tags-icon
+                      i.fa.find-articles-tags-icon(class="#{tag.icon}")
                       h3.find-articles-tags-title #{tag.name}
               ul.find-articles-authors-section
                 each author, i in authors
-                  a.find-articles-authors-container(href='/search/#{author.title}')
+                  a.find-articles-authors-container(href='/search/#{author.name}')
                     li.find-articles-authors(style="background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('/images/tag1.jpg');")
                       img(src='/images/uploads/#{author.image}').find-articles-authors-icon
-                      h3.find-articles-authors-title #{author.title}
+                      h3.find-articles-authors-title #{author.name}
 
 
     footer
@@ -384,6 +384,7 @@ html(lang='en')
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
     script(src='/scripts/index.js')
     script(type="text/javascript").
+
       $(function() {
 
         var tags = true;

@@ -97,7 +97,7 @@ html(lang='en')
                 li
                   a.page-scroll(href='/about') About
                 li
-                  a.page-scroll(href='.form') Contact
+                  a.page-scroll(href='/contact') Contact
                 li.desktop-mode(style="padding-right: 0")
                   form.searchbox
                     input.searchbox-input(type="search" placeholder="Search......" name="search" onkeyup="buttonUp();" required)
@@ -202,8 +202,28 @@ html(lang='en')
               p.values-subheading
                 i Embracing in positive vibes.
           .testimonials
-            p.testimonials-text
-              | "Having a little extra knowledge in your life should be an affordable luxury for anyone who wants it. Extra knowledge equals extra power, and extra power means extra freedom to live the life doing exactly what you want"
+            #myCarousel.carousel.slide(data-ride="carousel")
+              ol.carousel-indicators
+                li.active(data-target="#myCarousel" data-slide-to="0")
+                li(data-target="#myCarousel" data-slide-to="1")
+                li(data-target="#myCarousel" data-slide-to="2")
+
+              .carousel-inner
+                .item.active
+                  p.testimonials-text
+                    | "Having a little extra knowledge in your life should be an affordable luxury for anyone who wants it. Extra knowledge equals extra power, and extra power means extra freedom to live the life doing exactly what you want"
+                .item
+                  p.testimonials-text
+                    | "Having a little extra knowledge in your life should be an affordable luxury for anyone who wants it. Extra knowledge equals extra power, and extra power means extra freedom to live the life doing exactly what you want"
+                .item
+                  p.testimonials-text
+                    | "Having a little extra knowledge in your life should be an affordable luxury for anyone who wants it. Extra knowledge equals extra power, and extra power means extra freedom to live the life doing exactly what you want"
+              a.left.carousel-control(href="#myCarousel" data-slide="prev")
+                span.glyphicon.glyphicon-chevron-left
+                span.sr-only Previous
+              a.right.carousel-control(href="#myCarousel" data-slide="next")
+                span.glyphicon.glyphicon-chevron-right
+                span.sr-only Next
             img.testimonials-quotes-symbol(src="/images/quotes.png")
 
 

@@ -6,7 +6,7 @@ block content
     .post
       h1
         a(href='/posts/show/#{category._id}')
-          =category.title
+          =category.name
       a.more(href='/master/categories/delete/#{category._id}') Delete
   else
     p There are no posts to display

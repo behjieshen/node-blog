@@ -6,7 +6,7 @@ block content
     .post
       h1
         a(href='/posts/show/#{author._id}')
-          =author.title
+          =author.name
       a.more(href='/master/authors/delete/#{author._id}') Delete
   else
     p There are no posts to display

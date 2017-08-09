@@ -91,11 +91,11 @@ html
                 if Array.isArray(post[0].tags)
                   each tag, i in post[0].tags
                     each category, j in tags
-                      if category.title == tag
+                      if category.name == tag
                         h5.post-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
                 else
                   each category, i in tags
-                    if category.title == post[0].tags
+                    if category.name == post[0].tags
                       h5.post-tags(href='/search/#{post[0].tags}' style="background: #{category.color}; border-color: #{category.color}") #{post[0].tags}
               .col-xs-3
                 .post-likes
@@ -122,12 +122,12 @@ html
           .blog-content-extended
             hr.post-ending-seperator-line
             each author, i in authors
-              if (author.title === post[0].author)
+              if (author.name === post[0].author)
                 .post-author
                   img.post-author-img(src='/images/uploads/#{author.image}')
                   .post-wording
                     h6.post-author-name &nbsp&nbsp#{post[0].author}
-                    h6.post-time &nbsp&nbspFull Stack Web Developer
+                    h6.post-time &nbsp&nbsp#{author.role}
                 .load-more
                   a.load-more-button Find Out More
 
@@ -149,16 +149,16 @@ html
                         if Array.isArray(otherpost.tags)
                           each tag, k in otherpost.tags
                             each category, j in tags
-                              if category.title == tag
+                              if category.name == tag
                                 a.list-style-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
                         else
                           each category, k in tags
-                            if category.title == otherpost.tags
-                              a.list-style-tags(href='/search/#{otherpost.tags}' style="background: #{category.color}; border-color: #{category.color}") #{category.title}
+                            if category.name == otherpost.tags
+                              a.list-style-tags(href='/search/#{otherpost.tags}' style="background: #{category.color}; border-color: #{category.color}") #{category.name}
                         .row.list-style-author-row
                           .col-xs-9
                             each author, i in authors
-                              if (author.title === otherpost.author)
+                              if (author.name === otherpost.author)
                                 .list-style-author
                                   img.list-style-author-img(src='/images/uploads/#{author.image}')
                                   .wording
@@ -198,17 +198,17 @@ html
                         if Array.isArray(otherposts[m].tags)
                           each tag, j in otherposts[m].tags
                             each category, k in tags
-                              if category.title == tag
+                              if category.name == tag
                                 a.featured-card-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
                         else
                           each category, i in tags
-                            if category.title == otherposts[m].tags
+                            if category.name == otherposts[m].tags
                               a.featured-card-tags(href='/search/#{otherposts[m].tags}' style="background: #{category.color}; border-color: #{category.color}") #{otherposts[m].tags}
                     a.featured-card-link(href="/#{moment(otherposts[m].date).format('DDMMYYYY')}/#{(encodeURIComponent(otherposts[m].title)).replace(/%20/g, '-')}")
                       h2.text-left.featured-card-title #{otherposts[m].title}
                     .row
                       each author, i in authors
-                        if (author.title === otherposts[m].author)
+                        if (author.name === otherposts[m].author)
                           .featured-card-author
                             img.featured-card-author-img(src='/images/uploads/#{author.image}')
                             .featured-card-wording

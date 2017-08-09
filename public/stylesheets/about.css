@@ -756,6 +756,26 @@ body {
   margin-bottom: 40px;
 }
 
+.carousel-control.left, .carousel-control.right {
+  background-image: none;
+}
+
+.glyphicon-chevron-left, .glyphicon-chevron-right {
+  color: #333;
+}
+
+.carousel-indicators {
+  bottom: 5px;
+}
+
+.carousel-indicators li {
+  background-color: grey;
+}
+
+.carousel-indicators .active {
+  background-color: #333;
+}
+
 @media screen and (min-width: 768px) {
   .header-image, .header {
     max-height: 100vh;
@@ -837,6 +857,7 @@ body {
 
   .testimonials-quotes-symbol {
     margin-bottom: 7%;
+    margin-top: 1%;
   }
 }
 

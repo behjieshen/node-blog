@@ -79,24 +79,16 @@ module.exports = function(router, passport) {
 
   // Add new author (POST)
   router.post('/authors/add', upload.single('image'), function(req, res, next) {
-    // Get form values
-    var title = req.body.title;
-    var body = req.body.body;
 
-    // Form Validation
-    req.check('title', 'Title field is required').notEmpty();
-    req.check('body', 'Body field is required').notEmpty();
+    // Get Form Values
+    var name = req.body.name;
+    var role = req.body.role;
 
     // Check errors
     var errors = req.validationErrors();
 
     if(errors) {
-      console.log(errors);
-      res.render('addauthors', {
-        "errors": errors,
-        "title": title,
-        "body": body
-      });
+      res.render('addauthors');
     } else {
       var authors = db.get('authors');
 
@@ -107,8 +99,8 @@ module.exports = function(router, passport) {
       }
 
       authors.insert({
-        "title": title,
-        "body": body,
+        "name": name,
+        "role": role,
         "image": filename
       }, function(err, author) {
         if(err){
@@ -120,6 +112,7 @@ module.exports = function(router, passport) {
         }
       });
     }
+
   });
 
   //Wait
