@@ -29,6 +29,160 @@ body {
   padding-right: 0;
 }
 
+/* Loading Screen */
+
+  #loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1201;
+    overflow-y: hidden;
+  }
+
+  #loader {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .loader-section {
+    position: fixed;
+    top: 0;
+    width: 51%;
+    height: 100%;
+    background: white;
+    z-index: 1200;
+  }
+
+  .loader-section.section-left {
+    left: 0;
+  }
+
+  .loader-section.section-right {
+    right: 0;
+  }
+
+  .loaded .loader-section.section-left {
+    transform: translateY(-100%);
+    transition: all 1.5s;
+    /*transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);*/
+  }
+
+  .loaded .loader-section.section-right {
+    transform: translateY(-100%);
+    transition: all 1.5s;
+    /*transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);*/
+  }
+
+  .loaded #loader {
+    opacity: 0;
+    transition: all 0.3s ease-out;
+  }
+
+  .loaded #loader-wrapper {
+    visibility: hidden;
+
+    transform: translateY(-100%);
+    transition: all 0.3s 1s ease-out;
+  }
+
+  #content {
+    display: none;
+  }
+
+  .loader-heading {
+    position: absolute;
+    z-index: 1202;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    width: 50%;
+    text-align: center;
+    color: rgb(51,51,51);
+    left: 50%;
+    top: 50%;
+    font-size: 50px;
+    opacity: 0;
+    font-family: Coolvetica;
+    animation: fadeIn 4s linear;
+    animation-fill-mode: forwards;
+  }
+
+  .loader2 {
+    animation-delay: 4s;
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    30% {
+      opacity: 1;
+    }
+
+    70% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+
+  .svg-final-img {
+    max-width: 50%;
+    max-height: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    opacity: 0;
+    animation-name: show;
+    animation-delay: 5.9s;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+    z-index: 1202;
+  }
+
+  .svg-animation {
+    max-width: 50%;
+    max-height: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 1202;
+  }
+
+  .svg-animation-path {
+      fill-opacity: 0;
+      stroke: white;
+      stroke-width: 5;
+      stroke-dasharray: 3483;
+      stroke-dashoffset: 3483;
+      animation: draw 1s linear;
+    }
+
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes show {
+    to {
+      opacity: 1;
+    }
+  }
+
 @font-face {
   font-family: Coolvetica;
   src: url('../fonts/coolvetica.ttf');
@@ -391,7 +545,7 @@ body {
   float: left;
   height: 100vh;
   position: fixed;
-  background: black;
+  background: white;
   display: none;
 }
 
@@ -402,7 +556,8 @@ body {
   top: 50%;
   width: 70%;
   font-size: 30px;
-  color: white;
+  color: rgb(51,51,51);
+  font-family: Coolvetica;
   transform: translate(-50%, -50%);
 }
 
@@ -453,6 +608,11 @@ body {
   padding: 0 4%;
 }
 
+.contact-subheading-color {
+  color: #FF9C00;
+  font-style: normal;
+}
+
 .contact-form-container {
   width: 90%;
   margin: 0 auto;
@@ -462,6 +622,8 @@ body {
 .contact-form {
   text-align: left;
   padding: 0 4%;
+  max-width: 550px;
+  margin: 0 auto;
 }
 
 .contact-form-group {

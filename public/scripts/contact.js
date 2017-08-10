@@ -1,3 +1,8 @@
+setTimeout(function() {
+  $('.container').addClass('loaded');
+  $('#content').css('display', 'block');
+}, 8000);
+
 $(document).ready(function() {
   // When search icon is clicked in desktop mode
     var innerWidths = $(window).innerWidth();
@@ -37,18 +42,6 @@ $(document).ready(function() {
       }
     });
 
-
-  var prev = 0;
-  var window_width = $(window).width();
-  if(window_width > 768) {
-    $('.navbar-default').toggleClass('hidden');
-  }
-  $(window).scroll(function() {
-    var amount_scrolled = $(window).scrollTop();
-    if(window_width > 768) {
-      prev = toggleNavbarOnScroll(amount_scrolled, prev);
-    }
-  })
 })
 
 // Close search box
@@ -61,11 +54,4 @@ $(document).ready(function() {
       $(".searchbox-input").val("");
       $(".searchbox-icon").css("display", "block");
     }
-  }
-
-// Hide Navbar when scroll down
-  function toggleNavbarOnScroll(amount_scrolled, prev) {
-    $('.navbar-default').toggleClass('hidden', amount_scrolled > prev);
-    prev = amount_scrolled;
-    return prev;
   }

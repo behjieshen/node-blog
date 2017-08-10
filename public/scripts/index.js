@@ -6,10 +6,10 @@ setTimeout(function() {
 $(document).ready(function() {
   var flex_spread_item_height = $('.featured-card-item').height() + 15 + 'px';
 
-  // Go to top when refreshed
+  /*Go to top when refreshed
     $(window).on('beforeunload', function() {
       $(window).scrollTop(0);
-    });
+    });*/
 
   var window_height = $(window).height();
   var window_width = $(window).width();
