@@ -6,167 +6,226 @@ html
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
-    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Muli|Quicksand')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
-    link(rel='stylesheet', href='/stylesheets/show.css')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Lato|Merriweather+Sans|Quicksand')
+    link(rel='stylesheet', href='/stylesheets/showing.css')
+    link(rel="canonical" href="http://fiintech.com")
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js')
-    script(src='/scripts/show.js')
+    script(src="https://apis.google.com/js/platform.js" async defer)
+    script(src="/scripts/ScrollTrigger.min.js")
+    script(src='/scripts/showing.js')
+    script(type="text/javascript").
 
-  body(data-spy='scroll')
-    .container
-      a.page-scroll.back-to-top(href='.whitespace')
-      .whitespace
-      .header(style="background-image: linear-gradient(rgba(0,0,0,0.25),rgba(0,0,0,0.25)), url('/images/uploads/#{post.mainimage}');")
-        .row.navbar-row
-          .social-icons
-            a(href="#")
-              i.fa.fa-facebook.social-button
-            a(href="#")
-              i.fa.fa-google-plus.social-button
-            a(href="#")
-              i.fa.fa-twitter.social-button
-            a(href="#")
-              i.fa.fa-get-pocket.social-button
-            a(href="#")
-              i.fa.fa-linkedin.social-button
-          nav.navbar.navbar-default.navbar-transparent.navbar-fixed-top(role='navigation')
-            .navbar-header
-              button#dropdown.navbar-toggle(type='button', data-toggle='collapse', data-target='#example-navbar-collapse')
-                span.sr-only Toggle navigation
-                span.icon-bar
-                span.icon-bar
-                span.icon-bar
-              a.page-scroll.navbar-logo(href='/')
-                img.navbar-img(src='/images/logo.svg')
-            #example-navbar-collapse.collapse.navbar-collapse.navbar-color(style='width : 100%;')
-              ul.nav.navbar-nav.navbar-right.main-nav
-                li
-                  a.page-scroll(href='/') Home
-                li
-                  a.page-scroll.blog-hyperlink(href='.post') Blog
-                li
-                  a.page-scroll(href='.testimonials') About
-                li
-                  a.page-scroll.blog-hyperlink(href='.blog') Gallery
-                li
-                  a.page-scroll(href='.form') Contact
-                li.desktop-mode(style="padding-right: 0")
-                  form.searchbox
-                    input.searchbox-input(type="search" placeholder="Search......" name="search" onkeyup="buttonUp();" required)
-                    input.searchbox-submit(type="submit" value="Go")
-                    span.searchbox-icon
-                      i.fa.fa-search(aria-hidden="true")
-                li.mobile-mode(style="padding-right: 0")
-                  .custom-search-input
-                    form.input-group
-                      input.search-query.form-control(type='search' placeholder='Search')
-                      input.searchbox-mobile-submit(type="submit" value="Go")
-                      span.input-group-btn
+      $(document).ready(function() {
+
+        $('.post-like-button').keydown(function() {
+          var another = "test";
+          console.log(another);
+          var test = "/addlikes/" + post[0].likes;
+          console.log(test);
+        })
+      })
+
+      $('.pocket').on('submit', function(event) {
+        event.preventDefault();
+        $.ajax({
+          url: "https://getpocket.com/v3/oauth/request",
+          method: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify({
+            "consumer_key":"68668-6b08779b70de653430b3901e",
+            "redirect_uri":"http://fiintech.com"
+          }),
+          success: function(response) {
+            console.log(response);
+          }
+        })
+      })
+  body
+    .container.window-container
+      .row.navbar-row
+        nav.navbar.navbar-default.navbar-transparent.navbar-fixed-top(role='navigation')
+          .navbar-header
+            button#dropdown.navbar-toggle(type='button', data-toggle='collapse', data-target='#example-navbar-collapse')
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            a.page-scroll.navbar-logo(href='/')
+              img.navbar-img(src='/images/logo.svg')
+          #example-navbar-collapse.collapse.navbar-collapse.navbar-color(style='width : 100%;')
+            ul.nav.navbar-nav.navbar-right.main-nav
+              li
+                a.page-scroll(href='/') Home
+              li
+                a.page-scroll.blog-hyperlink(href='/') Blog
+              li
+                a.page-scroll(href='/about') About
+              li
+                a.page-scroll(href='.form') Contact
+              li.desktop-mode(style="padding-right: 0")
+                form.searchbox
+                  input.searchbox-input(type="search" placeholder="Search......" name="search" onkeyup="buttonUp();" required)
+                  input.searchbox-submit(type="submit" value="Go")
+                  span.searchbox-icon
+                    i.fa.fa-search.searchbox-search-icon(aria-hidden="true")
+              li.mobile-mode(style="padding-right: 0")
+                .custom-search-input
+                  form.input-group
+                    input.search-query.form-control(type='search' placeholder='Search')
+                    input.searchbox-mobile-submit(type="submit" value="Go")
+                    span.input-group-btn
                         span.glyphicon.glyphicon-search
-        .article-mask
-        .article-caption=post.title
-        .button-awesome
-          a.page-scroll.btn.btn-half(href='.post') Read Article
-      .post
-        .container
-          .article-content
-            h1(style="font-size: 43px;")=post.title
-            br
-            br
-            .row
-              .col-md-6
-                p.tags-title Tags: &nbsp
-                if Array.isArray(post.category)
-                  each tag, i in post.category
+
+      nav.navbar.navbar-fixed-bottom.social-nav
+        .row.social-icons-row
+          .col-xs-2.social-icon-container.social-facebook
+            i.fa.fa-facebook.social-icon
+          .col-xs-2.social-icon-container.social-whatsapp
+            i.fa.fa-whatsapp.social-icon
+          .col-xs-2.social-icon-container.social-googleplus
+            i.fa.fa-google-plus.social-icon
+          .col-xs-2.social-icon-container.social-twitter
+            i.fa.fa-twitter.social-icon
+          .col-xs-2.social-icon-container.social-pocket
+            i.fa.fa-get-pocket.social-icon
+          .col-xs-2.social-icon-container.social-linkedin
+            i.fa.fa-linkedin.social-icon
+      .row
+        .col-sm-9.blog
+          .post-img-container
+            img.post-img(src="/images/uploads/#{post[0].mainimage}")
+          .blog-content
+            .row.post-tags-likes-row
+              .col-xs-9
+                if Array.isArray(post[0].tags)
+                  each tag, i in post[0].tags
                     each category, j in tags
-                      if category.title == tag
-                        a.tags(href='.post' style="background: #{category.color}; border-color: #{category.color}") #{tag}
+                      if category.name == tag
+                        h5.post-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
                 else
                   each category, i in tags
-                    if category.title == post.category
-                      a.tags(href='.post' style="background: #{category.color}; border-color: #{category.color}") #{post.category}
+                    if category.name == post[0].tags
+                      h5.post-tags(href='/search/#{post[0].tags}' style="background: #{category.color}; border-color: #{category.color}") #{post[0].tags}
+              .col-xs-3
+                .post-likes
+                  i.fa.fa-heart.post-likes-icon.text-right
+                  h4.post-likes-number.text-right &nbsp#{post[0].likes}
+            h1.post-title #{post[0].title}
+            h2.post-description #{post[0].description}
+            h3.post-author-date by #{post[0].author}  |  #{moment(post[0].date).format('DD MMM YYYY')}
+            hr.post-seperator-line
 
-              .col-md-6
-                if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
-                  p.meta Posted #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
-                else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 60
-                  p.meta Posted #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minutes ago
-                else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 120
-                  p.meta Posted #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
-                else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours()) < 24
-                  p.meta Posted #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hours ago
-                else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays()) < 2
-                  p.meta Posted #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} day ago
-                else
-                  p.meta Posted #{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
-            br
-            br
-            !=post.body
-            br
-            .row.likes-row
-              a(href="/subtract-likes/#{post._id}" onclick="liked();")
-                i.fa.fa-heart(style="color: red")
-                h3.likes-number(style="color: red") &nbsp#{post.likes}
-            hr
-            .row
-              .col-md-2(style="text-align: center")
-                a(href="#")
-                  img.profile-pic(src="/images/uploads/#{author[0].image}")
-                br
-                br
-                a(href="#")
-                  i.fa.fa-instagram.author-social(aria-hidden="true")
-                a(href="#")
-                  i.fa.fa-twitter.author-social(aria-hidden="true")
-                a(href="#")
-                  i.fa.fa-linkedin.author-social(aria-hidden="true")
-              br
-              .col-md-7
-                p.author-name #{post.author}
-                p.author-description #{author[0].body}
-              .col-md-3.read-more-column
-                a.read-more-button(href="/search/author/#{author[0].title}") Read More
-      br
-      br
-      br
-      h2.others-headline Other Interesting Stories
-      br
-      br
-      .row.other-row
-        each other, i in otherpost
-          .col-md-4
-            .others
+            .g-plus(data-action="share" data-annotation="none" data-href="http://fiintech.com")
+            .post-content!=post[0].content
+
+          h3.post-like-our-article-prompt
+            b LIKE&nbsp
+            | our article?&nbsp
+            b FEEL FREE&nbsp
+            | to like it&nbsp
+            B BELOW
+          .post-like-button-row
+            a.post-like-button(href="/post/#{moment(post[0].date).format('DDMMYYYY')}/#{(encodeURIComponent(post[0].title)).replace(/%20/g, '-')}/#{post[0]._id}/subtract-likes" onclick="subtractLikes();")
+              i.fa.fa-heart.post-like-button-icon(style="color: #CC0000")
+              h3.post-like-button-number(style="color: #CC0000") &nbsp#{post[0].likes}
+          .blog-content-extended
+            hr.post-ending-seperator-line
+            each author, i in authors
+              if (author.name === post[0].author)
+                .post-author
+                  img.post-author-img(src='/images/uploads/#{author.image}')
+                  .post-wording
+                    h6.post-author-name &nbsp&nbsp#{post[0].author}
+                    h6.post-time &nbsp&nbsp#{author.role}
+                .load-more
+                  a.load-more-button Find Out More
+
+
+          .mobile-related-posts
+            h2.recent-post-heading.text-center Related Posts
+            .display-list
               .container
-                .other-img
-                  img(src="/images/uploads/#{other.mainimage}" align="center")
-                .other-content
-                  h4.other-title #{other.title}
-                  .row
-                    .col-xs-8
-                      if Array.isArray(other.category)
-                        each tag, i in other.category
-                          each category, j in tags
-                            if category.title == tag
-                              a.tags(href='.post' style="background: #{category.color}; border-color: #{category.color}") #{tag}
-                      else
-                        each category, i in tags
-                          if category.title == other.category
-                            a.tags(href='.post' style="background: #{category.color}; border-color: #{category.color}") #{other.category}
-                    .col-xs-4
-                      .likes
-                        i.fa.fa-heart.likes-icon.text-right
-                        h4.likes-number.text-right &nbsp#{other.likes}
-                  .other-text
-                    p #{other.description}
-                .other-read-more
-                  a.other-read-more-button(href="/posts/show/#{other._id}") Read More
-                br
-                br
-            br
-            br
-            br
+                each otherpost, i in otherposts
+                  .list-style-column
+                    .row
+                      .col-xs-4.list-style-image-column
+                        a(href="/#{moment(otherpost.date).format('DDMMYYYY')}/#{(encodeURIComponent(otherpost.title)).replace(/%20/g, '-')}")
+                          .list-style-img-container
+                            img.list-style-img(src="/images/uploads/#{otherpost.mainimage}" align="right")
+                      .col-xs-8.list-style-content
+                        a(href="/#{moment(otherpost.date).format('DDMMYYYY')}/#{(encodeURIComponent(otherpost.title)).replace(/%20/g, '-')}")
+                          h4.list-style-title #{otherpost.title}
+                        if Array.isArray(otherpost.tags)
+                          each tag, k in otherpost.tags
+                            each category, j in tags
+                              if category.name == tag
+                                a.list-style-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
+                        else
+                          each category, k in tags
+                            if category.name == otherpost.tags
+                              a.list-style-tags(href='/search/#{otherpost.tags}' style="background: #{category.color}; border-color: #{category.color}") #{category.name}
+                        .row.list-style-author-row
+                          .col-xs-9
+                            each author, i in authors
+                              if (author.name === otherpost.author)
+                                .list-style-author
+                                  img.list-style-author-img(src='/images/uploads/#{author.image}')
+                                  .wording
+                                    h6.list-style-author-name &nbsp&nbsp#{otherpost.author}
+                                    if parseInt(moment.duration(moment(new Date()).diff(otherpost.date)).asMinutes()) < 2
+                                      h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(otherpost.date)).asMinutes())} minute ago
+                                    else if parseInt(moment.duration(moment(new Date()).diff(otherpost.date)).asMinutes()) < 60
+                                      h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(otherpost.date)).asMinutes())} minutes ago
+                                    else if parseInt(moment.duration(moment(new Date()).diff(otherpost.date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(otherpost.date)).asMinutes()) < 120
+                                      h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(otherpost.date)).asHours())} hour ago
+                                    else if parseInt(moment.duration(moment(new Date()).diff(otherpost.date)).asHours()) < 24
+                                      h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(otherpost.date)).asHours())} hours ago
+                                    else if parseInt(moment.duration(moment(new Date()).diff(otherpost.date)).asDays()) < 2
+                                      h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(otherpost.date)).asDays())} day ago
+                                    else
+                                      h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(otherpost.date)).asDays())} days ago
+                          .col-xs-3(style="margin-top: 10px;")
+                            .list-style-likes(style="margin-top: 0")
+                              i.fa.fa-heart.list-style-likes-icon.text-right
+                              h4.list-style-likes-number.text-right &nbsp#{otherpost.likes}
+            #fb-root
+
+        .col-sm-3.sidebar.web-related-posts
+          h2.recent-post-heading.text-center(style="padding: 0; padding-bottom: 24px;") Related
+          - for (var m = 0; m < 5; m++)
+              li.featured-card-item(data-scroll="toggle(.fromLeftIn, .fromLeftOut)")
+                .container
+                  .featured-card-img
+                    a.featured-card-link(href="/#{moment(otherposts[m].date).format('DDMMYYYY')}/#{(encodeURIComponent(otherposts[m].title)).replace(/%20/g, '-')}")
+                      img(src="/images/uploads/#{otherposts[m].mainimage}" align="center")
+                    .featured-card-likes
+                      i.fa.fa-heart.featured-card-likes-icon.text-left
+                      h4.featured-card-likes-number.text-left &nbsp#{otherposts[m].likes}
+                  .featured-card-content
+                    .row.featured-card-tags-row
+                      .featured-card-tags-group
+                        if Array.isArray(otherposts[m].tags)
+                          each tag, j in otherposts[m].tags
+                            each category, k in tags
+                              if category.name == tag
+                                a.featured-card-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
+                        else
+                          each category, i in tags
+                            if category.name == otherposts[m].tags
+                              a.featured-card-tags(href='/search/#{otherposts[m].tags}' style="background: #{category.color}; border-color: #{category.color}") #{otherposts[m].tags}
+                    a.featured-card-link(href="/#{moment(otherposts[m].date).format('DDMMYYYY')}/#{(encodeURIComponent(otherposts[m].title)).replace(/%20/g, '-')}")
+                      h2.text-left.featured-card-title #{otherposts[m].title}
+                    .row
+                      each author, i in authors
+                        if (author.name === otherposts[m].author)
+                          .featured-card-author
+                            img.featured-card-author-img(src='/images/uploads/#{author.image}')
+                            .featured-card-wording
+                              h6.featured-card-author-name &nbsp&nbsp#{otherposts[m].author}
+                              h6.featured-card-time &nbsp&nbsp&nbsp#{moment(otherposts[m].date).format('DD MMM YYYY')}
+              br
 
     footer
       .row
@@ -182,5 +241,3 @@ html
         .col-md-4
           a(href="#")
             h4.questions Questions? Contact Us Now
-
-

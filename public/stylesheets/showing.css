@@ -953,7 +953,7 @@ iframe[src^="https://apis.google.com"] {
 }
 
 .post-like-button-icon, .post-like-button-number {
-  color: grey;
+  color: rgb(128, 128, 128);
   display: inline;
 }
 

@@ -6,7 +6,7 @@ html
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
-    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto|Quicksand')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto|Quicksand|Merriweather:300i,300')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
     link(rel='stylesheet', href='/stylesheets/results.css')
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
@@ -50,6 +50,65 @@ html
                       input.searchbox-mobile-submit(type="submit" value="Go")
                       span.input-group-btn
                           span.glyphicon.glyphicon-search
+
+        nav.filter-section.filter-section-main
+          ul
+            li
+              a.filter-section-main-name Name
+            li
+              a.filter-section-main-tags Tags
+            li
+              a.filter-section-main-tags Time
+            li
+              a.filter-section-main-tags Likes
+            li
+              a.filter-section-main-tags Authors
+            li.close-button Close
+
+        nav.filter-section.filter-section-sub.filter-section-name
+          ul
+            li
+              a.filter-section-name-element A-Z
+            li
+              a.filter-section-name-element Z-A
+            li.back-button Back
+            li.close-button Close
+
+        nav.filter-section.filter-section-sub.filter-section-tags
+          ul
+            each tag, i in tags
+              li
+                a.filter-section-tags-element #{tag.name}
+            li.back-button Back
+            li.close-button Close
+
+        nav.filter-section.filter-section-sub.filter-section-time
+          ul
+            li
+              a.filter-section-time-element Newest
+            li
+              a.filter-section-time-element Oldest
+            li.back-button Back
+            li.close-button Close
+
+        nav.filter-section.filter-section-sub.filter-section-likes
+          ul
+            li
+              a.filter-section-name-element Highest
+            li
+              a.filter-section-name-element Lowest
+            li.back-button Back
+            li.close-button Close
+
+        nav.filter-section.filter-section-sub.filter-section-authors
+          ul
+            each author, i in authors
+              li
+                a.filter-section-name-element #{author.name}
+            li.back-button Back
+            li.close-button Close
+
+
         nav.navbar.navbar-inverse.navbar-fixed-top#sidebar-wrapper(role="navigation")
           ul.nav.sidebar-nav
             li.sidebar-brand
@@ -59,7 +118,7 @@ html
                 span.caret
               ul.dropdown-menu(role="menu")
                 li.dropdown-list
-                  a(href="/search/name-asc") A - Z
+                  a(href="/search/name-asc/term=#{search_term}?") A - Z
                 li.dropdown-list
                   a(href="/search/name-desc") Z - A
             li.dropdown
@@ -101,10 +160,122 @@ html
             span.hamb-bottom
             h4.hamb-text Filters
           .results-section
-            h2.recent-post-heading.text-center Search Results
-            h5.text-center Search Term: Hello
+            h2.recent-post-heading.text-center Results.
+            h3.search-display-posts-length Found: #{posts.length}
+            h3.click-button Button
+
+            - console.log("2" + searchquerystring);
+
+            - var newQuery = "";
+            - function checkDuplicateOrSimilars(conditionValue, conditionName, similarValue, similarName) {
+                // if there isn't the value
+            -   if (searchquerystring.includes(conditionValue) == false) {
+            -     if (searchquerystring.includes(similarValue)) {
+            -       newQuery = searchquerystring.replace(similarValue, conditionValue);
+            -       var results = {name: conditionName, query: newQuery};
+            -       return results;
+            -     } else {
+            -       if (searchquerystring.length < 1) {
+            -         newQuery = conditionValue;
+            -       } else {
+            -         newQuery = searchquerystring + "&" + conditionValue;
+            -       }
+            -       var results = {name: conditionName, query: newQuery};
+            -       return results;
+            -     }
+            -   } else if (searchquerystring.includes(similarValue)) {
+              -     newQuery = searchquerystring.replace(similarValue, conditionValue);
+              -     var results = {name: conditionName, query: newQuery};
+              -     return results;
+            -   } else
+            -       return "hello";
+            - }
+
+            - var results = checkDuplicateOrSimilars("name=a-z", "A-Z", "name=z-a", "Z-A");
+            a(href="?#{results.query}") #{results.name}
+            br
+            - var results = checkDuplicateOrSimilars("name=z-a", "Z-A", "name=a-z", "A-Z");
+            a(href="?#{results.query}") #{results.name}
+            br
+
+            - var results = checkDuplicateOrSimilars("time=newest", "Newest", "time=oldest", "Oldest");
+            a(href="?#{results.query}") #{results.name}
+            br
+            - var results = checkDuplicateOrSimilars("time=oldest", "Oldest", "time=newest", "Newest");
+            a(href="?#{results.query}") #{results.name}
+            br
+
+            - var results = checkDuplicateOrSimilars("likes=highest", "Highest", "likes=lowest", "Lowest");
+            a(href="?#{results.query}") #{results.name}
+            br
+            - var results = checkDuplicateOrSimilars("likes=lowest", "Lowest", "likes=highest", "Highest");
+            a(href="?#{results.query}") #{results.name}
+            br
+
+            br
+            br
+            p _______________
+
+            - console.log("1." + searchquerystring);
+            - var urlsplit = searchquerystring.split("&");
+            each query, i in urlsplit
+              if i == urlsplit.length - 1
+                - console.log('Hellow')
+                - var deleteurl = searchquerystring.replace("&"+query, "");
+              else
+                - var deleteurl = searchquerystring.replace(query+"&", "");
+              a(href="?#{deleteurl}") #{query}
+              br
+              br
+
+
+            form.searchbox-prompt(action="/search" method="GET")
+              input.searchbox-input-prompt(type="search" placeholder="Search" name="term" onkeyup="buttonUp();" value="#{search_term}" required)
+              a.searchbox-icon-prompt(href="#")
+                i.fa.fa-search.searchbox-search-icon-prompt(aria-hidden="true")
             if posts
-              h1 Posts
+              - for (var i = 0; i < posts.length; i++)
+                  li.featured-card-item
+                    .container
+                      .featured-card-img
+                        a.featured-card-link(href="/post/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
+                          img(src="/images/uploads/#{posts[i].mainimage}" align="center")
+                        .featured-card-likes
+                          i.fa.fa-heart.featured-card-likes-icon.text-left
+                          h4.featured-card-likes-number.text-left &nbsp#{posts[i].likes}
+                      .featured-card-content
+                        .row.featured-card-tags-row
+                          .featured-card-tags-group
+                            if Array.isArray(posts[i].tags)
+                              each post_tag, j in posts[i].tags
+                                each tag, k in tags
+                                  if tag.name == post_tag
+                                    a.featured-card-tags(href='/search/#{tag.name}' style="background: #{tag.color}; border-color: #{tag.color}") #{tag.name}
+                            else
+                              each tag, j in tags
+                                if tag.name == posts[i].tags
+                                  a.featured-card-tags(href='/search/#{posts[i].tags}' style="background: #{tag.color}; border-color: #{tag.color}") #{tag.name}
+                        a.featured-card-link(href="/post/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
+                          h2.text-left.featured-card-title #{posts[i].title}
+                        .row
+                          each author, j in authors
+                            if (author.name === posts[i].author)
+                              .featured-card-author
+                                img.featured-card-author-img(src='/images/uploads/#{author.image}')
+                                .featured-card-wording
+                                  h6.featured-card-author-name &nbsp&nbsp#{posts[i].author}
+                                  if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 2
+                                    h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes())} minute ago
+                                  else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 60
+                                    h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes())} minutes ago
+                                  else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 120
+                                    h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours())} hour ago
+                                  else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours()) < 24
+                                    h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours())} hours ago
+                                  else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asDays()) < 2
+                                    h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asDays())} day ago
+                                  else
+                                    h6.featured-card-time &nbsp&nbsp&nbsp#{moment(posts[i].date).format('DD MMM YYYY')}
             else
               p There are no posts to display
             footer

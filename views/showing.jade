@@ -16,6 +16,17 @@ html
     script(src="/scripts/ScrollTrigger.min.js")
     script(src='/scripts/showing.js')
     script(type="text/javascript").
+
+      $(document).ready(function() {
+
+        $('.post-like-button').keydown(function() {
+          var another = "test";
+          console.log(another);
+          var test = "/addlikes/" + post[0].likes;
+          console.log(test);
+        })
+      })
+
       $('.pocket').on('submit', function(event) {
         event.preventDefault();
         $.ajax({
@@ -116,7 +127,7 @@ html
             | to like it&nbsp
             B BELOW
           .post-like-button-row
-            a.post-like-button
+            a.post-like-button(href="/post/#{moment(post[0].date).format('DDMMYYYY')}/#{(encodeURIComponent(post[0].title)).replace(/%20/g, '-')}/#{post[0]._id}/add-likes" onclick="addLikes();")
               i.fa.fa-heart.post-like-button-icon
               h3.post-like-button-number &nbsp#{post[0].likes}
           .blog-content-extended

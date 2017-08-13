@@ -10,8 +10,8 @@ block content
         .contact-form-group.form-group
           h6.contact-form-label-static Tags (Maximum: 2)
           each category, i in categories
-            input.test(type="checkbox" value="#{category.title}" name="tags" style="display: inline")
-            p(style="display:inline") &nbsp#{category.title}
+            input.test(type="checkbox" value="#{category.name}" name="tags" style="display: inline")
+            p(style="display:inline") &nbsp#{category.name}
             br
         .contact-form-group.form-group
           h6.contact-form-label Description
@@ -32,7 +32,7 @@ block content
             if authors
               each author, i in authors
                 option(value='') Author
-                option(value='#{author.title}') #{author.title}
+                option(value='#{author.name}') #{author.name}
         .contact-form-submit-row
           input.contact-form-submit(type="submit" value="CREATE POST")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js")

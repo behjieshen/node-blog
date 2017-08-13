@@ -131,3 +131,19 @@ $(document).ready(function() {
       $(".searchbox-icon").css("display", "block");
     }
   }
+
+function subtractLikes() {
+    $('.post-like-button-number').css('color', 'grey');
+    $('.post-like-button-icon').css('color', 'grey');
+    var number = parseInt($('.post-like-button-number').text());
+    number-=1;
+    $('.post-like-button-number').html("&nbsp" + number);
+}
+
+function addLikes() {
+    $('.post-like-button-number').css('color', '#CC0000');
+    $('.post-like-button-icon').css('color', '#CC0000');
+    var number = parseInt($('.post-like-button-number').text());
+    number+=1;
+    $('.post-like-button-number').html("&nbsp" + number);
+}

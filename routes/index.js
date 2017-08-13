@@ -11,22 +11,17 @@ module.exports = function(router, passport) {
     var posts = db.get('posts');
     var authors = db.get('authors');
     var tags = db.get('categories');
-    if(req.query.search) {
-      const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-      res.redirect('/search?search=' + req.query.search);
-    } else {
-      posts.find({}, {}, function(err, posts) {
-        authors.find({}, {sort: {$natural:1}}, function(err, authors) {
-          tags.find({}, {}, function(err, tags)  {
-            res.render('index', {
-              "posts": posts,
-              "authors": authors,
-              "tags": tags
-            });
-          })
+    posts.find({}, {}, function(err, posts) {
+      authors.find({}, {sort: {$natural:1}}, function(err, authors) {
+        tags.find({}, {}, function(err, tags)  {
+          res.render('index', {
+            "posts": posts,
+            "authors": authors,
+            "tags": tags
+          });
         })
       })
-    }
+    })
   });
 
   router.get('/about', function(req,res,next) {
@@ -128,15 +123,17 @@ module.exports = function(router, passport) {
     var posts = db.get('posts');
     var tags = db.get('categories');
     var authors = db.get('authors');
-    if(req.query.search) {
-      const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    console.log(req.query.term);
+    if(req.query.term) {
+      const regex = new RegExp(escapeRegex(req.query.term), 'gi');
       posts.find({"title": regex}, {}, function(err, posts) {
         tags.find({}, {}, function(err, tags) {
           authors.find({}, {}, function(err, authors) {
             res.render('results', {
               "posts": posts,
               "tags": tags,
-              "authors": authors
+              "authors": authors,
+              "search_term": req.query.term
             });
           })
         })
@@ -148,7 +145,8 @@ module.exports = function(router, passport) {
             res.render('results', {
               "posts": posts,
               "tags": tags,
-              "authors": authors
+              "authors": authors,
+              "search_term": ""
             });
           })
         })
@@ -156,22 +154,120 @@ module.exports = function(router, passport) {
     }
   })
 
-  router.get('/search/name-asc', function(req, res, next) {
+  router.get('/searching/', function(req, res, next) {
     var db = req.db;
     var posts = db.get('posts');
     var tags = db.get('categories');
     var authors = db.get('authors');
-    posts.find({}, {sort: { title : 1 } }, function(err, posts) {
-      tags.find({}, {}, function(err, tags) {
-        authors.find({}, {}, function(err, authors) {
-          res.render('results', {
-            "posts": posts,
-            "tags": tags,
-            "authors": authors
-          });
+
+    var querystring = "";
+    var mongoquery = {};
+    for (var key in req.query) {
+      if (req.query.hasOwnProperty(key) && (key == "name" || key == "tag"
+          || key == "time" || key == "likes" || key == "author" || key == "term") ) {
+        querystring = querystring.concat(key + "=" + req.query[key] + "&");
+        switch(req.query[key]) {
+          case "a-z":
+            mongoquery.title = -1;
+            break;
+          case "z-a":
+            mongoquery.title = 1;
+          case "newest":
+            mongoquery.date = -1;
+            break;
+          case "oldest":
+            mongoquery.date = 1;
+          case "highest":
+            mongoquery.likes = -1;
+            break;
+          case "lowest":
+            mongoquery.likes = 1;
+        }
+      }
+      console.log(querystring);
+
+      if (req.query['category'])
+        mongoquery.category = req.query['tag'];
+      if (req.query['author'])
+        mongoquery.author = req.query['author'];
+    }
+
+    console.log("TTTTTTTTTTTTTTTTTTTT");
+    console.log(querystring);
+    querystring = querystring.substring(0, querystring.length - 1);
+
+    console.log(mongoquery);
+
+    if(req.query.term) {
+      const regex = new RegExp(escapeRegex(req.query.term), 'gi');
+      posts.find({"title": regex}, {sort: mongoquery }, function(err, posts) {
+        tags.find({}, {}, function(err, tags) {
+          authors.find({}, {}, function(err, authors) {
+            res.render('results', {
+              "posts": posts,
+              "tags": tags,
+              "authors": authors,
+              "search_term": req.query.term,
+              "searchquerystring": querystring
+            })
+          })
         })
       })
-    })
+    } else {
+      posts.find({}, {sort: mongoquery}, function(err, posts) {
+        tags.find({}, {}, function(err, tags) {
+          authors.find({}, {}, function(err, authors) {
+            res.render('results', {
+              "posts": posts,
+              "tags": tags,
+              "authors": authors,
+              "search_term": "",
+              "searchquerystring": querystring
+            });
+          })
+        })
+      })
+    }
+
+
+  })
+
+  router.get('/search/name-asc/term=:term?', function(req, res, next) {
+    var db = req.db;
+    var posts = db.get('posts');
+    var tags = db.get('categories');
+    var authors = db.get('authors');
+    console.log("Hello");
+    console.log(req.params.term);
+    if(req.params.term) {
+      const regex = new RegExp(escapeRegex(req.params.term), 'gi');
+      posts.find({"title": regex}, {sort: { title : 1 } }, function(err, posts) {
+        tags.find({}, {}, function(err, tags) {
+          authors.find({}, {}, function(err, authors) {
+            res.render('results', {
+              "posts": posts,
+              "tags": tags,
+              "authors": authors,
+              "search_term": req.params.term
+            });
+          })
+        })
+      })
+    } else {
+      req.params.term = "";
+      posts.find({}, {sort: { title : 1 } }, function(err, posts) {
+        tags.find({}, {}, function(err, tags) {
+          authors.find({}, {}, function(err, authors) {
+            res.render('results', {
+              "posts": posts,
+              "tags": tags,
+              "authors": authors,
+              "search_term": req.params.term
+            });
+          })
+        })
+      })
+    }
   })
 
   router.get('/search/name-desc', function(req, res, next) {
@@ -324,6 +420,64 @@ module.exports = function(router, passport) {
     });
   });
 
+  router.get('/post/:date/:title/liked', function(req, res, next) {
+    var db = req.db;
+    var title = decodeURIComponent(req.params.title).replace(/-/g, ' ');
+    var posts = db.get('posts');
+    var authors = db.get('authors');
+    var otherposts = db.get('posts');
+    var tags = db.get('categories');
+    posts.find({title: title}, {}, function(err, post) {
+      authors.find({}, {}, function(err, authors) {
+        tags.find({}, {}, function(err, tags) {
+          otherposts.find({}, { limit: 5, sort: {$natural:-1} }, function(err, otherposts) {
+            req.session.post_url = req.protocol + '://localhost:3000' + encodeURIComponent(req.originalUrl);
+            res.render('showliked', {
+              "post": post,
+              "authors": authors,
+              "tags": tags,
+              "otherposts": otherposts
+            });
+          })
+        })
+      })
+    });
+  });
+
+  router.get('/post/:date/:title/:id/add-likes', function(req, res, next) {
+    var db = req.db;
+    var date = req.params.date;
+    var title = req.params.title;
+    var id = req.params.id;
+    var test = 0;
+    var posts = db.get('posts');
+    posts.findById(id, function(err, post) {
+      test = post.likes + 1;
+      posts.findOneAndUpdate({_id: id}, {$set: {likes : test}},
+        function(err, post) {
+          if (err) console.log(err);
+          else res.redirect('/post/' + date + '/' + title +'/liked');
+      })
+    })
+  })
+
+  router.get('/post/:date/:title/:id/subtract-likes', function(req, res, next) {
+    var db = req.db;
+    var date = req.params.date;
+    var title = req.params.title;
+    var id = req.params.id;
+    var test = 0;
+    var posts = db.get('posts');
+    posts.findById(id, function(err, post) {
+      test = post.likes - 1;
+      posts.findOneAndUpdate({_id: id}, {$set: {likes : test}},
+        function(err, post) {
+          if (err) console.log(err);
+          else res.redirect('/post/' + date + '/' + title);
+      })
+    })
+  })
+
   router.post('/getpocket/save', function(req, res, next) {
     console.log(req.session.post_url);
     var request = require("request");
@@ -356,83 +510,6 @@ module.exports = function(router, passport) {
     var messages = req.flash('error');
     res.render('master.jade', { messages: messages, hasErrors: messages.length > 0 });
   });
-
-  router.get('/posts/show/:id', function(req, res, next) {
-    var db = req.db;
-    var id = req.params.id;
-    var posts = db.get('posts');
-    var authors = db.get('authors');
-    var otherposts = db.get('posts');
-    var tags = db.get('categories');
-    posts.findById(req.params.id, function(err, post) {
-      authors.find({}, {}, function(err, authors) {
-        tags.find({}, {}, function(err, tags) {
-          otherposts.find({"_id": { $ne: id} }, { limit: 3, sort: {$natural:-1} }, function(err, otherpost) {
-            res.render('show', {
-              "post": post,
-              "authors": authors,
-              "tags": tags,
-              "otherpost": otherpost
-            });
-          })
-        })
-      })
-    });
-  });
-
-
-  router.get('/posts/show/:id/liked', function(req, res, next) {
-    var db = req.db;
-    var id = req.params.id;
-    var posts = db.get('posts');
-    var authors = db.get('authors');
-    var otherposts = db.get('posts');
-    var tags = db.get('categories');
-    posts.findById(req.params.id, function(err, post) {
-      authors.find({}, {}, function(err, authors) {
-        tags.find({}, {}, function(err, tags) {
-          otherposts.find({"_id": { $ne: id} }, { limit: 3, sort: {$natural:-1} }, function(err, otherpost) {
-            res.render('showliked', {
-              "post": post,
-              "authors": authors,
-              "tags": tags,
-              "otherpost": otherpost
-            });
-          })
-        })
-      })
-    });
-  });
-
-  router.get('/add-likes/:id', function(req, res, next) {
-    var db = req.db;
-    var id = req.params.id;
-    var test = 0;
-    var posts = db.get('posts');
-    posts.findById(id, function(err, post) {
-      test = post.likes + 1;
-      posts.findOneAndUpdate({_id: id}, {$set: {likes : test}},
-        function(err, post) {
-          if (err) console.log(err);
-          else res.redirect('/posts/show/' + id +'/liked');
-      })
-    })
-  })
-
-  router.get('/subtract-likes/:id', function(req, res, next) {
-    var db = req.db;
-    var id = req.params.id;
-    var test = 0;
-    var posts = db.get('posts');
-    posts.findById(id, function(err, post) {
-      test = post.likes - 1;
-      posts.findOneAndUpdate({_id: id}, {$set: {likes : test}},
-        function(err, post) {
-          if (err) console.log(err);
-          else res.redirect('/posts/show/' + id);
-      })
-    })
-  })
 
   router.post('/posts/addcomment', function(req, res, next) {
     // Get form values

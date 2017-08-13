@@ -1,9 +1,23 @@
 setTimeout(function() {
+  $(window).scrollTop(0);
   $('.container').addClass('loaded');
   $('#content').css('display', 'block');
 }, 1000);
 
 $(document).ready(function() {
+
+  var window_width = $(window).innerWidth();
+  if(window_width > 768) {
+    var headerText = document.getElementsByClassName('header-text')[0];
+    var body = document.getElementsByTagName("BODY")[0];
+    headerText.addEventListener("webkitAnimationEnd", function() {
+      setTimeout(function() {
+        $('body').css('overflow-y', 'scroll');
+        $('.about-us-content-button').click();
+      }, 2500);
+    })
+  }
+
   // When search icon is clicked in desktop mode
     var innerWidths = $(window).innerWidth();
     var submitIcon = $(".searchbox-icon");
@@ -67,6 +81,18 @@ $(document).ready(function() {
       $(".searchbox-icon").css("display", "block");
     }
   }
+
+$(function() {
+  $(document).on('click', 'a.page-scroll', function(event) {
+      var $anchor = $(this);
+      $('html, body').stop().animate({
+          scrollTop: $($anchor.attr('href')).offset().top
+      }, 1500, 'easeInOutQuart');
+      event.preventDefault();
+      $('.navbar-collapse').collapse('hide');
+  });
+});
+
 
 // Hide Navbar when scroll down
   function toggleNavbarOnScroll(amount_scrolled, prev) {

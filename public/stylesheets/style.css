@@ -675,7 +675,7 @@
 
   .featured, .find-articles {
     background: white;
-    padding-bottom: 100px;
+    margin-bottom: 100px;
   }
 
   .recent-post-heading {
@@ -693,6 +693,16 @@
     content: "";
     margin: 0 auto;
     margin-top: 8px;
+  }
+
+  @media screen and (min-width:768px) {
+    .recent-post-heading {
+      font-size: 67px;
+    }
+
+    .recent-post-heading:after {
+      width: 60px;
+    }
   }
 
   /* Display - List */
@@ -1141,7 +1151,7 @@
   }
 
   .featured-item-link {
-    height: 250px;
+    height: 293px;
     width: 100%;
   }
 
@@ -1298,7 +1308,7 @@
   .featured-card-likes {
     float: right;
     position: relative;
-    top: -41px;
+    top: -40px;
     left: 0;
     right: 0;
     bottom: 0;

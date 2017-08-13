@@ -24,6 +24,12 @@ body {
   background: white;
 }
 
+@media screen (min-width: 768px) {
+  body {
+    overflow-y: hidden;
+  }
+}
+
 .container {
   width: 100%;
   padding-left: 0;
@@ -60,6 +66,9 @@ body {
   src: url('../fonts/proxima-nova.otf');
 }
 
+.about-us-content-button {
+  display: none;
+}
 
 
 /* Navigation Bar */
@@ -494,6 +503,10 @@ body {
     }
   }
 
+.item {
+  height: 250px;
+}
+
 .header {
   position: relative;
   text-align: center;
@@ -502,8 +515,10 @@ body {
 }
 
 .header-image {
+  background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/images/about.jpeg');
   width: 100%;
-  max-height: 50vh;
+  background-size: cover;
+  height: 50vh;
 }
 
 @-webkit-keyframes typing { from { width: 0; } }
@@ -743,7 +758,7 @@ body {
 .testimonials-text {
   font-family: Coolvetica;
   font-size: 20px;
-  width: 90%;
+  width: 70%;
   margin: 0 auto;
   padding: 40px 0 20px 0;
 }
@@ -765,7 +780,7 @@ body {
 }
 
 .carousel-indicators {
-  bottom: 5px;
+  bottom: -2%;
 }
 
 .carousel-indicators li {
@@ -783,9 +798,9 @@ body {
   }
 
   .header-text {
-    height: 211px;
-    font-size: 180px;
-    width: 1.8em;
+    height: 308px;
+    font-size: 235px;
+    width: 1.7em;
   }
 
   .what-we-do {

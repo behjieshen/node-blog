@@ -124,15 +124,15 @@ html(lang='en')
                     li
                       a.page-scroll(href='/contact') Contact
                     li.desktop-mode(style="padding-right: 0")
-                      form.searchbox(action="/" method="GET")
-                        input.searchbox-input(type="search" placeholder="Search" name="search" onkeyup="buttonUp();" required)
+                      form.searchbox(action="/search" method="GET")
+                        input.searchbox-input(type="search" placeholder="Search" name="term" onkeyup="buttonUp();" required)
                         input.searchbox-submit(type="submit" value="Go")
                         span.searchbox-icon
                           i.fa.fa-search.searchbox-search-icon(aria-hidden="true")
                     li.mobile-mode(style="padding-right: 0")
                       .custom-search-input
-                        form.input-group(action="/" method="GET")
-                          input.search-query.form-control(type='search' name="search" placeholder='Search')
+                        form.input-group(action="/search" method="GET")
+                          input.search-query.form-control(type='search' name="term" placeholder='Search')
                           input.searchbox-mobile-submit(type="submit" value="Go")
                           span.input-group-btn
                             span.glyphicon.glyphicon-search
@@ -184,14 +184,15 @@ html(lang='en')
         .row.color-transition
         .row.color-transition2
         section.blog
-          h2.about-prompt
-            b DON'T KNOW
-            |  anything about Fintech? Read about it
-            b  HERE&nbsp
-            i.fa.fa-caret-right.about-prompt-icon
+          a(href="/about")
+            h2.about-prompt
+              b DON'T KNOW
+              |  anything about Fintech? Read about it
+              b  HERE&nbsp
+              i.fa.fa-caret-right.about-prompt-icon
           .featured
             // Featured Post
-            h2.recent-post-heading.text-center Featured
+            h2.recent-post-heading.text-center Featured.
             ul.featured-container
               - for (var i = 0; i < 8; i++)
                   if (i == 0 || i == 7)
@@ -208,7 +209,7 @@ html(lang='en')
                               each tag, j in tags
                                 if tag.name == posts[i].tags
                                   h5.featured-tags(href='/search/#{tag.name}' style="background: #{tag.color}; border-color: #{tag.color}") #{posts[i].tags}
-                          h2.featured-title.text-left #{posts[i].name}
+                          h2.featured-title.text-left #{posts[i].title}
                           .row(style="margin-top: 7px")
                             .col-xs-9
                               each author, i in authors
@@ -237,7 +238,7 @@ html(lang='en')
                     li.featured-card-item
                       .container
                         .featured-card-img
-                          a.featured-card-link(href="/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
+                          a.featured-card-link(href="/post/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
                             img(src="/images/uploads/#{posts[i].mainimage}" align="center")
                           .featured-card-likes
                             i.fa.fa-heart.featured-card-likes-icon.text-left
@@ -254,10 +255,10 @@ html(lang='en')
                                 each tag, j in tags
                                   if tag.name == posts[i].tags
                                     a.featured-card-tags(href='/search/#{posts[i].tags}' style="background: #{tag.color}; border-color: #{tag.color}") #{tag.name}
-                          a.featured-card-link(href="/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
+                          a.featured-card-link(href="/post/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
                             h2.text-left.featured-card-title #{posts[i].title}
                           .row
-                            each author, i in authors
+                            each author, j in authors
                               if (author.name === posts[i].author)
                                 .featured-card-author
                                   img.featured-card-author-img(src='/images/uploads/#{author.image}')
@@ -283,13 +284,13 @@ html(lang='en')
               b SPECIFIC ARTICLE
               | ? Use the search box
 
-          form.searchbox-prompt(action="/" method="GET")
+          form.searchbox-prompt(action="/search" method="GET")
             input.searchbox-input-prompt(type="search" placeholder="Search" name="search" onkeyup="buttonUp();" required)
             a.searchbox-icon-prompt(href="#")
               i.fa.fa-search.searchbox-search-icon-prompt(aria-hidden="true")
 
           // Recent Post
-          h2.recent-post-heading.text-center Recent
+          h2.recent-post-heading.text-center Recent.
           if posts
             .display-list
               .container

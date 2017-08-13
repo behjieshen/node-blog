@@ -13,7 +13,7 @@ html(lang='en')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js')
     script(src='/scripts/about.js')
 
-  body
+  body(data-spy='scroll')
     .container
       #loader-wrapper
         #loader
@@ -113,118 +113,120 @@ html(lang='en')
                           span.glyphicon.glyphicon-search
         .about-us
           .header
-            img.header-image(src="/images/about.jpeg")
+            img.header-image
             .header-text Us.
-          h2.what-we-do What we do.
-          .biography
-            h2.biography-title FIINTECH STORY
-            p.biography-content
-              |Fiintech is a developing blogging website. We specialise in Fintech as well as other subcategories such as
-              i &nbsplifestyle and technology
-              |. We're a culture of simplicity and functionality, proving that the two isn't mutually exclusive.
-            p.biography-content
-              |At Fiintech, we believe the accessibility of extra knowledge with
-              i &nbspauthenticity, mindfulness, simplicity and inspiration
-              |. We believe that the web network is one of the most exciting places in the world, and it's truly an honour for us to connect.
-          h2.what-we-do Meet the team.
-          .team
-            h2.team-title FIINTECH TEAM
-            p.team-content
-              | The Fiintech team are a team of dedicated individuals who focus on these core elements:
-              i &nbspstory, technology and craft
-              | . 
-          .about-row.row
-            .col-md-4.about
-              img.about-image(src="/images/aboutavatar1.svg")
-              h3.about-name Jenna Huey Ching
-              h4.about-role Blogger & Project Manager
-              h4.about-division (Story)
-              .row.about-social-row
-                i.fa.fa-facebook.about-social-facebook
-                i.fa.fa-instagram.about-social-instagram
-                i.fa.fa-twitter.about-social-twitter
-              hr.about-seperator
-              p.about-content Fintech by day. An entrepreneur by night. A jack of all trades driven by bold intellect and creative thinking. Keen reader who also loves travelling.
-              hr.about-seperator
-              h4.about-favourite
-                i Favourite Activity:
-                br
-                i #Travelling
-            .col-md-4.about
-              img.about-image(src="/images/aboutavatar2.svg")
-              h3.about-name Jason Beh
-              h4.about-role Full-stack Web Developer
-              h4.about-division (Technology)
-              .row.about-social-row
-                i.fa.fa-facebook.about-social-facebook
-                i.fa.fa-github.about-social-github
-                i.fa.fa-instagram.about-social-instagram
-              hr.about-seperator
-              p.about-content An enthusiast in problem-solving. Fitness junkie during free time and stressful moments. And lastly, a food lover!
-              hr.about-seperator
-              h4.about-favourite
-                i Favourite Language:
-                br
-                i #JavaScript
-            .col-md-4.about
-              img.about-image(src="/images/aboutavatar3.svg")
-              h3.about-name Darius Kenwoods
-              h4.about-role Web Designer & Supervisor
-              h4.about-division (Craft)
-              .row.about-social-row
-                i.fa.fa-instagram.about-social-instagram
-                i.fa.fa-twitter.about-social-twitter
-                i.fa.fa-google-plus.about-social-google-plus
-              hr.about-seperator
-              p.about-content Loves pushing boundaries for better outcome & result. A charismatic, outgoing guy who has a large appetite for burgers. 
-              hr.about-seperator
-              h4.about-favourite
-                i Favourite Colour:
-                br
-                i #F7F7F7
-          h2.what-we-do Our values.
-          .values
-            h2.values-title FIINTECH VALUES
-            p.values-content
-              | These traits are the
-              i &nbspfabric of our culture and the frameworks of all
-              | &nbspour decisions made within the walls of our website.
-            h2.values-heading Authenticity.
-              p.values-subheading
-                i Genuine and unbiased.
-            h2.values-heading Mindfulness.
-              p.values-subheading
-                i We exercise in sensible contents. Nuanced.
-            h2.values-heading Simplicity.
-              p.values-subheading
-                i Distill to the meaningful.
-            h2.values-heading Inspirational.
-              p.values-subheading
-                i Embracing in positive vibes.
-          .testimonials
-            #myCarousel.carousel.slide(data-ride="carousel")
-              ol.carousel-indicators
-                li.active(data-target="#myCarousel" data-slide-to="0")
-                li(data-target="#myCarousel" data-slide-to="1")
-                li(data-target="#myCarousel" data-slide-to="2")
+          a.about-us-content-button.page-scroll(href=".about-us-content")
+          .about-us-content
+            h2.what-we-do What we do.
+            .biography
+              h2.biography-title FIINTECH STORY
+              p.biography-content
+                |Fiintech is a developing blogging website. We specialise in Fintech as well as other subcategories such as
+                i &nbsplifestyle and technology
+                |. We're a culture of simplicity and functionality, proving that the two isn't mutually exclusive.
+              p.biography-content
+                |At Fiintech, we believe the accessibility of extra knowledge with
+                i &nbspauthenticity, mindfulness, simplicity and inspiration
+                |. We believe that the web network is one of the most exciting places in the world, and it's truly an honour for us to connect.
+            h2.what-we-do Meet the team.
+            .team
+              h2.team-title FIINTECH TEAM
+              p.team-content
+                | The Fiintech team are a team of dedicated individuals who focus on these core elements:
+                i &nbspstory, technology and craft
+                | . 
+            .about-row.row
+              .col-md-4.about
+                img.about-image(src="/images/aboutavatar1.svg")
+                h3.about-name Jenna Huey Ching
+                h4.about-role Blogger & Project Manager
+                h4.about-division (Story)
+                .row.about-social-row
+                  i.fa.fa-facebook.about-social-facebook
+                  i.fa.fa-instagram.about-social-instagram
+                  i.fa.fa-twitter.about-social-twitter
+                hr.about-seperator
+                p.about-content Fintech by day. An entrepreneur by night. A jack of all trades driven by bold intellect and creative thinking. Keen reader who also loves travelling.
+                hr.about-seperator
+                h4.about-favourite
+                  i Favourite Activity:
+                  br
+                  i #Travelling
+              .col-md-4.about
+                img.about-image(src="/images/aboutavatar2.svg")
+                h3.about-name Jason Beh
+                h4.about-role Full-stack Web Developer
+                h4.about-division (Technology)
+                .row.about-social-row
+                  i.fa.fa-facebook.about-social-facebook
+                  i.fa.fa-github.about-social-github
+                  i.fa.fa-instagram.about-social-instagram
+                hr.about-seperator
+                p.about-content An enthusiast in problem-solving. Fitness junkie during free time and stressful moments. And lastly, a food lover!
+                hr.about-seperator
+                h4.about-favourite
+                  i Favourite Language:
+                  br
+                  i #JavaScript
+              .col-md-4.about
+                img.about-image(src="/images/aboutavatar3.svg")
+                h3.about-name Darius Kenwoods
+                h4.about-role Web Designer & Supervisor
+                h4.about-division (Craft)
+                .row.about-social-row
+                  i.fa.fa-instagram.about-social-instagram
+                  i.fa.fa-twitter.about-social-twitter
+                  i.fa.fa-google-plus.about-social-google-plus
+                hr.about-seperator
+                p.about-content Loves pushing boundaries for better outcome & result. A charismatic, outgoing guy who has a large appetite for burgers. 
+                hr.about-seperator
+                h4.about-favourite
+                  i Favourite Colour:
+                  br
+                  i #F7F7F7
+            h2.what-we-do Our values.
+            .values
+              h2.values-title FIINTECH VALUES
+              p.values-content
+                | These traits are the
+                i &nbspfabric of our culture and the frameworks of all
+                | &nbspour decisions made within the walls of our website.
+              h2.values-heading Authenticity.
+                p.values-subheading
+                  i Genuine and unbiased.
+              h2.values-heading Mindfulness.
+                p.values-subheading
+                  i We exercise in sensible contents. Nuanced.
+              h2.values-heading Simplicity.
+                p.values-subheading
+                  i Distill to the meaningful.
+              h2.values-heading Inspirational.
+                p.values-subheading
+                  i Embracing in positive vibes.
+            .testimonials
+              #myCarousel.carousel.slide(data-ride="carousel")
+                ol.carousel-indicators
+                  li.active(data-target="#myCarousel" data-slide-to="0")
+                  li(data-target="#myCarousel" data-slide-to="1")
+                  li(data-target="#myCarousel" data-slide-to="2")
 
-              .carousel-inner
-                .item.active
-                  p.testimonials-text
-                    | "Having a little extra knowledge in your life should be an affordable luxury for anyone who wants it. Extra knowledge equals extra power, and extra power means extra freedom to live the life doing exactly what you want"
-                .item
-                  p.testimonials-text
-                    | "Having a little extra knowledge in your life should be an affordable luxury for anyone who wants it. Extra knowledge equals extra power, and extra power means extra freedom to live the life doing exactly what you want"
-                .item
-                  p.testimonials-text
-                    | "Having a little extra knowledge in your life should be an affordable luxury for anyone who wants it. Extra knowledge equals extra power, and extra power means extra freedom to live the life doing exactly what you want"
-              a.left.carousel-control(href="#myCarousel" data-slide="prev")
-                span.glyphicon.glyphicon-chevron-left
-                span.sr-only Previous
-              a.right.carousel-control(href="#myCarousel" data-slide="next")
-                span.glyphicon.glyphicon-chevron-right
-                span.sr-only Next
-            img.testimonials-quotes-symbol(src="/images/quotes.png")
+                .carousel-inner
+                  .item.active
+                    p.testimonials-text
+                      | "Information that is easily obtained from the web can be used for both good and evil, but the true question lies in how you use it"
+                  .item
+                    p.testimonials-text
+                      | "Having a little extra knowledge in your life should be an affordable luxury for anyone who wants it, because it pushes you one step higher in life"
+                  .item
+                    p.testimonials-text
+                      | "Inspiration comes from constant pushing to territories beyond the typical comfort zone. From there, unimaginable perspectives will form"
+                a.left.carousel-control(href="#myCarousel" data-slide="prev")
+                  span.glyphicon.glyphicon-chevron-left
+                  span.sr-only Previous
+                a.right.carousel-control(href="#myCarousel" data-slide="next")
+                  span.glyphicon.glyphicon-chevron-right
+                  span.sr-only Next
+              img.testimonials-quotes-symbol(src="/images/quotes.png")
 
 
 
