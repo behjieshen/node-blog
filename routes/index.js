@@ -161,46 +161,54 @@ module.exports = function(router, passport) {
     var authors = db.get('authors');
 
     var querystring = "";
-    var mongoquery = {};
+    var mongoqueryfind = {};
+    var mongoquerysort = {};
+
     for (var key in req.query) {
       if (req.query.hasOwnProperty(key) && (key == "name" || key == "tag"
           || key == "time" || key == "likes" || key == "author" || key == "term") ) {
         querystring = querystring.concat(key + "=" + req.query[key] + "&");
         switch(req.query[key]) {
           case "a-z":
-            mongoquery.title = -1;
+            mongoquerysort.title = -1;
             break;
           case "z-a":
-            mongoquery.title = 1;
+            mongoquerysort.title = 1;
+            break;
           case "newest":
-            mongoquery.date = -1;
+            mongoquerysort.date = -1;
             break;
           case "oldest":
-            mongoquery.date = 1;
+            mongoquerysort.date = 1;
+            break;
           case "highest":
-            mongoquery.likes = -1;
+            mongoquerysort.likes = -1;
             break;
           case "lowest":
-            mongoquery.likes = 1;
+            mongoquerysort.likes = 1;
+            break;
         }
       }
-      console.log(querystring);
+      console.log("Query: " + querystring);
 
-      if (req.query['category'])
-        mongoquery.category = req.query['tag'];
+      if (req.query['tag'])
+        mongoqueryfind.tags = new RegExp(escapeRegex(req.query['tag']), 'gi');
       if (req.query['author'])
-        mongoquery.author = req.query['author'];
+        mongoqueryfind.author = new RegExp(escapeRegex(req.query['author']), 'gi');
     }
 
-    console.log("TTTTTTTTTTTTTTTTTTTT");
-    console.log(querystring);
     querystring = querystring.substring(0, querystring.length - 1);
+    console.log("Query: " + querystring);
 
-    console.log(mongoquery);
+    console.log("MongoQueryFind:");
+    console.log(querystring);
+    console.log("MongoQuerySort:");
+    console.log(mongoquerysort);
 
     if(req.query.term) {
       const regex = new RegExp(escapeRegex(req.query.term), 'gi');
-      posts.find({"title": regex}, {sort: mongoquery }, function(err, posts) {
+      mongoqueryfind.title = regex;
+      posts.find(mongoqueryfind, {sort: mongoquerysort }, function(err, posts) {
         tags.find({}, {}, function(err, tags) {
           authors.find({}, {}, function(err, authors) {
             res.render('results', {
@@ -214,7 +222,7 @@ module.exports = function(router, passport) {
         })
       })
     } else {
-      posts.find({}, {sort: mongoquery}, function(err, posts) {
+      posts.find(mongoqueryfind, {sort: mongoquerysort}, function(err, posts) {
         tags.find({}, {}, function(err, tags) {
           authors.find({}, {}, function(err, authors) {
             res.render('results', {

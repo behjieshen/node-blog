@@ -50,6 +50,11 @@ body {
   src: url('../fonts/proxima-nova.otf');
 }
 
+@font-face {
+  font-family: Aileron;
+  src: url('../fonts/aileron-regular.otf');
+}
+
 /* Navigation Bar */
 
   .main-nav li a {
@@ -393,17 +398,6 @@ a:focus, a:hover {
   background-color: none;
 }
 
-.filter-section {
-  z-index: 2000;
-  position: absolute;
-  top: 0;
-  width: 100vw;
-  border-right: 1px solid black;
-  height: 100vh;
-  background: white;
-  left: -100vw;
-}
-
 @keyframes leftSlideIn {
   from {
     left: -100vw;
@@ -422,16 +416,13 @@ a:focus, a:hover {
   }
 }
 
-
 .searchbox-prompt {
   position: relative;
   min-width: 51px;
-  width: 80%;
-  max-width: 870px;
   margin: 0 auto;
   height: 45px;
   margin-top: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   overflow: hidden;
   -webkit-transition: width 0.3s;
   -moz-transition: width 0.3s;
@@ -1013,3 +1004,220 @@ a:focus, a:hover {
     font-size: 22px;
     color: white;
   }
+
+
+.filter-section {
+  z-index: 2000;
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 100%;
+  background: white;
+  left: -100vw;
+}
+
+.filter-close {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  top: 23px;
+  opacity: 1;
+  left: 30px;
+  transition: 0.4s linear;
+  transform: rotate(0deg);
+  cursor: pointer;
+}
+.filter-close:hover {
+  transform: rotate(90deg);
+}
+
+.filter-close:before, .filter-close:after {
+  position: absolute;
+  left: 10px;
+  content: ' ';
+  height: 22px;
+  width: 2px;
+  background-color: white;
+}
+
+.filter-close:before {
+  transform: rotate(45deg);
+}
+
+.filter-close:after {
+  transform: rotate(-45deg);
+}
+
+.filter-back {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  top: 23px;
+  opacity: 1;
+  left: 30px;
+  transition: 0.4s linear;
+  transform: rotate(180deg);
+  cursor: pointer;
+}
+
+.filter-back:before, .filter-back:after {
+  position: absolute;
+  left: 10px;
+  content: ' ';
+  height: 14px;
+  width: 2px;
+  background-color: white;
+}
+
+.filter-back:before {
+  transform: rotate(45deg);
+  top: 9.6px;
+}
+
+.filter-back:after {
+  transform: rotate(-45deg);
+  top: 0.6px;
+}
+
+.filter-title {
+  margin: 0;
+  margin-left: 70px;
+  font-size: 24px;
+  color: white;
+  padding: 20px 0;
+}
+
+.filter-heading {
+  background: #Eb7c10;
+}
+
+.filter-section-element {
+  margin: 0;
+  margin-left: 30px;
+  font-size: 20px;
+  display: inline;
+  float: left;
+}
+
+.filter-section-arrow {
+  display: inline;
+  float: right;
+  margin-right: 30px;
+  width: 24px;
+  height: 22px;
+  top: 19px;
+  opacity: 1;
+  left: 30px;
+  transition: 0.4s linear;
+  transform: rotate(0deg);
+}
+
+.filter-section-arrow:before, .filter-section-arrow:after {
+  position: absolute;
+  left: 10px;
+  content: ' ';
+  height: 14px;
+  width: 2px;
+  background-color: black;
+}
+
+.filter-section-arrow:before {
+  transform: rotate(45deg);
+  top: 9.6px;
+}
+
+.filter-section-arrow:after {
+  transform: rotate(-45deg);
+  top: 0.6px;
+}
+
+.group {
+  margin: 0 auto;
+  height: 22px;
+  cursor: pointer;
+}
+
+.group-container {
+  padding: 15px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.search-info {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px 0;
+  max-width: 968px;
+}
+
+.search-info-container {
+  background-color: #f7f7f7;
+}
+
+.posts-found {
+  margin: 10px 0;
+  font-size: 11px;
+  font-family: Aileron;
+}
+
+.filtered-by {
+  font-family: Coolvetica;
+  font-size: 16px;
+  margin: 0;
+  color: black;
+}
+
+.search-term {
+  font-family: AvenirLight;
+  color: #414141;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.filter-option {
+  background: #e8e6e6;
+  display: inline-block;
+  margin-right: 21px;
+  padding: 5px 26px 5px 12px;
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.filter-option-name {
+  font-family: Aileron;
+  color: #3d2f2f;
+  font-size: 13px;
+}
+
+.filter-option-container {
+  margin-top: 15px;
+}
+
+.filter-option-icon {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  top: 7.5px;
+  background: #999997;
+  border-radius: 50%;
+  right: 6px;
+  padding: 3px;
+  transition: 0.4s linear;
+  cursor: pointer;
+}
+
+.filter-option-icon:before, .filter-option-icon:after {
+  position: absolute;
+  left: 6.4px;
+  content: ' ';
+  height: 8px;
+  width: 1.2px;
+  background-color: #f7f7f7;
+}
+
+.filter-option-icon:before {
+  transform: rotate(45deg);
+}
+
+.filter-option-icon:after {
+  transform: rotate(-45deg);
+}

@@ -4,43 +4,45 @@ $(document).ready(function() {
   $('.results-section').css('margin-left', margin_left_results_section + 'px');
 
   $('.click-button').click(function() {
-    $('.filter-section-main').css('animation', 'leftSlideIn 0.3s linear');
+    $('.filter-section-main').css('animation', 'leftSlideIn 0.2s linear');
     $('.filter-section-main').css('animation-fill-mode', 'forwards');
+    $('body').css('overflow-y', 'hidden');
   })
 
   $('.filter-section-main-name').click(function() {
-    $('.filter-section-name').css('animation', 'leftSlideIn 0.3s linear');
+    $('.filter-section-name').css('animation', 'leftSlideIn 0.2s linear');
     $('.filter-section-name').css('animation-fill-mode', 'forwards');
   })
 
   $('.filter-section-main-tags').click(function() {
-    $('.filter-section-tags').css('animation', 'leftSlideIn 0.3s linear');
+    $('.filter-section-tags').css('animation', 'leftSlideIn 0.2s linear');
     $('.filter-section-tags').css('animation-fill-mode', 'forwards');
   })
 
   $('.filter-section-main-time').click(function() {
-    $('.filter-section-time').css('animation', 'leftSlideIn 0.3s linear');
+    $('.filter-section-time').css('animation', 'leftSlideIn 0.2s linear');
     $('.filter-section-time').css('animation-fill-mode', 'forwards');
   })
 
   $('.filter-section-main-likes').click(function() {
-    $('.filter-section-likes').css('animation', 'leftSlideIn 0.3s linear');
+    $('.filter-section-likes').css('animation', 'leftSlideIn 0.2s linear');
     $('.filter-section-likes').css('animation-fill-mode', 'forwards');
   })
 
   $('.filter-section-main-authors').click(function() {
-    $('.filter-section-authors').css('animation', 'leftSlideIn 0.3s linear');
+    $('.filter-section-authors').css('animation', 'leftSlideIn 0.2s linear');
     $('.filter-section-authors').css('animation-fill-mode', 'forwards');
   })
 
-  $('.back-button').click(function() {
-    $('.filter-section-sub').css('animation', 'leftSlideOut 0.3s linear');
+  $('.filter-back').click(function() {
+    $('.filter-section-sub').css('animation', 'leftSlideOut 0.2s linear');
     $('.filter-section-sub').css('animation-fill-mode', 'forwards');
   })
 
-  $('.close-button').click(function() {
-    $('.filter-section').css('animation', 'leftSlideOut 0.3s linear');
+  $('.filter-close').click(function() {
+    $('.filter-section').css('animation', 'leftSlideOut 0.2s linear');
     $('.filter-section').css('animation-fill-mode', 'forwards');
+    $('body').css('overflow-y', 'scroll');
   })
 
   // When search icon is clicked in desktop mode

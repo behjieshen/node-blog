@@ -51,62 +51,180 @@ html
                       span.input-group-btn
                           span.glyphicon.glyphicon-search
 
+        - function checkDuplicateOrSimilars(conditionValue, conditionName, similarValue, similarName) {
+        -   if (!searchquerystring) {
+        -     var results = {name: conditionName, query: conditionName};
+        -   }
+            // if there isn't a filter
+        -   if (searchquerystring.includes(conditionValue) == false) {
+              // if there is a similar filter
+        -     if (searchquerystring.includes(similarValue)) {
+                // create a link that will replace the condition
+        -       var newQuery = searchquerystring.replace(similarValue, conditionValue);
+        -       var results = {name: conditionName, query: newQuery};
+        -       return results;
+        -     } else {
+                // if there isn't any filter beforehand, make the query as the condition
+        -       if (searchquerystring.length < 1) {
+        -         var newQuery = conditionValue;
+                // else, place a "&" before the condition to add onto the filters
+        -       } else {
+        -         var newQuery = searchquerystring + "&" + conditionValue;
+        -       }
+        -       var results = {name: conditionName, query: newQuery};
+        -       return results;
+        -     }
+            // if there is a similar filter instead
+        -   } else if (searchquerystring.includes(similarValue)) {
+                // replace the similar filter with the condition filter
+          -     var newQuery = searchquerystring.replace(similarValue, conditionValue);
+          -     var results = {name: conditionName, query: newQuery};
+          -     return results;
+            // if the query is blank
+        -   } else
+        -       return "invalid";
+        - }
+
+        // Filter - Main
         nav.filter-section.filter-section-main
-          ul
-            li
-              a.filter-section-main-name Name
-            li
-              a.filter-section-main-tags Tags
-            li
-              a.filter-section-main-tags Time
-            li
-              a.filter-section-main-tags Likes
-            li
-              a.filter-section-main-tags Authors
-            li.close-button Close
+          .filter-heading
+            a.filter-close
+            h3.filter-title Filters
+          .group-container.filter-section-main-name
+            .group
+              h3.filter-section-element Name
+              a.filter-section-arrow
+          .group-container.filter-section-main-tags
+            .group
+              h3.filter-section-element Tags
+              a.filter-section-arrow
+          .group-container.filter-section-main-time
+            .group
+              h3.filter-section-element Time
+              a.filter-section-arrow
+          .group-container.filter-section-main-likes
+            .group
+              h3.filter-section-element Likes
+              a.filter-section-arrow
+          .group-container.filter-section-main-authors
+            .group
+              h3.filter-section-element Authors
+              a.filter-section-arrow
 
+        - function displayOfLinks(results) {
+        -  if (results != "invalid") {
+            .group-container
+              .group
+                a.filter-section-element(href="?#{results.query}") #{results.name}
+                a.filter-section-arrow
+          - }
+        - }
+
+        // Filter - Name
         nav.filter-section.filter-section-sub.filter-section-name
-          ul
-            li
-              a.filter-section-name-element A-Z
-            li
-              a.filter-section-name-element Z-A
-            li.back-button Back
-            li.close-button Close
+          .filter-heading
+            a.filter-back
+            h3.filter-title Name
+          - var results = checkDuplicateOrSimilars("name=a-z", "A-Z", "name=z-a", "Z-A");
+          - displayOfLinks(results);
+          - var results = checkDuplicateOrSimilars("name=z-a", "Z-A", "name=a-z", "A-Z");
+          - displayOfLinks(results);
 
-        nav.filter-section.filter-section-sub.filter-section-tags
-          ul
-            each tag, i in tags
-              li
-                a.filter-section-tags-element #{tag.name}
-            li.back-button Back
-            li.close-button Close
-
+        // Filter - Time
         nav.filter-section.filter-section-sub.filter-section-time
-          ul
-            li
-              a.filter-section-time-element Newest
-            li
-              a.filter-section-time-element Oldest
-            li.back-button Back
-            li.close-button Close
+          .filter-heading
+            a.filter-back
+            h3.filter-title Time
+          - var results = checkDuplicateOrSimilars("time=newest", "Newest", "time=oldest", "Oldest");
+          - console.log(results);
+          - displayOfLinks(results);
+          - var results = checkDuplicateOrSimilars("time=oldest", "Oldest", "time=newest", "Newest");
+          - displayOfLinks(results);
 
+        // Filter - Likes
         nav.filter-section.filter-section-sub.filter-section-likes
-          ul
-            li
-              a.filter-section-name-element Highest
-            li
-              a.filter-section-name-element Lowest
-            li.back-button Back
-            li.close-button Close
+          .filter-heading
+            a.filter-back
+            h3.filter-title Likes
+          - var results = checkDuplicateOrSimilars("likes=highest", "Highest", "likes=lowest", "Lowest");
+          - displayOfLinks(results);
+          - var results = checkDuplicateOrSimilars("likes=lowest", "Lowest", "likes=highest", "Highest");
+          - displayOfLinks(results);
 
+        - function linksTagsAndAuthors(type, object, queryname) {
+        -     var nameinthequery = "";
+        -     var newQuery = "";
+        -     for(var j = 0; j < object.length; j++) {
+        -       var testquery = queryname + "=" + object[j].name.toLowerCase();
+        -       if (searchquerystring.toLowerCase().includes(testquery)) {
+        -         nameinthequery = testquery;
+        -         newQuery = searchquerystring.replace(nameinthequery, "").replace("&", "");
+        -       }
+        -       console.log("NEWWUERY:" + newQuery);
+        -     }
+        -     if (newQuery == "") {
+        -       newQuery = searchquerystring;
+        -     }
+        -     for(var i = 0; i < object.length; i++) {
+        -       var testquery = queryname + "=" + object[i].name.toLowerCase();
+        -       console.log(searchquerystring);
+        -       //console.log(nameinthequery);
+        -       console.log(newQuery);
+        -       if (!searchquerystring) {
+                  .group-container
+                    .group
+                      a.filter-section-element(href="?#{queryname}=#{object[i].name}") #{object[i].name}
+                      a.filter-section-arrow
+        -       } else if (searchquerystring.toLowerCase().includes(testquery) == false) {
+        -         if (searchquerystring.length < 1) {
+        -           console.log("hello");
+                    .group-container
+                      .group
+                        a.filter-section-element(href="?#{queryname}=#{object[i].name.toLowerCase()}") #{object[i].name}
+                        a.filter-section-arrow
+        -         } else if (searchquerystring == nameinthequery) {
+        -           console.log("hello2");
+                    .group-container
+                      .group
+                        a.filter-section-element(href="?#{newQuery}#{queryname}=#{object[i].name.toLowerCase()}") #{object[i].name}
+                        a.filter-section-arrow
+        -         } else if (searchquerystring.includes(newQuery, 0)) {
+        -           console.log("hello3");
+                    .group-container
+                      .group
+                        a.filter-section-element(href="?#{newQuery}&#{queryname}=#{object[i].name.toLowerCase()}") #{object[i].name}
+                        a.filter-section-arrow
+        -         } else if (searchquerystring.includes(newQuery)) {
+        -           console.log("hello4");
+                    .group-container
+                      .group
+                        a.filter-section-element(href="#{newQuery}&#{queryname}=#{object[i].name.toLowerCase()}") #{object[i].name}
+                        a.filter-section-arrow
+        -         } else {
+        -           console.log("hello4");
+                    .group-container
+                      .group
+                        a.filter-section-element(href="?#{newQuery}&#{queryname}=#{object[i].name.toLowerCase()}") #{object[i].name}
+                        a.filter-section-arrow
+        -         }
+        -       }
+        -     console.log("____________________________");
+        -     }
+        -   }
+
+        // Filter - Tags
+        nav.filter-section.filter-section-sub.filter-section-tags
+          .filter-heading
+            a.filter-back
+            h3.filter-title Tags
+          - linksTagsAndAuthors("tags", tags, "tag");
+
+        // Filter - Authors
         nav.filter-section.filter-section-sub.filter-section-authors
-          ul
-            each author, i in authors
-              li
-                a.filter-section-name-element #{author.name}
-            li.back-button Back
-            li.close-button Close
+          .filter-heading
+            a.filter-back
+            h3.filter-title Authors
+          - linksTagsAndAuthors("authors", authors, "author");
 
 
         nav.navbar.navbar-inverse.navbar-fixed-top#sidebar-wrapper(role="navigation")
@@ -161,123 +279,79 @@ html
             h4.hamb-text Filters
           .results-section
             h2.recent-post-heading.text-center Results.
-            h3.search-display-posts-length Found: #{posts.length}
-            h3.click-button Button
+            h3.click-button Filters
 
-            - console.log("2" + searchquerystring);
-
-            - var newQuery = "";
-            - function checkDuplicateOrSimilars(conditionValue, conditionName, similarValue, similarName) {
-                // if there isn't the value
-            -   if (searchquerystring.includes(conditionValue) == false) {
-            -     if (searchquerystring.includes(similarValue)) {
-            -       newQuery = searchquerystring.replace(similarValue, conditionValue);
-            -       var results = {name: conditionName, query: newQuery};
-            -       return results;
-            -     } else {
-            -       if (searchquerystring.length < 1) {
-            -         newQuery = conditionValue;
-            -       } else {
-            -         newQuery = searchquerystring + "&" + conditionValue;
-            -       }
-            -       var results = {name: conditionName, query: newQuery};
-            -       return results;
-            -     }
-            -   } else if (searchquerystring.includes(similarValue)) {
-              -     newQuery = searchquerystring.replace(similarValue, conditionValue);
-              -     var results = {name: conditionName, query: newQuery};
-              -     return results;
-            -   } else
-            -       return "hello";
-            - }
-
-            - var results = checkDuplicateOrSimilars("name=a-z", "A-Z", "name=z-a", "Z-A");
-            a(href="?#{results.query}") #{results.name}
-            br
-            - var results = checkDuplicateOrSimilars("name=z-a", "Z-A", "name=a-z", "A-Z");
-            a(href="?#{results.query}") #{results.name}
-            br
-
-            - var results = checkDuplicateOrSimilars("time=newest", "Newest", "time=oldest", "Oldest");
-            a(href="?#{results.query}") #{results.name}
-            br
-            - var results = checkDuplicateOrSimilars("time=oldest", "Oldest", "time=newest", "Newest");
-            a(href="?#{results.query}") #{results.name}
-            br
-
-            - var results = checkDuplicateOrSimilars("likes=highest", "Highest", "likes=lowest", "Lowest");
-            a(href="?#{results.query}") #{results.name}
-            br
-            - var results = checkDuplicateOrSimilars("likes=lowest", "Lowest", "likes=highest", "Highest");
-            a(href="?#{results.query}") #{results.name}
-            br
-
-            br
-            br
-            p _______________
-
-            - console.log("1." + searchquerystring);
-            - var urlsplit = searchquerystring.split("&");
-            each query, i in urlsplit
-              if i == urlsplit.length - 1
-                - console.log('Hellow')
-                - var deleteurl = searchquerystring.replace("&"+query, "");
+          .search-info-container
+            .search-info
+              form.searchbox-prompt(action="/search" method="GET")
+                input.searchbox-input-prompt(type="search" placeholder="Search" name="term" onkeyup="buttonUp();" value="#{search_term}" required)
+                a.searchbox-icon-prompt(href="#")
+                  i.fa.fa-search.searchbox-search-icon-prompt(aria-hidden="true")
+              if search_term
+                h3.search-term #{search_term}
               else
-                - var deleteurl = searchquerystring.replace(query+"&", "");
-              a(href="?#{deleteurl}") #{query}
-              br
-              br
+                h3.search-term No Search Term
+              h3.posts-found #{posts.length} posts found.
+              if searchquerystring
+                h3.filtered-by FILTERED BY:
+                - var urlsplit = searchquerystring.split("&");
+                ul.filter-option-container
+                  each query, i in urlsplit
+                    if i == urlsplit.length - 1
+                      - var deleteurl = searchquerystring.replace("&"+query, "");
+                    else
+                      - var deleteurl = searchquerystring.replace(query+"&", "");
+                    li.filter-option
+                      a.filter-option-name(href="?#{deleteurl}") #{query}
+                      a.filter-option-icon
+              else
+                h3.filtered-by FILTERED BY: NONE
 
-
-            form.searchbox-prompt(action="/search" method="GET")
-              input.searchbox-input-prompt(type="search" placeholder="Search" name="term" onkeyup="buttonUp();" value="#{search_term}" required)
-              a.searchbox-icon-prompt(href="#")
-                i.fa.fa-search.searchbox-search-icon-prompt(aria-hidden="true")
-            if posts
-              - for (var i = 0; i < posts.length; i++)
-                  li.featured-card-item
-                    .container
-                      .featured-card-img
-                        a.featured-card-link(href="/post/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
-                          img(src="/images/uploads/#{posts[i].mainimage}" align="center")
-                        .featured-card-likes
-                          i.fa.fa-heart.featured-card-likes-icon.text-left
-                          h4.featured-card-likes-number.text-left &nbsp#{posts[i].likes}
-                      .featured-card-content
-                        .row.featured-card-tags-row
-                          .featured-card-tags-group
-                            if Array.isArray(posts[i].tags)
-                              each post_tag, j in posts[i].tags
-                                each tag, k in tags
-                                  if tag.name == post_tag
-                                    a.featured-card-tags(href='/search/#{tag.name}' style="background: #{tag.color}; border-color: #{tag.color}") #{tag.name}
-                            else
-                              each tag, j in tags
-                                if tag.name == posts[i].tags
-                                  a.featured-card-tags(href='/search/#{posts[i].tags}' style="background: #{tag.color}; border-color: #{tag.color}") #{tag.name}
-                        a.featured-card-link(href="/post/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
-                          h2.text-left.featured-card-title #{posts[i].title}
-                        .row
-                          each author, j in authors
-                            if (author.name === posts[i].author)
-                              .featured-card-author
-                                img.featured-card-author-img(src='/images/uploads/#{author.image}')
-                                .featured-card-wording
-                                  h6.featured-card-author-name &nbsp&nbsp#{posts[i].author}
-                                  if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 2
-                                    h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes())} minute ago
-                                  else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 60
-                                    h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes())} minutes ago
-                                  else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 120
-                                    h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours())} hour ago
-                                  else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours()) < 24
-                                    h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours())} hours ago
-                                  else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asDays()) < 2
-                                    h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asDays())} day ago
-                                  else
-                                    h6.featured-card-time &nbsp&nbsp&nbsp#{moment(posts[i].date).format('DD MMM YYYY')}
-            else
-              p There are no posts to display
+          if posts
+            - for (var i = 0; i < posts.length; i++)
+                li.featured-card-item
+                  .container
+                    .featured-card-img
+                      a.featured-card-link(href="/post/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
+                        img(src="/images/uploads/#{posts[i].mainimage}" align="center")
+                      .featured-card-likes
+                        i.fa.fa-heart.featured-card-likes-icon.text-left
+                        h4.featured-card-likes-number.text-left &nbsp#{posts[i].likes}
+                    .featured-card-content
+                      .row.featured-card-tags-row
+                        .featured-card-tags-group
+                          if Array.isArray(posts[i].tags)
+                            each post_tag, j in posts[i].tags
+                              each tag, k in tags
+                                if tag.name == post_tag
+                                  a.featured-card-tags(href='/search/#{tag.name}' style="background: #{tag.color}; border-color: #{tag.color}") #{tag.name}
+                          else
+                            each tag, j in tags
+                              if tag.name == posts[i].tags
+                                a.featured-card-tags(href='/search/#{posts[i].tags}' style="background: #{tag.color}; border-color: #{tag.color}") #{tag.name}
+                      a.featured-card-link(href="/post/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
+                        h2.text-left.featured-card-title #{posts[i].title}
+                      .row
+                        each author, j in authors
+                          if (author.name === posts[i].author)
+                            .featured-card-author
+                              img.featured-card-author-img(src='/images/uploads/#{author.image}')
+                              .featured-card-wording
+                                h6.featured-card-author-name &nbsp&nbsp#{posts[i].author}
+                                if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 2
+                                  h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes())} minute ago
+                                else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 60
+                                  h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes())} minutes ago
+                                else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asMinutes()) < 120
+                                  h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours())} hour ago
+                                else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours()) < 24
+                                  h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asHours())} hours ago
+                                else if parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asDays()) < 2
+                                  h6.featured-card-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(posts[i].date)).asDays())} day ago
+                                else
+                                  h6.featured-card-time &nbsp&nbsp&nbsp#{moment(posts[i].date).format('DD MMM YYYY')}
+          else
+            p There are no posts to display
             footer
               .row
                 .col-md-4
