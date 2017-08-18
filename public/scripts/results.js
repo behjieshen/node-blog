@@ -3,7 +3,13 @@ $(document).ready(function() {
   var margin_left_results_section = $('.filters-section').width() + 30;
   $('.results-section').css('margin-left', margin_left_results_section + 'px');
 
-  $('.click-button').click(function() {
+  $('.filter-section').css('top', $(window).scrollTop());
+
+  $(window).scroll(function() {
+    $('.filter-section').css('top', $(window).scrollTop());
+  })
+
+  $('.option-filters').click(function() {
     $('.filter-section-main').css('animation', 'leftSlideIn 0.2s linear');
     $('.filter-section-main').css('animation-fill-mode', 'forwards');
     $('body').css('overflow-y', 'hidden');
@@ -43,6 +49,16 @@ $(document).ready(function() {
     $('.filter-section').css('animation', 'leftSlideOut 0.2s linear');
     $('.filter-section').css('animation-fill-mode', 'forwards');
     $('body').css('overflow-y', 'scroll');
+  })
+
+  $('.option-display').click(function() {
+    if($('.glyphicon-th-large').hasClass('option-glyphicon-disabled')) {
+      $('.glyphicon-th-large, .option-display-spread, .option-name-spread').removeClass('option-glyphicon-disabled');
+      $('.glyphicon-th-list, .option-display-list, .option-name-list').addClass('option-glyphicon-disabled');
+    } else {
+      $('.glyphicon-th-list, .option-display-list, .option-name-list').removeClass('option-glyphicon-disabled');
+      $('.glyphicon-th-large, .option-display-spread, .option-name-spread').addClass('option-glyphicon-disabled');
+    }
   })
 
   // When search icon is clicked in desktop mode

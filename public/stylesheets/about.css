@@ -412,7 +412,7 @@ body {
     top: 0;
     width: 51%;
     height: 100%;
-    background: #222;
+    background: #eb7c10;
     z-index: 1200;
   }
 
@@ -427,11 +427,13 @@ body {
   .loaded .loader-section.section-left {
     transform: translateX(-100%);
     transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    background-color: #Eb7c10;
   }
 
   .loaded .loader-section.section-right {
     transform: translateX(100%);
     transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    background-color: white;
   }
 
   .loaded #loader {
@@ -519,6 +521,7 @@ body {
   width: 100%;
   background-size: cover;
   height: 50vh;
+  background-position: center;
 }
 
 @-webkit-keyframes typing { from { width: 0; } }

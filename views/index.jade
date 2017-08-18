@@ -107,9 +107,9 @@ html(lang='en')
                 .navbar-header
                   button#dropdown.navbar-toggle(type='button', data-toggle='collapse', data-target='#example-navbar-collapse')
                     span.sr-only Toggle navigation
+                    span.icon-bar.icon-bar-top
                     span.icon-bar
-                    span.icon-bar
-                    span.icon-bar
+                    span.icon-bar.icon-bar-bottom
                   a.page-scroll.navbar-logo(href='.home')
                     img.navbar-img.first-logo(src='/images/logo3.svg')
                     img.navbar-img.second-logo.display-logo(src='/images/logo.svg')
@@ -123,19 +123,17 @@ html(lang='en')
                       a.page-scroll(href='/about') About
                     li
                       a.page-scroll(href='/contact') Contact
-                    li.desktop-mode(style="padding-right: 0")
+                    li.desktop-mode(style="padding-right: 0px;")
                       form.searchbox(action="/search" method="GET")
                         input.searchbox-input(type="search" placeholder="Search" name="term" onkeyup="buttonUp();" required)
                         input.searchbox-submit(type="submit" value="Go")
                         span.searchbox-icon
                           i.fa.fa-search.searchbox-search-icon(aria-hidden="true")
-                    li.mobile-mode(style="padding-right: 0")
-                      .custom-search-input
-                        form.input-group(action="/search" method="GET")
-                          input.search-query.form-control(type='search' name="term" placeholder='Search')
-                          input.searchbox-mobile-submit(type="submit" value="Go")
-                          span.input-group-btn
-                            span.glyphicon.glyphicon-search
+                    li.mobile-mode(style="padding-right: 0px;")
+                      form.searchbox-mobile(action="/search" method="GET")
+                        input.searchbox-input-mobile(type="search" placeholder="Search" name="search" onkeyup="buttonUp();" required)
+                        a.searchbox-icon-mobile(href="#")
+                          i.fa.fa-search.searchbox-search-icon-mobile(aria-hidden="true")
             // Indicators
             ol.carousel-indicators
               li(data-target='#myCarousel', data-slide-to='0')
