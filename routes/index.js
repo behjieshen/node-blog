@@ -414,7 +414,7 @@ module.exports = function(router, passport) {
     posts.find({title: title}, {}, function(err, post) {
       authors.find({}, {}, function(err, authors) {
         tags.find({}, {}, function(err, tags) {
-          otherposts.find({}, { limit: 5, sort: {$natural:-1} }, function(err, otherposts) {
+          otherposts.find({ title : { $ne : title } }, { limit: 5, sort: {$natural:-1} }, function(err, otherposts) {
             req.session.post_url = req.protocol + '://localhost:3000' + encodeURIComponent(req.originalUrl);
             res.render('showing', {
               "post": post,

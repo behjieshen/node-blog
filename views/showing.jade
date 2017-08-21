@@ -49,9 +49,9 @@ html
           .navbar-header
             button#dropdown.navbar-toggle(type='button', data-toggle='collapse', data-target='#example-navbar-collapse')
               span.sr-only Toggle navigation
+              span.icon-bar.icon-bar-top
               span.icon-bar
-              span.icon-bar
-              span.icon-bar
+              span.icon-bar.icon-bar-bottom
             a.page-scroll.navbar-logo(href='/')
               img.navbar-img(src='/images/logo.svg')
           #example-navbar-collapse.collapse.navbar-collapse.navbar-color(style='width : 100%;')
@@ -63,20 +63,18 @@ html
               li
                 a.page-scroll(href='/about') About
               li
-                a.page-scroll(href='.form') Contact
+                a.page-scroll(href='/contact') Contact
               li.desktop-mode(style="padding-right: 0")
-                form.searchbox
+                form.searchbox(action="/search" method="GET")
                   input.searchbox-input(type="search" placeholder="Search......" name="search" onkeyup="buttonUp();" required)
                   input.searchbox-submit(type="submit" value="Go")
                   span.searchbox-icon
                     i.fa.fa-search.searchbox-search-icon(aria-hidden="true")
-              li.mobile-mode(style="padding-right: 0")
-                .custom-search-input
-                  form.input-group
-                    input.search-query.form-control(type='search' placeholder='Search')
-                    input.searchbox-mobile-submit(type="submit" value="Go")
-                    span.input-group-btn
-                        span.glyphicon.glyphicon-search
+              li.mobile-mode(style="padding-right: 0px;")
+                form.searchbox-mobile(action="/search" method="GET")
+                  input.searchbox-input-mobile(type="search" placeholder="Search" name="search" onkeyup="buttonUp();" required)
+                  a.searchbox-icon-mobile(href="#")
+                    i.fa.fa-search.searchbox-search-icon-mobile(aria-hidden="true")
 
       nav.navbar.navbar-fixed-bottom.social-nav
         .row.social-icons-row
@@ -103,18 +101,21 @@ html
                   each tag, i in post[0].tags
                     each category, j in tags
                       if category.name == tag
-                        h5.post-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
+                        a(href="/search?tag=#{tag}")
+                          h5.post-tags(href='/search?tag=#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
                 else
                   each category, i in tags
                     if category.name == post[0].tags
-                      h5.post-tags(href='/search/#{post[0].tags}' style="background: #{category.color}; border-color: #{category.color}") #{post[0].tags}
+                      a(href="/search?tag=#{post[0].tags}")
+                        h5.post-tags(href='/search?tag=#{post[0].tags}' style="background: #{category.color}; border-color: #{category.color}") #{post[0].tags}
               .col-xs-3
                 .post-likes
                   i.fa.fa-heart.post-likes-icon.text-right
                   h4.post-likes-number.text-right &nbsp#{post[0].likes}
             h1.post-title #{post[0].title}
             h2.post-description #{post[0].description}
-            h3.post-author-date by #{post[0].author}  |  #{moment(post[0].date).format('DD MMM YYYY')}
+            a(href="/search?author=#{post[0].author}")
+              h3.post-author-date by #{post[0].author}  |  #{moment(post[0].date).format('DD MMM YYYY')}
             hr.post-seperator-line
 
             .g-plus(data-action="share" data-annotation="none" data-href="http://fiintech.com")
@@ -137,11 +138,11 @@ html
                 .post-author
                   img.post-author-img(src='/images/uploads/#{author.image}')
                   .post-wording
-                    h6.post-author-name &nbsp&nbsp#{post[0].author}
+                    a(href="/search?author=#{post[0].author}")
+                      h6.post-author-name &nbsp&nbsp#{post[0].author}
                     h6.post-time &nbsp&nbsp#{author.role}
                 .load-more
-                  a.load-more-button Find Out More
-
+                  a.load-more-button(href="/search?author=#{post[0].author}") Find Out More
 
           .mobile-related-posts
             h2.recent-post-heading.text-center Related Posts
@@ -151,21 +152,21 @@ html
                   .list-style-column
                     .row
                       .col-xs-4.list-style-image-column
-                        a(href="/#{moment(otherpost.date).format('DDMMYYYY')}/#{(encodeURIComponent(otherpost.title)).replace(/%20/g, '-')}")
+                        a(href="/post/#{moment(otherpost.date).format('DDMMYYYY')}/#{(encodeURIComponent(otherpost.title)).replace(/%20/g, '-')}")
                           .list-style-img-container
                             img.list-style-img(src="/images/uploads/#{otherpost.mainimage}" align="right")
                       .col-xs-8.list-style-content
-                        a(href="/#{moment(otherpost.date).format('DDMMYYYY')}/#{(encodeURIComponent(otherpost.title)).replace(/%20/g, '-')}")
+                        a(href="/post/#{moment(otherpost.date).format('DDMMYYYY')}/#{(encodeURIComponent(otherpost.title)).replace(/%20/g, '-')}")
                           h4.list-style-title #{otherpost.title}
                         if Array.isArray(otherpost.tags)
                           each tag, k in otherpost.tags
                             each category, j in tags
                               if category.name == tag
-                                a.list-style-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
+                                a.list-style-tags(href='/search?tag=#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
                         else
                           each category, k in tags
                             if category.name == otherpost.tags
-                              a.list-style-tags(href='/search/#{otherpost.tags}' style="background: #{category.color}; border-color: #{category.color}") #{category.name}
+                              a.list-style-tags(href='/search?tag=#{otherpost.tags}' style="background: #{category.color}; border-color: #{category.color}") #{category.name}
                         .row.list-style-author-row
                           .col-xs-9
                             each author, i in authors
@@ -173,7 +174,8 @@ html
                                 .list-style-author
                                   img.list-style-author-img(src='/images/uploads/#{author.image}')
                                   .wording
-                                    h6.list-style-author-name &nbsp&nbsp#{otherpost.author}
+                                    a(href="/search?author=#{otherpost.author}")
+                                      h6.list-style-author-name &nbsp&nbsp#{otherpost.author}
                                     if parseInt(moment.duration(moment(new Date()).diff(otherpost.date)).asMinutes()) < 2
                                       h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(otherpost.date)).asMinutes())} minute ago
                                     else if parseInt(moment.duration(moment(new Date()).diff(otherpost.date)).asMinutes()) < 60
@@ -198,7 +200,7 @@ html
               li.featured-card-item(data-scroll="toggle(.fromLeftIn, .fromLeftOut)")
                 .container
                   .featured-card-img
-                    a.featured-card-link(href="/#{moment(otherposts[m].date).format('DDMMYYYY')}/#{(encodeURIComponent(otherposts[m].title)).replace(/%20/g, '-')}")
+                    a.featured-card-link(href="/post/#{moment(otherposts[m].date).format('DDMMYYYY')}/#{(encodeURIComponent(otherposts[m].title)).replace(/%20/g, '-')}")
                       img(src="/images/uploads/#{otherposts[m].mainimage}" align="center")
                     .featured-card-likes
                       i.fa.fa-heart.featured-card-likes-icon.text-left
@@ -210,12 +212,12 @@ html
                           each tag, j in otherposts[m].tags
                             each category, k in tags
                               if category.name == tag
-                                a.featured-card-tags(href='/search/#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
+                                a.featured-card-tags(href='/search?tag=#{tag}' style="background: #{category.color}; border-color: #{category.color}") #{tag}
                         else
                           each category, i in tags
                             if category.name == otherposts[m].tags
-                              a.featured-card-tags(href='/search/#{otherposts[m].tags}' style="background: #{category.color}; border-color: #{category.color}") #{otherposts[m].tags}
-                    a.featured-card-link(href="/#{moment(otherposts[m].date).format('DDMMYYYY')}/#{(encodeURIComponent(otherposts[m].title)).replace(/%20/g, '-')}")
+                              a.featured-card-tags(href='/search?tag=#{otherposts[m].tags}' style="background: #{category.color}; border-color: #{category.color}") #{otherposts[m].tags}
+                    a.featured-card-link(href="/post/#{moment(otherposts[m].date).format('DDMMYYYY')}/#{(encodeURIComponent(otherposts[m].title)).replace(/%20/g, '-')}")
                       h2.text-left.featured-card-title #{otherposts[m].title}
                     .row
                       each author, i in authors
@@ -223,7 +225,8 @@ html
                           .featured-card-author
                             img.featured-card-author-img(src='/images/uploads/#{author.image}')
                             .featured-card-wording
-                              h6.featured-card-author-name &nbsp&nbsp#{otherposts[m].author}
+                              a(href="/search?author=#{otherposts[m].author}")
+                                h6.featured-card-author-name &nbsp&nbsp#{otherposts[m].author}
                               h6.featured-card-time &nbsp&nbsp&nbsp#{moment(otherposts[m].date).format('DD MMM YYYY')}
               br
 

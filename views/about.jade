@@ -83,9 +83,9 @@ html(lang='en')
             .navbar-header
               button#dropdown.navbar-toggle(type='button', data-toggle='collapse', data-target='#example-navbar-collapse')
                 span.sr-only Toggle navigation
+                span.icon-bar.icon-bar-top
                 span.icon-bar
-                span.icon-bar
-                span.icon-bar
+                span.icon-bar.icon-bar-bottom
               a.page-scroll.navbar-logo(href='/')
                 img.navbar-img(src='/images/logo.svg')
             #example-navbar-collapse.collapse.navbar-collapse.navbar-color(style='width : 100%;')
@@ -99,18 +99,16 @@ html(lang='en')
                 li
                   a.page-scroll(href='/contact') Contact
                 li.desktop-mode(style="padding-right: 0")
-                  form.searchbox
+                  form.searchbox(action="/search" method="GET")
                     input.searchbox-input(type="search" placeholder="Search......" name="search" onkeyup="buttonUp();" required)
                     input.searchbox-submit(type="submit" value="Go")
                     span.searchbox-icon
                       i.fa.fa-search.searchbox-search-icon(aria-hidden="true")
-                li.mobile-mode(style="padding-right: 0")
-                  .custom-search-input
-                    form.input-group
-                      input.search-query.form-control(type='search' placeholder='Search')
-                      input.searchbox-mobile-submit(type="submit" value="Go")
-                      span.input-group-btn
-                          span.glyphicon.glyphicon-search
+                li.mobile-mode(style="padding-right: 0px;")
+                  form.searchbox-mobile(action="/search" method="GET")
+                    input.searchbox-input-mobile(type="search" placeholder="Search" name="search" onkeyup="buttonUp();" required)
+                    a.searchbox-icon-mobile(href="#")
+                      i.fa.fa-search.searchbox-search-icon-mobile(aria-hidden="true")
         .about-us
           .header
             img.header-image

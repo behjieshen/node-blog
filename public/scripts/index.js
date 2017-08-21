@@ -133,13 +133,27 @@ $(document).ready(function() {
       $('.carousel-indicators').css('top', top + 'px');
 
       if(window_height > window_width) {
-        $('.item1').css('background-image', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone1.jpg")');
-        $('.item2').css('background-image', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone2.jpg")');
-        $('.item3').css('background-image', 'linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url("/images/phone3.jpg")');
+        $('.item1').css('background', '-webkit-linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone1.jpg")');
+        $('.item1').css('background', '-o-linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone1.jpg")');
+        $('.item1').css('background', '-ms-linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone1.jpg")');
+        $('.item1').css('background', '-moz-linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone1.jpg")');
+        $('.item1').css('background', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone1.jpg")');
+
+        $('.item2').css('background', '-webkit-linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone2.jpg")');
+        $('.item2').css('background', '-o-linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone2.jpg")');
+        $('.item2').css('background', '-ms-linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone2.jpg")');
+        $('.item2').css('background', '-moz-linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone2.jpg")');
+        $('.item2').css('background', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone2.jpg")');
+
+        $('.item3').css('background', '-webkit-linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url("/images/phone3.jpg")');
+        $('.item3').css('background', '-o-linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url("/images/phone3.jpg")');
+        $('.item3').css('background', '-ms-linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url("/images/phone3.jpg")');
+        $('.item3').css('background', '-moz-linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url("/images/phone3.jpg")');
+        $('.item3').css('background', 'linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url("/images/phone3.jpg")');
       } else {
-        $('.item1').css('background-image', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/pic1.jpg")');
-        $('.item2').css('background-image', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/pic2.jpeg")');
-        $('.item3').css('background-image', 'linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url("/images/pic3.jpg")');
+        $('.item1').css('background', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/pic1.jpg")');
+        $('.item2').css('background', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/pic2.jpeg")');
+        $('.item3').css('background', 'linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url("/images/pic3.jpg")');
       }
 
       $('.seperator-line').css('width', $('.post-container').width() - 60 + 'px');
