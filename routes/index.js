@@ -8,7 +8,7 @@ module.exports = function(router, passport) {
   // Home page blog post
   router.get('/', function(req, res, next) {
     var db = req.db;
-    var posts = db.get('posts');
+    var posts = db.get('postssss');
     var authors = db.get('authors');
     var tags = db.get('categories');
     posts.find({}, {}, function(err, posts) {
