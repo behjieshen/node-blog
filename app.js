@@ -14,6 +14,7 @@ var multer = require('multer');
 var flash = require('connect-flash');
 var querystring = require('query-string');
 var MongoStore = require('connect-mongo')(session);
+var compression = require('compression');
 
 var configDB = require('./config/database.js');
 mongoose.connect(configDB.url);
@@ -35,6 +36,7 @@ app.set('view engine', 'jade');
 // Handle file uploads & multipart data
 var upload = multer({ dest: './public/images/uploads'});
 
+app.use(compression());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
