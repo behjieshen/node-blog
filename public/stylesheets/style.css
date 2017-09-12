@@ -136,11 +136,11 @@
   }
 
   .item3 {
-    background: linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url('/images/pic3.jpeg');
-    background: -webkit-linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url('/images/pic3.jpeg');
-    background: -moz-linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url('/images/pic3.jpeg');
-    background: -o-linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url('/images/pic3.jpeg');
-    background: -ms-linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url('/images/pic3.jpeg');
+    background: linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url('/images/pic3.jpg');
+    background: -webkit-linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url('/images/pic3.jpg');
+    background: -moz-linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url('/images/pic3.jpg');
+    background: -o-linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url('/images/pic3.jpg');
+    background: -ms-linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url('/images/pic3.jpg');
     animation: breath 20s linear;
     animation-fill-mode: forwards;
   }
