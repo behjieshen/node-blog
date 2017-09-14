@@ -6,18 +6,6 @@ setTimeout(function() {
 
 $(document).ready(function() {
 
-  var window_width = $(window).innerWidth();
-  if(window_width > 768) {
-    var headerText = document.getElementsByClassName('header-text')[0];
-    var body = document.getElementsByTagName("BODY")[0];
-    headerText.addEventListener("webkitAnimationEnd", function() {
-      setTimeout(function() {
-        $('body').css('overflow-y', 'scroll');
-        $('.about-us-content-button').click();
-      }, 2500);
-    })
-  }
-
   // When search icon is clicked in desktop mode
     var innerWidths = $(window).innerWidth();
     var submitIcon = $(".searchbox-icon");
