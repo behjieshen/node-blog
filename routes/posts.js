@@ -171,7 +171,8 @@ module.exports = function(router, passport) {
         var categories = db.get('categories');
 
         if(req.file) {
-          filename = req.file['filename'];
+          var extension_name = req.file['filename'].split('.');
+          filename = name.toLowerCase() + '.' + extension_name[1];
         } else {
           filename = 'noimage.png';
         }
