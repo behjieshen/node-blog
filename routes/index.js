@@ -154,7 +154,7 @@ module.exports = function(router, passport) {
     }
   })*/
 
-  router.get('/search', function(req, res, next) {
+  /*router.get('/search', function(req, res, next) {
     var db = req.db;
     var posts = db.get('posts');
     var tags = db.get('categories');
@@ -403,6 +403,8 @@ module.exports = function(router, passport) {
       })
     })
   })
+
+  */
 
   router.get('/post/:date/:title', function(req, res, next) {
     var db = req.db;
