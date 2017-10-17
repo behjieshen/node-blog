@@ -611,6 +611,7 @@
       background-color: #EB7C10;
       width: 22px;
       height: 2px;
+      border-radius: 0px;
       -webkit-transition: .5s ease-in-out;
       -moz-transition: .5s ease-in-out;
       -o-transition: .5s ease-in-out;
@@ -1839,8 +1840,7 @@ input[type=checkbox]:checked + label:before {
   right: 0;
   padding: 0;
   margin: 0;
-  border: 1px solid #ccc;
-  border-left: none;
+  border: none;
   outline: 0;
   line-height: 100%;
   text-align: center;

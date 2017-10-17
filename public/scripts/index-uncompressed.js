@@ -1,15 +1,28 @@
 setTimeout(function() {
   $('.container').addClass('loaded');
   $('#content').css('display', 'block');
+  // Infinite Loop of Carousel
+  setInterval(function() {
+      if ($('.progress .middle-bar').css('width') == '35px') {
+        $('.progress .middle-bar').css('width', '0%');
+      }
+      else if ($('.progress .last-bar').css('width') == '35px') {
+        $('.progress .last-bar').css('width', '0%');
+      }
+      else if($('.progress .first-bar').css('width') == '35px') {
+        $('.progress .first-bar').css('width', '0%');
+      }
+      $(".active .progress .progress-bar").css('width', '100%');
+  })
 }, 1000);
 
 $(document).ready(function() {
-  var flex_spread_item_height = $('.featured-card-item').height() + 15 + 'px';
 
-  /*Go to top when refreshed
-    $(window).on('beforeunload', function() {
-      $(window).scrollTop(0);
-    });*/
+  $(window).on('beforeunload', function() {
+    $(window).scrollTop(0);
+  });
+
+  var flex_spread_item_height = $('.featured-card-item').height() + 15 + 'px';
 
   var window_height = $(window).height();
   var window_width = $(window).width();
@@ -175,12 +188,22 @@ $(document).ready(function() {
             setTimeout(function() {
               scrolled2 = true;
             }, 2600);
+          } else if(amount_scrolled >= 3 * window_height) {
+            $('.color-transition').css('display', 'none');
+            $('.color-transition2').css('display', 'none');
+          }
+          /*if(amount_scrolled > 0 && scrolled == false) {
+            $(".blog-hyperlink")[0].click();
+            scrolled = true;
+            setTimeout(function() {
+              scrolled2 = true;
+            }, 2600);
           } else if(amount_scrolled == 0) {
             scrolled = false;
           } else if(scrolled2 == true && amount_scrolled < 3 * window_height) {
             $('.navbar-logo')[0].click();
             scrolled2 = false;
-          }
+          }*/
         }
 
 
@@ -233,18 +256,6 @@ $(document).ready(function() {
   // logo settings
     var logo_width = ($(window).width() - 60) / 2;
     $('.navbar-logo').css('padding-left', logo_width + 'px');
-  // Infinite Loop of Carousel
-    setInterval(function() {
-        if($('.progress .first-bar').css('width') == '35px') {
-          $('.progress .first-bar').css('width', '0%');
-        } else if ($('.progress .middle-bar').css('width') == '35px') {
-          $('.progress .middle-bar').css('width', '0%');
-        } else if ($('.progress .last-bar').css('width') == '35px') {
-          $('.progress .last-bar').css('width', '0%');
-        }
-        $(".active .progress .progress-bar").css('width', '100%');
-
-    })
 })
 
 // Page scroll Animation

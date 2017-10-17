@@ -14,6 +14,7 @@ html
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
     script(src="https://apis.google.com/js/platform.js" async defer)
     script(src="/scripts/ScrollTrigger.min.js")
+    script(src="//platform-api.sharethis.com/js/sharethis.js#property=59e6145173b5970012438bb7&product=sticky-share-buttons")
     script(src='/scripts/showing.js')
     script(type="text/javascript").
 
@@ -24,22 +25,6 @@ html
           console.log(another);
           var test = "/addlikes/" + post[0].likes;
           console.log(test);
-        })
-      })
-
-      $('.pocket').on('submit', function(event) {
-        event.preventDefault();
-        $.ajax({
-          url: "https://getpocket.com/v3/oauth/request",
-          method: 'POST',
-          contentType: 'application/json',
-          data: JSON.stringify({
-            "consumer_key":"68668-6b08779b70de653430b3901e",
-            "redirect_uri":"http://fiintech.com"
-          }),
-          success: function(response) {
-            console.log(response);
-          }
         })
       })
   body
@@ -75,21 +60,6 @@ html
                   input.searchbox-input-mobile(type="search" placeholder="Search" name="search" onkeyup="buttonUp();" required)
                   a.searchbox-icon-mobile(href="#")
                     i.fa.fa-search.searchbox-search-icon-mobile(aria-hidden="true")
-
-      nav.navbar.navbar-fixed-bottom.social-nav
-        .row.social-icons-row
-          .col-xs-2.social-icon-container.social-facebook
-            i.fa.fa-facebook.social-icon
-          .col-xs-2.social-icon-container.social-whatsapp
-            i.fa.fa-whatsapp.social-icon
-          .col-xs-2.social-icon-container.social-googleplus
-            i.fa.fa-google-plus.social-icon
-          .col-xs-2.social-icon-container.social-twitter
-            i.fa.fa-twitter.social-icon
-          .col-xs-2.social-icon-container.social-pocket
-            i.fa.fa-get-pocket.social-icon
-          .col-xs-2.social-icon-container.social-linkedin
-            i.fa.fa-linkedin.social-icon
       .row
         .col-sm-9.blog
           .post-img-container

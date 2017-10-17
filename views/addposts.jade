@@ -21,9 +21,6 @@ block content
             .col-xs-6
               h6.contact-form-remaining 150 characters left
         .contact-form-group.form-group
-          h6.contact-form-label-static Content
-          textarea(name="content")
-        .contact-form-group.form-group
           h6.contact-form-label-static Main Image
           input#file(name='mainimage', type='file')
         .contact-form-group.form-group
@@ -33,12 +30,70 @@ block content
               each author, i in authors
                 option(value='') Author
                 option(value='#{author.name}') #{author.name}
+        .contact-form-group.form-group
+          h6.contact-form-label-static Content
+          textarea.content#eg-dark-theme
+        .blog(style="border: 1px solid lightgray")
+          .post-img-container
+            img.post-img(src="/images/img1.jpeg")
+          .blog-content
+            .row.post-tags-likes-row
+              .col-xs-9
+                h5.post-tags(style="background: orange; border-color: orange") Tag 1
+                h5.post-tags(style="background: red; border-color: red") Tag 2
+              .col-xs-3
+                .post-likes
+                  i.fa.fa-heart.post-likes-icon.text-right
+                  h4.post-likes-number.text-right &nbsp 12
+            h1.post-title title
+            h2.post-description description
+            h3.post-author-date by Author  |  18 July 2017
+            hr.post-seperator-line
+
+            .post-content.fr-view Content
+
+          h3.post-like-our-article-prompt
+            b LIKE&nbsp
+            | our article?&nbsp
+            b FEEL FREE&nbsp
+            | to like it&nbsp
+            B BELOW
+          .post-like-button-row
+            a.post-like-button
+              i.fa.fa-heart.post-like-button-icon
+              h3.post-like-button-number &nbsp 12
+          .blog-content-extended
+            hr.post-ending-seperator-line
+            .post-author
+              img.post-author-img(src='/images/jack_sparrow.jpg')
+              .post-wording
+                h6.post-author-name &nbsp&nbsp Author
+                h6.post-time &nbsp&nbsp Role
+            .load-more
+              a.load-more-button Find Out More
         .contact-form-submit-row
           input.contact-form-submit(type="submit" value="CREATE POST")
+  link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css')
+  link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css')
+  link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.0/css/froala_editor.pkgd.min.css')
+  link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.0/css/froala_style.min.css')
+  link(rel='stylesheet', href='/stylesheets/showing.css')
   script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.0/js/froala_editor.pkgd.min.js")
   script(type="text/javascript").
 
-    CKEDITOR.replace( 'content' );
+    $(function() {
+      $('.content').froalaEditor({
+        heightMin: 300,
+      })
+      .on('froalaEditor.contentChanged', function (e, editor) {
+        $('.post-content.fr-view').html(editor.html.get());
+      })
+    });
+
+
 
     var limit = 2;
     $('.test').on('change', function(evt) {
