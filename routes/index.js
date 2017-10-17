@@ -3,7 +3,7 @@ module.exports = function(router, passport) {
   var db = require('monk')('bot:1234@ds161001.mlab.com:61001/fiintech');
   var request = require("request");
   var querystring = require("query-string");
-  var xml = require('xml');
+  var fs = require('fs');
 
 
   // Home page blog post
@@ -121,7 +121,13 @@ module.exports = function(router, passport) {
 
 
   router.get('/sitemap', function(req,res,next) {
-    res.render('sitemap');
+    var text;
+    fs.readFile('sitemap.txt', function(err, data) {
+      if(err)
+        throw err;
+      else
+        res.send(data);
+    })
   })
 
   /*router.get('/search', function(req, res, next) {
