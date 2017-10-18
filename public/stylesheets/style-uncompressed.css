@@ -115,7 +115,8 @@
   }
 
   .owl-item.active .item {
-
+    animation: breath 26s linear;
+    animation-fill-mode: forwards;
   }
 
   .item1 {
@@ -124,7 +125,8 @@
     background: -o-linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url('/images/pic1.jpg');
     background: -ms-linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url('/images/pic1.jpg');
     background: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url('/images/pic1.jpg');
-    background-position: 70% 33%;
+    animation: breath 26s linear;
+    animation-fill-mode: forwards;
   }
 
   .item2 {
@@ -133,7 +135,8 @@
     background: -moz-linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url('/images/pic2.jpeg');
     background: -o-linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url('/images/pic2.jpeg');
     background: -ms-linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url('/images/pic2.jpeg');
-    background-position: 15% 50%;
+    animation: breath 26s linear;
+    animation-fill-mode: forwards;
   }
 
   .item3 {
@@ -142,13 +145,25 @@
     background: -moz-linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.35)), url('/images/pic77.jpg');
     background: -o-linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.35)), url('/images/pic77.jpg');
     background: -ms-linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.35)), url('/images/pic77.jpg');
-    background-position: 100% 15%;
+    animation: breath 26s linear;
+    animation-fill-mode: forwards;
   }
 
-  @media screen and (min-width: 768px) {
-    .owl-item.active.item, .item1, .item2, .item3 {
-      animation: breath 26s linear;
-      animation-fill-mode: forwards;
+  @media screen and (max-width: 768px) {
+    .item1 {
+      background-position: 70% 33%;
+      animation: none;
+    }
+    .item2 {
+      background-position: 15% 50%;
+      animation: none;
+    }
+    .item3 {
+      background-position: 100% 15%;
+      animation: none;
+    }
+    .owl-item.active .item {
+      animation: none;
     }
   }
 
@@ -1130,7 +1145,6 @@
     border: 1px solid #ccc;
     border-left: none;
     color: white;
-    font-family: "Helvetica";
     font-weight: bold;
     height: 40px;
     font-size: 16px;
@@ -1473,7 +1487,7 @@
     top: 0;
     width: 51%;
     height: 100%;
-    background: #222;
+    background: #eb7c10;
     z-index: 1200;
   }
 
@@ -1488,11 +1502,13 @@
   .loaded .loader-section.section-left {
     transform: translateX(-100%);
     transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    background-color: #Eb7c10;
   }
 
   .loaded .loader-section.section-right {
     transform: translateX(100%);
     transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    background-color: white;
   }
 
   .loaded #loader {

@@ -7,7 +7,7 @@ html(lang='en')
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Quicksand|Lato|Muli|Merriweather:300i,300')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/stylesheets/about.css')
+    link(rel='stylesheet', href='/stylesheets/about-notminified.css')
     script(async src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
     script(async src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
     script(async src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js')
@@ -136,7 +136,7 @@ html(lang='en')
             .about-row.row
               .col-md-4.about
                 img.about-image(src="/images/aboutavatar1.svg")
-                h3.about-name Jenna Huey Ching
+                h3.about-name Ruby
                 h4.about-role Blogger & Project Manager
                 h4.about-division (Story)
                 .row.about-social-row
@@ -203,11 +203,6 @@ html(lang='en')
                   i Embracing in positive vibes.
             .testimonials
               #myCarousel.carousel.slide(data-ride="carousel")
-                ol.carousel-indicators
-                  li.active(data-target="#myCarousel" data-slide-to="0")
-                  li(data-target="#myCarousel" data-slide-to="1")
-                  li(data-target="#myCarousel" data-slide-to="2")
-
                 .carousel-inner
                   .item.active
                     p.testimonials-text
@@ -219,12 +214,12 @@ html(lang='en')
                     p.testimonials-text
                       | "Inspiration comes from constant pushing to territories beyond the typical comfort zone. From there, unimaginable perspectives will form"
                 a.left.carousel-control(href="#myCarousel" data-slide="prev")
-                  span.glyphicon.glyphicon-chevron-left
+                  img.testimonials-control-left(width="40" height="40" alt="" src="/images/download.png")
                   span.sr-only Previous
                 a.right.carousel-control(href="#myCarousel" data-slide="next")
-                  span.glyphicon.glyphicon-chevron-right
+                  img.testimonials-control-right(width="40" height="40" alt="" src="/images/download.png")
                   span.sr-only Next
-              img.testimonials-quotes-symbol(src="/images/bulb.png")
+                img.testimonials-quotes-symbol(src="/images/bulb.png")
 
 
 

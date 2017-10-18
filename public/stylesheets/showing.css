@@ -11,6 +11,10 @@ p a {
   color: black;
 }
 
+p {
+  text-align: justify;
+}
+
 .window-container {
   background: #f7f7f7;
 }
