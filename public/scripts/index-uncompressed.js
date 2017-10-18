@@ -1,6 +1,14 @@
 setTimeout(function() {
   $('.container').addClass('loaded');
   $('#content').css('display', 'block');
+}, 1000);
+
+$(document).ready(function() {
+
+  $(window).on('beforeunload', function() {
+    $(window).scrollTop(0);
+  });
+
   // Infinite Loop of Carousel
   setInterval(function() {
       if ($('.progress .middle-bar').css('width') == '35px') {
@@ -14,13 +22,7 @@ setTimeout(function() {
       }
       $(".active .progress .progress-bar").css('width', '100%');
   })
-}, 1000);
 
-$(document).ready(function() {
-
-  $(window).on('beforeunload', function() {
-    $(window).scrollTop(0);
-  });
 
   var flex_spread_item_height = $('.featured-card-item').height() + 15 + 'px';
 
@@ -34,10 +36,10 @@ $(document).ready(function() {
   $(window).scroll(function() {
     var amount_scrolled = $(window).scrollTop();
     if(window_width > 768) {
-      if(amount_scrolled > (3 * window_height)) {
+      if(amount_scrolled > window_height) {
         prev = toggleNavbarOnScroll(amount_scrolled, prev);
       }
-      if(amount_scrolled > 3 * window_height && newsletter_popped_up == false) {
+      if(amount_scrolled > window_height && newsletter_popped_up == false) {
         newsletter_popped_up = promptNewsletter();
       }
     } else {
@@ -119,7 +121,7 @@ $(document).ready(function() {
             }
           }
         } else {
-          if( $(this).scrollTop() >= (3 * $(window).height()) + 5 ) {
+          if( $(this).scrollTop() >= $(window).height() + 5 ) {
             $('.navbar-img').css('width', '40px');
             if(transparent) {
               transparent = false;
@@ -145,6 +147,7 @@ $(document).ready(function() {
       var top = window_height / 100 * 46;
       $('.carousel-indicators').css('top', top + 'px');
 
+      /*
       if(window_height > window_width) {
         $('.item1').css('background', '-webkit-linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone1.jpg")');
         $('.item1').css('background', '-o-linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/phone1.jpg")');
@@ -167,7 +170,7 @@ $(document).ready(function() {
         $('.item1').css('background', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/pic1.jpg")');
         $('.item2').css('background', 'linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url("/images/pic2.jpeg")');
         $('.item3').css('background', 'linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url("/images/pic3.jpg")');
-      }
+      }*/
 
       $('.seperator-line').css('width', $('.post-container').width() - 60 + 'px');
       spreadModification(window_width);
@@ -187,7 +190,8 @@ $(document).ready(function() {
             scrolled = true;
             setTimeout(function() {
               scrolled2 = true;
-            }, 2600);
+              $('body').css('overflow-y', 'scroll');
+            }, 2520);
           } else if(amount_scrolled >= 3 * window_height) {
             $('.color-transition').css('display', 'none');
             $('.color-transition2').css('display', 'none');
@@ -221,7 +225,7 @@ $(document).ready(function() {
             }
           }
         } else {
-          if( $(this).scrollTop() >= (3 * $(window).height()) + 5 ) {
+          if( $(this).scrollTop() >= $(window).height() + 5 ) {
             if(transparent) {
               transparent = false;
               showNavbar();
@@ -236,7 +240,7 @@ $(document).ready(function() {
     })
 
   // Change Image according to dimensions
-    var window_height = $(window).height();
+    /*var window_height = $(window).height();
     var window_width = $(window).width();
     if(window_height > window_width) {
       $('.item1').css({
@@ -251,7 +255,7 @@ $(document).ready(function() {
         'background-image': 'linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)), url("/images/phone3.jpg")',
         'animation': 'none'
       });
-    }
+    }*/
 
   // logo settings
     var logo_width = ($(window).width() - 60) / 2;
@@ -262,9 +266,10 @@ $(document).ready(function() {
   $(function() {
     $(document).on('click', 'a.page-scroll', function(event) {
         var $anchor = $(this);
+        $('body').css('overflow-y', 'hidden');
         $('html, body').stop().animate({
             scrollTop: $($anchor.attr('href')).offset().top
-        }, 2500, 'easeInOutExpo');
+        }, 2500, 'easeInOutCubic');
         event.preventDefault();
         $('.navbar-collapse').collapse('hide');
     });
@@ -393,7 +398,7 @@ $(document).ready(function() {
     } else {
       $('.navbar-img').css('width', '35px');
     }
-    $('.navbar-logo').css('padding-left', '50px');
+    $('.navbar-logo').css('padding-left', '40px');
     $('.navbar-default').css('box-shadow', '0 2px 2px rgba(0,0,0,0.2)');
   }
 

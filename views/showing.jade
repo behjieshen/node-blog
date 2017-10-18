@@ -82,7 +82,7 @@ html
                 .post-likes
                   i.fa.fa-heart.post-likes-icon.text-right
                   h4.post-likes-number.text-right &nbsp#{post[0].likes}
-            h1.post-title #{post[0].title}
+            h1.post-title #{post[0].title}.
             h2.post-description #{post[0].description}
             a(href="/search?author=#{post[0].author}")
               h3.post-author-date by #{post[0].author}  |  #{moment(post[0].date).format('DD MMM YYYY')}
@@ -157,7 +157,7 @@ html
                                     else if parseInt(moment.duration(moment(new Date()).diff(otherpost.date)).asDays()) < 2
                                       h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(otherpost.date)).asDays())} day ago
                                     else
-                                      h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(otherpost.date)).asDays())} days ago
+                                      h6.list-style-time &nbsp&nbsp83 days ago
                           .col-xs-3(style="margin-top: 10px;")
                             .list-style-likes(style="margin-top: 0")
                               i.fa.fa-heart.list-style-likes-icon.text-right
@@ -165,7 +165,7 @@ html
             #fb-root
 
         .col-sm-3.sidebar.web-related-posts
-          h2.recent-post-heading.text-center(style="padding: 0; padding-bottom: 24px;") Related
+          h2.recent-post-heading.text-center(style="padding: 0; padding-bottom: 24px;") Related.
           - for (var m = 0; m < 5; m++)
               li.featured-card-item(data-scroll="toggle(.fromLeftIn, .fromLeftOut)")
                 .container

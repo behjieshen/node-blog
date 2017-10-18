@@ -23,6 +23,30 @@ body {
   font-family: 'Quicksand', sans-serif;
 }
 
+  .load-more {
+    text-align: center;
+    margin: 50px 0;
+  }
+
+  .load-more-button {
+    margin: 0 auto;
+    border-radius: 25px;
+    color: #Eb7c10;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 12px 28px;
+    border: 1px solid #Eb7c10;
+    background: transparent;
+  }
+
+  .load-more-button:hover {
+    color: white;
+    background: #Eb7c10;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+
+
 .container {
   width: 100%;
   padding-left: 0;

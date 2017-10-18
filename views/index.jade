@@ -10,7 +10,7 @@ html(lang='en')
       gtag('config', 'UA-108253018-1');
     title Fiintech - A Malaysia Fintech Blog
     meta(charset='utf-8')
-    meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0')
     meta(name='description', content='Fiintech provides updated insights about the fintech industry in Malaysia. Read about fintech trends that are currently conversations in the air now')
     meta(name='keywords', content='fintech, fiintech, fiintech.com, financial technology, fintech hub, fintech industy, financial tech')
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Quicksand|Lato|Muli|Merriweather:300,400')
@@ -112,6 +112,38 @@ html(lang='en')
                     label.newsletter-checkbox(for="newsletter-checkbox" autocomplete="on") Yes! Sign me up for Fiintech stories newsletter.
                   button.error(style="display: none;")
         section.home
+          .row.navbar-row
+              nav.navbar.navbar-default.navbar-transparent(role='navigation')
+                .navbar-header
+                  button#dropdown.navbar-toggle(type='button', data-toggle='collapse', data-target='#example-navbar-collapse')
+                    span.sr-only Toggle navigation
+                    span.icon-bar.icon-bar-top
+                    span.icon-bar
+                    span.icon-bar.icon-bar-bottom
+                  a.page-scroll.navbar-logo(href='.home')
+                    img.navbar-img.first-logo(src='/images/logo3.svg')
+                    img.navbar-img.second-logo.display-logo(src='/images/logo.svg')
+                #example-navbar-collapse.collapse.navbar-collapse(style='width : 100%;')
+                  ul.nav.navbar-nav.navbar-right.main-nav
+                    li
+                      a.page-scroll(href='.home') Home
+                    li
+                      a.page-scroll.blog-hyperlink(href='.blog') Blog
+                    li
+                      a.page-scroll(href='/about') About
+                    li
+                      a.page-scroll(href='/contact') Contact
+                    li.desktop-mode(style="padding-right: 0px;")
+                      form.searchbox(action="/search" method="GET")
+                        input.searchbox-input(type="search" placeholder="Search" name="term" onkeyup="buttonUp();" required)
+                        input.searchbox-submit(type="submit" value="Go")
+                        span.searchbox-icon
+                          i.fa.fa-search.searchbox-search-icon(aria-hidden="true")
+                    li.mobile-mode(style="padding-right: 0px;")
+                      form.searchbox-mobile(action="/search" method="GET")
+                        input.searchbox-input-mobile(type="search" placeholder="Search" name="search" onkeyup="buttonUp();" required)
+                        a.searchbox-icon-mobile(href="#")
+                          i.fa.fa-search.searchbox-search-icon-mobile(aria-hidden="true")
           .owl-carousel
             .item.item1
               .carousel-caption
@@ -145,7 +177,7 @@ html(lang='en')
                 .scroll
                   .icon-scroll
                   h3.word-scroll Scroll
-          #myCarousel.carousel.slide(data-interval='3500', data-ride='carousel')
+          //#myCarousel.carousel.slide(data-interval='3500', data-ride='carousel')
             .row.navbar-row
               nav.navbar.navbar-default.navbar-transparent(role='navigation')
                 .navbar-header
@@ -432,11 +464,12 @@ html(lang='en')
       $(".owl-carousel").owlCarousel({
         loop:true,
         margin:0,
-        nav:true,
-        autoplay:true,
+        autoplay:false,
         autoplaySpeed: 2000,
         autoplayTimeout:6000,
         autoplayHoverPause:false,
+        URLhashListener:true,
+        startPosition: 'URLHash',
         responsive: {
           0: {
             items: 1
