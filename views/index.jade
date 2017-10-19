@@ -93,8 +93,8 @@ html(lang='en')
                     span.close-button-stroke
                     span.close-button-stroke
                   .newsletter-heading-group
-                    h3.newsletter-heading Never&nbsp
-                    h3.newsletter-heading.newsletter-orange-heading boring.
+                    h3.newsletter-heading Never be&nbsp
+                    h3.newsletter-heading.newsletter-orange-heading bored.
                   .newsletter-heading-group
                     h3.newsletter-heading Always&nbsp
                     h3.newsletter-heading.newsletter-orange-heading awesome.
@@ -438,22 +438,100 @@ html(lang='en')
                     li.find-articles-authors(style="background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('/images/tag1.jpg');")
                       img(src='/images/uploads/#{author.image}').find-articles-authors-icon
                       h3.find-articles-authors-title #{author.name}
+        section.contact
+          .contact-image
+            .contact-title-container
+              h1.contact-title.contact-title1 Don't be shy and talk to us.&nbsp
+              h1.contact-title.contact-title2 We won't bite
+              h1.arrow.right
+
+        section.footer
+          .row
+            .col-md-6
+              .desktop-row.row
+                .col-sm-4
+                  h3.footer-subtitle Blog.
+                  ol.footer-list
+                   li.footer-list-item Featured Articles
+                   li.footer-list-item Recent Articles
+                   li.footer-list-item Filter Articles By
+                .col-sm-4
+                  h3.footer-subtitle About.
+                  ol.footer-list
+                   li.footer-list-item Our Intriguing Story
+                   li.footer-list-item Our Awesome Team
+                   li.footer-list-item Values of Fiintech
+                .col-sm-4
+                  h3.footer-subtitle Contact.
+                  ol.footer-list
+                   li.footer-list-item Contact Us
+                   li.footer-list-item Your Message
+              .desktop-row.row
+                .col-sm-4
+                  .footer-media
+                    h3.footer-subtitle Media links.
+                    i.footer-media-icon.fa.fa-facebook-square
+                    i.footer-media-icon.fa.fa-google-plus-square
+                    i.footer-media-icon.fa.fa-twitter-square
+                    i.footer-media-icon.fa.fa-envelope-square
+                .col-sm-4
+                    h3.footer-subtitle Authors.
+                    ol.footer-list
+                      each author, i in authors
+                        li.footer-list-item #{author.name}
+                .col-sm-4
+                    h3.footer-subtitle Tags.
+                    ol.footer-list
+                      each tag, i in tags
+                        li.footer-list-item #{tag.name}
+              .mobile-row.row
+                .col-xs-6
+                  h3.footer-subtitle Blog.
+                  ol.footer-list
+                   li.footer-list-item Featured Articles
+                   li.footer-list-item Recent Articles
+                   li.footer-list-item Filter Articles By
+                .col-xs-6
+                  h3.footer-subtitle About.
+                  ol.footer-list
+                   li.footer-list-item Our Intriguing Story
+                   li.footer-list-item Our Awesome Team
+                   li.footer-list-item Values of Fiintech
+              .mobile-row.row
+                .col-xs-6
+                  h3.footer-subtitle Contact.
+                  ol.footer-list
+                   li.footer-list-item Contact Us
+                   li.footer-list-item Your Message
+                .col-xs-6
+                    h3.footer-subtitle Media links.
+                    i.footer-media-icon.fa.fa-facebook-square
+                    i.footer-media-icon.fa.fa-google-plus-square
+                    i.footer-media-icon.fa.fa-twitter-square
+                    i.footer-media-icon.fa.fa-envelope-square
+              .mobile-row.row
+                .col-xs-6
+                  h3.footer-subtitle Authors.
+                  ol.footer-list
+                    each author, i in authors
+                      li.footer-list-item #{author.name}
+                .col-xs-6
+                  h3.footer-subtitle Tags.
+                  ol.footer-list
+                    each tag, i in tags
+                      li.footer-list-item #{tag.name}
+
+            .col-md-6
+              h3.footer-subtitle.footer-form-title Subscribe to our Box of Wisdom!
+              h2.footer-form-subtitle Never be bored. Always awesome. 
+              form.footer-form(action="/" method="post")
+                input.footer-form-email.form-control(type="email" placeholder="Email")
+                input.footer-form-submit.form-control(type="submit" value="Submit")
+
+        section.post-footer
+          h3.post-footer-title &copy; 2017 FIINTECH | ALL RIGHTS RESERVED
 
 
-    footer
-      .row
-        .col-md-4
-          h4.company-copyright &#169; 2017 Fiintech | All Rights Reserved
-        .col-md-4
-          a(href="#")
-            i.fa.fa-instagram.footer-social(aria-hidden="true")
-          a(href="#")
-            i.fa.fa-twitter.footer-social(aria-hidden="true")
-          a(href="#")
-            i.fa.fa-linkedin.footer-social(aria-hidden="true")
-        .col-md-4
-          a(href="#")
-            h4.questions Questions? Contact Us Now
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
     script(async src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js')
@@ -479,86 +557,4 @@ html(lang='en')
 
       $(function() {
 
-        var tags = true;
-        $('.find-articles-authors-button').click(function() {
-          if(tags) {
-            $('.find-articles-authors-section').css('display', 'flex');
-            $('.find-articles-tags-section').css('display', 'none');
-            $(this).addClass('find-articles-button-active');
-            $('.find-articles-tags-button').removeClass('find-articles-button-active');
-            tags = false;
-          }
-        })
-
-        $('.find-articles-tags-button').click(function() {
-          if(tags == false) {
-            $('.find-articles-tags-section').css('display', 'flex');
-            $('.find-articles-authors-section').css('display', 'none');
-            $(this).addClass('find-articles-button-active');
-            $('.find-articles-authors-button').removeClass('find-articles-button-active');
-            tags = true;
-          }
-        })
-
-        var window_width = $(window).width();
-        $('.find-articles-tags-container, .find-articles-authors-container').css('height', window_width / 2);
-        $(window).resize(function() {
-          var window_width = $(window).width();
-          $('.find-articles-tags-container, .find-articles-authors-container').css('height', window_width / 2);
-        })
-
-
-
-
-
-        $('#newsletter').on('submit', function(event) {
-          event.preventDefault();
-
-          if($('#newsletter-checkbox').is(':checked') == false) {
-            $('.newsletter-error-message').html("&nbspPlease tick the box below");
-            $('.newsletter-error').css('display', 'block');
-            $('.newsletter .newsletter-modal-dialog').css('height', '322px');
-            shakeModal();
-          } else if ($('#newsletter-email').val() == "") {
-            $('.newsletter-error-message').html("&nbspInvalid email address");
-            $('.newsletter-error').css('display', 'block');
-            $('.newsletter .newsletter-modal-dialog').css('height', '322px');
-            shakeModal();
-          } else {
-            $.ajax({
-              url: '/',
-              method: 'POST',
-              contentType: 'application/json',
-              data: JSON.stringify({email: $('#newsletter-email').val()}),
-              success: function(response) {
-                $('.error').click();
-              }
-            })
-          }
-
-        })
-        $('.error').on('click', function(event) {
-          $.ajax({
-            url: '/error',
-            method: 'GET',
-            contentType: 'application/json',
-            success: function(response) {
-              if(response.success == false) {
-                $('.newsletter-error-message').html("&nbsp" + response.messages);
-                $('.newsletter-error').css('display', 'block');
-                $('.newsletter .newsletter-modal-dialog').css('height', '284px');
-                shakeModal();
-              } else {
-                $('.newsletter-error-message').html("&nbspSuccess!");
-                $('.newsletter-error-icon').removeClass('fa-times');
-                $('.newsletter-error-icon').addClass('fa-check');
-                $('.newsletter-error-icon, .newsletter-error-message').css('color', 'green');
-                setTimeout(function() {
-                  $('.close-button').click();
-                }, 2000);
-                localStorage.subscribed = "1";
-              }
-            }
-          })
-        })
       })
