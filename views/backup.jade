@@ -1,0 +1,67 @@
+      //
+        /*-     console.log("CLIENT")
+        -     var nameinthequery = "";
+        -     var newQuery = "";
+        -     for(var j = 0; j < object.length; j++) {
+        -       var testquery = queryname + "=" + object[j].name.toLowerCase();
+        -       if (searchquerystring) {
+        -         if (searchquerystring.toLowerCase().includes(queryname.toLowerCase())) {
+        -           newQuery = searchquerystring.toLowerCase().replace(testquery.toLowerCase(), "").replace("&", "");
+        -           console.log("NEWQUERY2:" + newQuery);
+        -           if (searchquerystring.toLowerCase().includes(testquery.toLowerCase())) {
+        -             nameinthequery = testquery;
+        -             console.log("testQuery: " + testquery.toLowerCase());
+        -             console.log("searchquerystring: " + searchquerystring.toLowerCase());
+        -             newQuery = searchquerystring.toLowerCase().replace(testquery.toLowerCase(), "").replace("&", "");
+        -             console.log("NEWQUERY0:" + newQuery);
+        -           }
+        -         }
+        -       }
+        -       console.log("NEWQUERY1:" + newQuery);
+        -     }
+        -     for(var i = 0; i < object.length; i++) {
+        -       var testquery = queryname + "=" + object[i].name.toLowerCase();
+        -       console.log("searchquerystring:" + searchquerystring);
+        -       //console.log(nameinthequery);
+        -       console.log("NEWQUERY1:" + newQuery);
+        -       if (!searchquerystring) {
+                  .group-container
+                    .group
+                      a.filter-section-element(href="?#{queryname}=#{object[i].name}") #{object[i].name}
+                      a.filter-section-arrow
+        -       } else if (searchquerystring.toLowerCase().includes(testquery) == false) {
+        -         if (searchquerystring.length < 1) {
+        -           console.log("hello");
+                    .group-container
+                      .group
+                        a.filter-section-element(href="?#{queryname}=#{object[i].name.toLowerCase()}") #{object[i].name}
+                        a.filter-section-arrow
+        -         } else if (searchquerystring == nameinthequery) {
+        -           console.log("hello2");
+                    .group-container
+                      .group
+                        a.filter-section-element(href="?#{newQuery}#{queryname}=#{object[i].name.toLowerCase()}") #{object[i].name}
+                        a.filter-section-arrow
+        -         } else if (searchquerystring.includes(newQuery, 0)) {
+        -           console.log("hello3");
+                    .group-container
+                      .group
+                        a.filter-section-element(href="?#{newQuery}#{queryname}=#{object[i].name.toLowerCase()}") #{object[i].name}
+                        a.filter-section-arrow
+        -         } else if (searchquerystring.includes(newQuery)) {
+        -           console.log("hello4");
+                    .group-container
+                      .group
+                        a.filter-section-element(href="#{newQuery}&#{queryname}=#{object[i].name.toLowerCase()}") #{object[i].name}
+                        a.filter-section-arrow
+        -         } else {
+        -           console.log("hello4");
+                    .group-container
+                      .group
+                        a.filter-section-element(href="?#{newQuery}&#{queryname}=#{object[i].name.toLowerCase()}") #{object[i].name}
+                        a.filter-section-arrow
+        -         }
+        -       }
+        -     console.log("____________________________");
+        -     }
+        */

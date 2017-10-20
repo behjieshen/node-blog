@@ -364,58 +364,59 @@ html(lang='en')
               i.fa.fa-search.searchbox-search-icon-prompt(aria-hidden="true")
 
           // Recent Post
-          h2.recent-post-heading.text-center Recent.
-          if posts
-            .display-list
-              .container
-                each post, i in posts
-                  .list-style-column
-                    .row
-                      .col-xs-4.list-style-image-column
-                        a(href="/post/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
-                          .list-style-img-container
-                            img.list-style-img(src="/images/uploads/#{post.mainimage}" align="right")
-                      .col-xs-8.list-style-content
-                        a(href="/post/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
-                          h4.list-style-title #{post.title}
-                        if Array.isArray(post.tags)
-                          each post_tag, j in post.tags
-                            each tag, k in tags
-                              if tag.name == post_tag
+          .recent
+            h2.recent-post-heading.text-center Recent.
+            if posts
+              .display-list
+                .container
+                  each post, i in posts
+                    .list-style-column
+                      .row
+                        .col-xs-4.list-style-image-column
+                          a(href="/post/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
+                            .list-style-img-container
+                              img.list-style-img(src="/images/uploads/#{post.mainimage}" align="right")
+                        .col-xs-8.list-style-content
+                          a(href="/post/#{moment(posts[i].date).format('DDMMYYYY')}/#{(encodeURIComponent(posts[i].title)).replace(/%20/g, '-')}")
+                            h4.list-style-title #{post.title}
+                          if Array.isArray(post.tags)
+                            each post_tag, j in post.tags
+                              each tag, k in tags
+                                if tag.name == post_tag
+                                  a.list-style-tags(href='/search/#{tag.name}' style="background: #{tag.color}; border-color: #{tag.color}") #{tag.name}
+                          else
+                            each tag, j in tags
+                              if tag.name == post.tags
                                 a.list-style-tags(href='/search/#{tag.name}' style="background: #{tag.color}; border-color: #{tag.color}") #{tag.name}
-                        else
-                          each tag, j in tags
-                            if tag.name == post.tags
-                              a.list-style-tags(href='/search/#{tag.name}' style="background: #{tag.color}; border-color: #{tag.color}") #{tag.name}
-                        .row.list-style-author-row
-                          .col-xs-9
-                            each author, i in authors
-                              if (author.name === post.author)
-                                .list-style-author
-                                  img.list-style-author-img(src='/images/uploads/#{author.image}')
-                                  .wording
-                                    h6.list-style-author-name &nbsp&nbsp#{post.author}
-                                    if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
-                                      h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
-                                    else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 60
-                                      h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minutes ago
-                                    else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 120
-                                      h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
-                                    else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours()) < 24
-                                      h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hours ago
-                                    else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays()) < 2
-                                      h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} day ago
-                                    else
-                                      h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
-                          .col-xs-3(style="margin-top: 10px;")
-                            .list-style-likes(style="margin-top: 0")
-                              i.fa.fa-heart.list-style-likes-icon.text-right
-                              h4.list-style-likes-number.text-right &nbsp#{post.likes}
-          else
-            p There are no posts to display
+                          .row.list-style-author-row
+                            .col-xs-9
+                              each author, i in authors
+                                if (author.name === post.author)
+                                  .list-style-author
+                                    img.list-style-author-img(src='/images/uploads/#{author.image}')
+                                    .wording
+                                      h6.list-style-author-name &nbsp&nbsp#{post.author}
+                                      if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 2
+                                        h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minute ago
+                                      else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 60
+                                        h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes())} minutes ago
+                                      else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) > 60 && parseInt(moment.duration(moment(new Date()).diff(post.date)).asMinutes()) < 120
+                                        h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hour ago
+                                      else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours()) < 24
+                                        h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asHours())} hours ago
+                                      else if parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays()) < 2
+                                        h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} day ago
+                                      else
+                                        h6.list-style-time &nbsp&nbsp&nbsp#{parseInt(moment.duration(moment(new Date()).diff(post.date)).asDays())} days ago
+                            .col-xs-3(style="margin-top: 10px;")
+                              .list-style-likes(style="margin-top: 0")
+                                i.fa.fa-heart.list-style-likes-icon.text-right
+                                h4.list-style-likes-number.text-right &nbsp#{post.likes}
+            else
+              p There are no posts to display
 
-          .load-more
-            a.load-more-button Load More
+            .load-more
+              a.load-more-button Load More
 
           .find-articles
             h2.recent-post-heading.text-center Find articles by
@@ -438,12 +439,13 @@ html(lang='en')
                     li.find-articles-authors(style="background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('/images/tag1.jpg');")
                       img(src='/images/uploads/#{author.image}').find-articles-authors-icon
                       h3.find-articles-authors-title #{author.name}
-        section.contact
-          .contact-image
-            .contact-title-container
-              h1.contact-title.contact-title1 Don't be shy and talk to us.&nbsp
-              h1.contact-title.contact-title2 We won't bite
-              h1.arrow.right
+        a(href="/contact")
+          section.contact
+            .contact-image
+              .contact-title-container
+                h1.contact-title.contact-title1 Don't be shy and talk to us.&nbsp
+                h1.contact-title.contact-title2 We won't bite
+                h1.arrow.right
 
         section.footer
           .row
@@ -452,20 +454,28 @@ html(lang='en')
                 .col-sm-4
                   h3.footer-subtitle Blog.
                   ol.footer-list
-                   li.footer-list-item Featured Articles
-                   li.footer-list-item Recent Articles
-                   li.footer-list-item Filter Articles By
+                    a.featured-articles.page-scroll(href=".featured")
+                      li.footer-list-item Featured Articles
+                    a.recent-articles.page-scroll(href=".recent")
+                      li.footer-list-item Recent Articles
+                    a.featured-articles.page-scroll(href=".find-articles")
+                      li.footer-list-item Filter Articles By
                 .col-sm-4
                   h3.footer-subtitle About.
                   ol.footer-list
-                   li.footer-list-item Our Intriguing Story
-                   li.footer-list-item Our Awesome Team
-                   li.footer-list-item Values of Fiintech
+                    a.footer-link(href="/about" name="section-story")
+                      li.footer-list-item Our Intriguing Story
+                    a.footer-link(href="/about" name="section-team")
+                      li.footer-list-item Our Awesome Team
+                    a.footer-link(href="/about" name="section-values")
+                      li.footer-list-item Values of Fiintech
                 .col-sm-4
                   h3.footer-subtitle Contact.
                   ol.footer-list
-                   li.footer-list-item Contact Us
-                   li.footer-list-item Your Message
+                    a.footer-link(href="/contact")
+                      li.footer-list-item Contact Us
+                    a.footer-link(href="/contact")
+                      li.footer-list-item Your Message
               .desktop-row.row
                 .col-sm-4
                   .footer-media
@@ -478,31 +488,41 @@ html(lang='en')
                     h3.footer-subtitle Authors.
                     ol.footer-list
                       each author, i in authors
-                        li.footer-list-item #{author.name}
+                        a(href='/search/#{author.name}')
+                          li.footer-list-item #{author.name}
                 .col-sm-4
                     h3.footer-subtitle Tags.
                     ol.footer-list
                       each tag, i in tags
-                        li.footer-list-item #{tag.name}
+                        a(href='/search/#{tag.name}')
+                          li.footer-list-item #{tag.name}
               .mobile-row.row
                 .col-xs-6
                   h3.footer-subtitle Blog.
                   ol.footer-list
-                   li.footer-list-item Featured Articles
-                   li.footer-list-item Recent Articles
-                   li.footer-list-item Filter Articles By
+                    a.featured-articles.page-scroll(href=".featured")
+                      li.footer-list-item Featured Articles
+                    a.recent-articles.page-scroll(href=".recent")
+                      li.footer-list-item Recent Articles
+                    a.featured-articles.page-scroll(href=".find-articles")
+                      li.footer-list-item Filter Articles By
                 .col-xs-6
                   h3.footer-subtitle About.
                   ol.footer-list
-                   li.footer-list-item Our Intriguing Story
-                   li.footer-list-item Our Awesome Team
-                   li.footer-list-item Values of Fiintech
+                    a.footer-link(href="/about" name="section-story")
+                      li.footer-list-item Our Intriguing Story
+                    a.footer-link(href="/about" name="section-team")
+                      li.footer-list-item Our Awesome Team
+                    a.footer-link(href="/about" name="section-values")
+                      li.footer-list-item Values of Fiintech
               .mobile-row.row
                 .col-xs-6
                   h3.footer-subtitle Contact.
                   ol.footer-list
-                   li.footer-list-item Contact Us
-                   li.footer-list-item Your Message
+                    a.footer-link(href="/contact")
+                      li.footer-list-item Contact Us
+                    a.footer-link(href="/contact")
+                      li.footer-list-item Your Message
                 .col-xs-6
                     h3.footer-subtitle Media links.
                     i.footer-media-icon.fa.fa-facebook-square
@@ -514,12 +534,14 @@ html(lang='en')
                   h3.footer-subtitle Authors.
                   ol.footer-list
                     each author, i in authors
-                      li.footer-list-item #{author.name}
+                      a(href='/search/#{author.name}')
+                        li.footer-list-item #{author.name}
                 .col-xs-6
                   h3.footer-subtitle Tags.
                   ol.footer-list
                     each tag, i in tags
-                      li.footer-list-item #{tag.name}
+                      a(href='/search/#{tag.name}')
+                        li.footer-list-item #{tag.name}
 
             .col-md-6
               h3.footer-subtitle.footer-form-title Subscribe to our Box of Wisdom!
@@ -527,6 +549,8 @@ html(lang='en')
               form.footer-form(action="/" method="post")
                 input.footer-form-email.form-control(type="email" placeholder="Email")
                 input.footer-form-submit.form-control(type="submit" value="Submit")
+              button.footer-form-message-button(type="hidden")
+              h3.footer-form-message
 
         section.post-footer
           h3.post-footer-title &copy; 2017 FIINTECH | ALL RIGHTS RESERVED
@@ -537,24 +561,3 @@ html(lang='en')
     script(async src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js')
     script(src='/scripts/index-uncompressed.js')
     script(src='/scripts/owl-carousel.min.js')
-    script(async type="text/javascript").
-
-      $(".owl-carousel").owlCarousel({
-        loop:true,
-        margin:0,
-        autoplay:false,
-        autoplaySpeed: 2000,
-        autoplayTimeout:6000,
-        autoplayHoverPause:false,
-        URLhashListener:true,
-        startPosition: 'URLHash',
-        responsive: {
-          0: {
-            items: 1
-          }
-        }
-      });
-
-      $(function() {
-
-      })

@@ -6,6 +6,64 @@ setTimeout(function() {
 
 $(document).ready(function() {
 
+  setTimeout(function() {
+    if(localStorage.div) {
+      $(function() {
+        $('body').css('overflow-y', 'hidden');
+        $('html, body').stop().animate({
+            scrollTop: $('.'+localStorage.div).offset().top
+        }, 2500, 'easeInOutCubic');
+        setTimeout(function() {
+          localStorage.div = "";
+        }, 2550);
+        $('body').css('overflow-y', 'scroll');
+        $('.navbar-collapse').collapse('hide');
+      })
+    }
+  }, 1050);
+
+  // Footer
+    $('.footer-link').click(function() {
+      localStorage.div = $(this).attr('name');
+    })
+
+    $('.footer-form').on('submit', function(event) {
+      event.preventDefault();
+
+      if ($('.footer-form-email').val() == "") {
+        $('.footer-form-message').html("&nbspInvalid email address");
+        $('.footer-form-message').css('display', 'block');
+      } else {
+        $.ajax({
+          url: '/',
+          method: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify({email: $('.footer-form-email').val()}),
+          success: function(response) {
+            $('.footer-form-message-button').click();
+          }
+        })
+      }
+    })
+
+    $('.footer-form-message-button').on('click', function(event) {
+      $.ajax({
+        url: '/error',
+        method: 'GET',
+        contentType: 'application/json',
+        success: function(response) {
+          if(response.success == false) {
+            $('.footer-form-message').html("&nbsp" + response.messages);
+            $('.footer-form-message').css('display', 'block');
+          } else {
+            $('.footer-form-message').html("&nbspSuccess!");
+            $('.footer-form-message').css('color', 'green');
+            localStorage.subscribed = "1";
+          }
+        }
+      })
+    })
+
   // When search icon is clicked in desktop mode
     var innerWidths = $(window).innerWidth();
     var submitIcon = $(".searchbox-icon");
@@ -84,7 +142,7 @@ $(function() {
 
 // Hide Navbar when scroll down
   function toggleNavbarOnScroll(amount_scrolled, prev) {
-    $('.navbar-default').toggleClass('hidden', amount_scrolled > prev);
+    $('.navbar-default').removeClass('hidden', amount_scrolled > prev);
     prev = amount_scrolled;
     return prev;
   }
