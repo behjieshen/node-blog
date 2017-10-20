@@ -19,6 +19,11 @@ a:focus, a:hover {
   background-color: none;
 }
 
+.col-xs-6, .col-xs-8, .col-xs-4, .col-xs-5, .col-xs-7, .col-xs-9,
+.col-xs-3, .col-md-6, .col-sm-4, .col-sm-6 {
+  padding: 0;
+}
+
 body {
   font-family: 'Quicksand', sans-serif;
   background: white;
@@ -792,8 +797,23 @@ body {
   margin-bottom: 40px;
 }
 
+.testimonials-arrow-right {
+  position: absolute;
+  top: 128px;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border-top: 5px solid white;
+  border-right: 5px solid white;
+  box-shadow: 0 0 0 lightgrey;
+  transition: all 200ms ease;
+  display: inline;
+  margin: 0;
+  margin-left: 13px;
+}
+
 .testimonials-control-right {
-  transform: rotate(-90deg);
+  transform: rotate(270deg);
   position: relative;
   top: calc((100% - 40px)/2);
 }
@@ -927,6 +947,101 @@ body {
     height: 88px;
   }
 }
+/* Contact */
+.contact-image {
+  background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(/images/footer.jpg);
+  height: 187px;
+  position: relative;
+  text-align: left;
+  width: 100%;
+  background-position: 78% 0%;
+}
+
+.contact-title {
+  position: relative;
+  top: 50px;
+  font-family: Coolvetica;
+  color: white;
+  font-size: 30px;
+  margin: 5px 0;
+}
+
+.contact {
+  position: relative;
+}
+
+.contact-title.contact-title1 {
+  display: block;
+}
+
+.contact-title.contact-title2, .arrow {
+  display: inline-block;
+}
+
+.arrow-right {
+  position: absolute;
+  top: 103px;
+  width: 16px;
+  height: 16px;
+  background: transparent;
+  border-top: 4px solid white;
+  border-right: 4px solid white;
+  box-shadow: 0 0 0 lightgrey;
+  transition: all 200ms ease;
+  display: inline;
+  margin: 0;
+  margin-left: 5px;
+  transform: rotate(45deg);
+}
+
+.contact-title-container {
+  width: 87%;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 768px) {
+  .contact-image {
+    height: 276px;
+    position: relative;
+    text-align: center;
+    width: 100%;
+  }
+
+  .contact-title.contact-title1, .contact-title.contact-title2, .arrow{
+    display: inline;
+  }
+
+  .contact-title {
+    font-size: 50px;
+    top: calc((276px - 58px) / 2);
+  }
+
+  .arrow-right {
+    position: absolute;
+    top: 128px;
+    width: 24px;
+    height: 24px;
+    background: transparent;
+    border-top: 5px solid white;
+    border-right: 5px solid white;
+    box-shadow: 0 0 0 lightgrey;
+    transition: all 200ms ease;
+    display: inline;
+    margin: 0;
+    margin-left: 13px;
+  }
+
+  .contact-image {
+    background-position: 0 0;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1015px) {
+  .arrow-right {
+    top: 182px;
+  }
+}
 
 /* Footer */
 
@@ -949,6 +1064,10 @@ body {
     font-weight: bold;
     font-size: 15px;
     margin: 3px 0;
+  }
+
+  .footer-list-item:hover, .footer-item-list:focus {
+    color: #333333;
   }
 
   .footer-list {
@@ -1084,5 +1203,7 @@ body {
     margin: 10px 0;
     font-size: 16px;
     font-family: AvenirLight;
-    display: none;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 20px;
   }

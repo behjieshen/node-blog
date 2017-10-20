@@ -7,11 +7,11 @@ setTimeout(function() {
 $(document).ready(function() {
 
   setTimeout(function() {
-    if(localStorage.div) {
+    if(localStorage.div != "") {
       $(function() {
         $('body').css('overflow-y', 'hidden');
         $('html, body').stop().animate({
-            scrollTop: $('.'+localStorage.div).offset().top
+            scrollTop: $('.'+localStorage.div).offset().top - 50
         }, 2500, 'easeInOutCubic');
         setTimeout(function() {
           localStorage.div = "";
@@ -128,16 +128,20 @@ $(document).ready(function() {
     }
   }
 
-$(function() {
-  $(document).on('click', 'a.page-scroll', function(event) {
-      var $anchor = $(this);
-      $('html, body').stop().animate({
-          scrollTop: $($anchor.attr('href')).offset().top
-      }, 1500, 'easeInOutQuart');
-      event.preventDefault();
-      $('.navbar-collapse').collapse('hide');
+  $(function() {
+    $(document).on('click', 'a.page-scroll', function(event) {
+        var $anchor = $(this);
+        $('body').css('overflow-y', 'hidden');
+        $('html, body').stop().animate({
+            scrollTop: $($anchor.attr('href')).offset().top - 50
+        }, 2500, 'easeInOutCubic');
+        setTimeout(function() {
+          $('body').css('overflow-y', 'scroll');
+        }, 2550);
+        event.preventDefault();
+        $('.navbar-collapse').collapse('hide');
+    });
   });
-});
 
 
 // Hide Navbar when scroll down

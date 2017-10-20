@@ -26,7 +26,21 @@ module.exports = function(router, passport) {
   });
 
   router.get('/about', function(req,res,next) {
-    res.render('about');
+    var db = req.db;
+    var posts = db.get('posts');
+    var authors = db.get('authors');
+    var tags = db.get('categories');
+    posts.find({}, {}, function(err, posts) {
+      authors.find({}, {sort: {$natural:1}}, function(err, authors) {
+        tags.find({}, {}, function(err, tags)  {
+          res.render('about', {
+            "posts": posts,
+            "authors": authors,
+            "tags": tags
+          });
+        })
+      })
+    })
   })
 
   router.get('/contact', function(req,res,next) {
@@ -168,7 +182,7 @@ module.exports = function(router, passport) {
 
   */
 
-  /*router.get('/search', function(req, res, next) {
+  router.get('/search', function(req, res, next) {
     var db = req.db;
     var posts = db.get('posts');
     var tags = db.get('categories');
@@ -251,7 +265,6 @@ module.exports = function(router, passport) {
       })
     }
   })
-  */
 
   /*router.get('/search/name-asc/term=:term?', function(req, res, next) {
     var db = req.db;

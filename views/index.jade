@@ -259,7 +259,7 @@ html(lang='en')
         .row.color-transition2
         section.blog
           a(href="/about")
-            h2.about-prompt
+            h2.about-prompt.section-featured
               b DON'T KNOW
               |  anything about Fintech? Read about it
               b  HERE&nbsp
@@ -353,7 +353,7 @@ html(lang='en')
             .load-more
               a.load-more-button Load More
 
-            h2.about-prompt
+            h2.about-prompt.section-recent
               |  Finding a&nbsp
               b SPECIFIC ARTICLE
               | ? Use the search box
@@ -418,6 +418,12 @@ html(lang='en')
             .load-more
               a.load-more-button Load More
 
+          h2.about-prompt.section-find-articles
+            |  Trying to&nbsp
+            b REACH OUT&nbsp
+            | to us? Click here&nbsp
+            i.fa.fa-caret-right.about-prompt-icon
+
           .find-articles
             h2.recent-post-heading.text-center Find articles by
             .row.find-articles-headings
@@ -452,16 +458,18 @@ html(lang='en')
             .col-md-6
               .desktop-row.row
                 .col-sm-4
-                  h3.footer-subtitle Blog.
+                  a.page-scroll(href=".blog")
+                    h3.footer-subtitle Blog.
                   ol.footer-list
-                    a.featured-articles.page-scroll(href=".featured")
+                    a.page-scroll(href=".section-featured")
                       li.footer-list-item Featured Articles
-                    a.recent-articles.page-scroll(href=".recent")
+                    a.page-scroll(href=".section-recent")
                       li.footer-list-item Recent Articles
-                    a.featured-articles.page-scroll(href=".find-articles")
+                    a.page-scroll(href=".section-find-articles")
                       li.footer-list-item Filter Articles By
                 .col-sm-4
-                  h3.footer-subtitle About.
+                  a(href="/about")
+                    h3.footer-subtitle About.
                   ol.footer-list
                     a.footer-link(href="/about" name="section-story")
                       li.footer-list-item Our Intriguing Story
@@ -470,7 +478,8 @@ html(lang='en')
                     a.footer-link(href="/about" name="section-values")
                       li.footer-list-item Values of Fiintech
                 .col-sm-4
-                  h3.footer-subtitle Contact.
+                  a(href="/contact")
+                    h3.footer-subtitle Contact.
                   ol.footer-list
                     a.footer-link(href="/contact")
                       li.footer-list-item Contact Us
@@ -485,29 +494,33 @@ html(lang='en')
                     i.footer-media-icon.fa.fa-twitter-square
                     i.footer-media-icon.fa.fa-envelope-square
                 .col-sm-4
-                    h3.footer-subtitle Authors.
+                    a(href="/search")
+                      h3.footer-subtitle Authors.
                     ol.footer-list
                       each author, i in authors
                         a(href='/search/#{author.name}')
                           li.footer-list-item #{author.name}
                 .col-sm-4
-                    h3.footer-subtitle Tags.
+                    a(href="/search")
+                      h3.footer-subtitle Tags.
                     ol.footer-list
                       each tag, i in tags
                         a(href='/search/#{tag.name}')
                           li.footer-list-item #{tag.name}
               .mobile-row.row
                 .col-xs-6
-                  h3.footer-subtitle Blog.
+                  a.page-scroll(href=".blog")
+                    h3.footer-subtitle Blog.
                   ol.footer-list
-                    a.featured-articles.page-scroll(href=".featured")
+                    a.page-scroll(href=".section-featured")
                       li.footer-list-item Featured Articles
-                    a.recent-articles.page-scroll(href=".recent")
+                    a.page-scroll(href=".section-recent")
                       li.footer-list-item Recent Articles
-                    a.featured-articles.page-scroll(href=".find-articles")
+                    a.page-scroll(href=".section-find-articles")
                       li.footer-list-item Filter Articles By
                 .col-xs-6
-                  h3.footer-subtitle About.
+                  a(href="/about")
+                   h3.footer-subtitle About.
                   ol.footer-list
                     a.footer-link(href="/about" name="section-story")
                       li.footer-list-item Our Intriguing Story
@@ -517,7 +530,8 @@ html(lang='en')
                       li.footer-list-item Values of Fiintech
               .mobile-row.row
                 .col-xs-6
-                  h3.footer-subtitle Contact.
+                  a(href="/contact")
+                    h3.footer-subtitle Contact.
                   ol.footer-list
                     a.footer-link(href="/contact")
                       li.footer-list-item Contact Us
@@ -531,13 +545,15 @@ html(lang='en')
                     i.footer-media-icon.fa.fa-envelope-square
               .mobile-row.row
                 .col-xs-6
-                  h3.footer-subtitle Authors.
+                  a(href="/search")
+                    h3.footer-subtitle Authors.
                   ol.footer-list
                     each author, i in authors
                       a(href='/search/#{author.name}')
                         li.footer-list-item #{author.name}
                 .col-xs-6
-                  h3.footer-subtitle Tags.
+                  a(href="/search")
+                    h3.footer-subtitle Tags.
                   ol.footer-list
                     each tag, i in tags
                       a(href='/search/#{tag.name}')

@@ -2156,5 +2156,7 @@ input[type=checkbox]:checked + label:before {
     margin: 10px 0;
     font-size: 16px;
     font-family: AvenirLight;
-    display: none;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 20px;
   }

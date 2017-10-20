@@ -21,8 +21,24 @@ $(document).ready(function() {
     }
   });
 
+  setTimeout(function() {
+    if(localStorage.div != "") {
+      $(function() {
+        $('body').css('overflow-y', 'hidden');
+        $('html, body').stop().animate({
+            scrollTop: $('.'+localStorage.div).offset().top - 50
+        }, 2500, 'easeInOutCubic');
+        setTimeout(function() {
+          localStorage.div = "";
+        }, 2550);
+        $('body').css('overflow-y', 'scroll');
+        $('.navbar-collapse').collapse('hide');
+      })
+    }
+  }, 1050);
+
   // Infinite Loop of Carousel
-  setInterval(function() {
+  /*setInterval(function() {
       if ($('.progress .middle-bar').css('width') == '35px') {
         $('.progress .middle-bar').css('width', '0%');
       }
@@ -33,7 +49,7 @@ $(document).ready(function() {
         $('.progress .first-bar').css('width', '0%');
       }
       $(".active .progress .progress-bar").css('width', '100%');
-  })
+  })*/
 
   // Footer
     $('.footer-link').click(function() {
@@ -353,7 +369,7 @@ $(document).ready(function() {
         var $anchor = $(this);
         $('body').css('overflow-y', 'hidden');
         $('html, body').stop().animate({
-            scrollTop: $($anchor.attr('href')).offset().top
+            scrollTop: $($anchor.attr('href')).offset().top - 50
         }, 2500, 'easeInOutCubic');
         setTimeout(function() {
           $('body').css('overflow-y', 'scroll');

@@ -214,12 +214,138 @@ html(lang='en')
                     p.testimonials-text
                       | "Inspiration comes from constant pushing to territories beyond the typical comfort zone. From there, unimaginable perspectives will form"
                 a.left.carousel-control(href="#myCarousel" data-slide="prev")
-                  img.testimonials-control-left(width="40" height="40" alt="" src="/images/download.png")
+                  h1.carousel-arrow-left
                   span.sr-only Previous
                 a.right.carousel-control(href="#myCarousel" data-slide="next")
-                  img.testimonials-control-right(width="40" height="40" alt="" src="/images/download.png")
+                  h1.carousel-arrow-right
                   span.sr-only Next
                 img.testimonials-quotes-symbol(src="/images/bulb.png")
+
+        a(href="/contact")
+          section.contact
+            .contact-image
+              .contact-title-container
+                h1.contact-title.contact-title1 Don't be shy and talk to us.&nbsp
+                h1.contact-title.contact-title2 We won't bite
+                h1.arrow-right
+
+        section.footer
+          .row
+            .col-md-6
+              .desktop-row.row
+                .col-sm-4
+                  a(href="/")
+                    h3.footer-subtitle Blog.
+                  ol.footer-list
+                    a.footer-link(href="/" name="section-featured")
+                      li.footer-list-item Featured Articles
+                    a.footer-link(href="/" name="section-recent")
+                      li.footer-list-item Recent Articles
+                    a.footer-link(href="/" name="section-find-articles")
+                      li.footer-list-item Filter Articles By
+                .col-sm-4
+                  a.page-scroll(href=".about-us")
+                    h3.footer-subtitle About.
+                  ol.footer-list
+                    a.footer-link.page-scroll(href=".section-story")
+                      li.footer-list-item Our Intriguing Story
+                    a.footer-link.page-scroll(href=".section-team")
+                      li.footer-list-item Our Awesome Team
+                    a.footer-link.page-scroll(href=".section-values")
+                      li.footer-list-item Values of Fiintech
+                .col-sm-4
+                  a(href="/contact")
+                    h3.footer-subtitle Contact.
+                  ol.footer-list
+                    a.footer-link(href="/contact")
+                      li.footer-list-item Contact Us
+                    a.footer-link(href="/contact")
+                      li.footer-list-item Your Message
+              .desktop-row.row
+                .col-sm-4
+                  .footer-media
+                    h3.footer-subtitle Media links.
+                    i.footer-media-icon.fa.fa-facebook-square
+                    i.footer-media-icon.fa.fa-google-plus-square
+                    i.footer-media-icon.fa.fa-twitter-square
+                    i.footer-media-icon.fa.fa-envelope-square
+                .col-sm-4
+                    a(href="/search")
+                      h3.footer-subtitle Authors.
+                    ol.footer-list
+                      each author, i in authors
+                        a(href='/search/#{author.name}')
+                          li.footer-list-item #{author.name}
+                .col-sm-4
+                    a(href="/search")
+                      h3.footer-subtitle Tags.
+                    ol.footer-list
+                      each tag, i in tags
+                        a(href='/search/#{tag.name}')
+                          li.footer-list-item #{tag.name}
+              .mobile-row.row
+                .col-xs-6
+                  a(href="/")
+                    h3.footer-subtitle Blog.
+                  ol.footer-list
+                    a.featured-articles(href="/" name="featured")
+                      li.footer-list-item Featured Articles
+                    a.recent-articles(href="/" name="recent")
+                      li.footer-list-item Recent Articles
+                    a.featured-articles(href="/" name="find-articles")
+                      li.footer-list-item Filter Articles By
+                .col-xs-6
+                  a.page-scroll(href=".about-us")
+                    h3.footer-subtitle About.
+                  ol.footer-list
+                    a.footer-link.page-scroll(href=".section-story")
+                      li.footer-list-item Our Intriguing Story
+                    a.footer-link.page-scroll(href=".section-team")
+                      li.footer-list-item Our Awesome Team
+                    a.footer-link.page-scroll(href=".section-values")
+                      li.footer-list-item Values of Fiintech
+              .mobile-row.row
+                .col-xs-6
+                  a(href="/contact")
+                    h3.footer-subtitle Contact.
+                  ol.footer-list
+                    a.footer-link(href="/contact")
+                      li.footer-list-item Contact Us
+                    a.footer-link(href="/contact")
+                      li.footer-list-item Your Message
+                .col-xs-6
+                    h3.footer-subtitle Media links.
+                    i.footer-media-icon.fa.fa-facebook-square
+                    i.footer-media-icon.fa.fa-google-plus-square
+                    i.footer-media-icon.fa.fa-twitter-square
+                    i.footer-media-icon.fa.fa-envelope-square
+              .mobile-row.row
+                .col-xs-6
+                  a(href="/search")
+                    h3.footer-subtitle Authors.
+                  ol.footer-list
+                    each author, i in authors
+                      a(href='/search/#{author.name}')
+                        li.footer-list-item #{author.name}
+                .col-xs-6
+                  a(href="/search")
+                    h3.footer-subtitle Tags.
+                  ol.footer-list
+                    each tag, i in tags
+                      a(href='/search/#{tag.name}')
+                        li.footer-list-item #{tag.name}
+
+            .col-md-6
+              h3.footer-subtitle.footer-form-title Subscribe to our Box of Wisdom!
+              h2.footer-form-subtitle Never be bored. Always awesome. 
+              form.footer-form(action="/" method="post")
+                input.footer-form-email.form-control(type="email" placeholder="Email")
+                input.footer-form-submit.form-control(type="submit" value="Submit")
+              button.footer-form-message-button(type="hidden")
+              h3.footer-form-message
+
+        section.post-footer
+          h3.post-footer-title &copy; 2017 FIINTECH | ALL RIGHTS RESERVED
 
 
 
